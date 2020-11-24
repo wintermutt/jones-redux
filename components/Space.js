@@ -4,14 +4,14 @@ import getPosition from '../helpers/getPosition'
 
 export default function Space({ id, name }) {
   const dispatch = useDispatch()
-  const { increment } = gameSlice.actions
+  const { moveTo } = gameSlice.actions
 
   const size = 20
   const {top, left, bottom, right} = getPosition(size, id)
 
   return (
     <>
-      <div onClick={() => dispatch(increment())}>
+      <div onClick={() => dispatch(moveTo(id))}>
         {name}
       </div>
 

@@ -31,8 +31,9 @@ export default createSlice({
     position: 2
   },
   reducers: {
-    increment(state) {
-      state.week++
+    moveTo(state, action) {
+      const destination = action.payload
+      state.position = destination
     }
   }
 })
