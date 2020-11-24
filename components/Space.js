@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux'
 import gameSlice from '../model/slice'
 
-export default function Space({ id }) {
+export default function Space({ id, name }) {
   const dispatch = useDispatch()
   const { increment } = gameSlice.actions
 
@@ -24,7 +24,9 @@ export default function Space({ id }) {
 
   return (
     <>
-      <div onClick={() => dispatch(increment())}>{id}</div>
+      <div onClick={() => dispatch(increment())}>
+        {name}
+      </div>
 
       <style jsx>{`
         div {
@@ -37,6 +39,9 @@ export default function Space({ id }) {
           width: ${size}%;
           height: ${size}%;
           background: rgba(200, 200, 200, 0.5);
+          font-size: 0.6em;
+          text-align: center;
+          padding-top: 3px;
         }
       `}</style>
     </>

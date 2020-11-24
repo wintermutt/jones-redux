@@ -18,7 +18,7 @@ export default function Home() {
         </div>
         <div className="board">
           {spaces.map((s, i) =>
-            <Space id={i} key={i}/>
+            <Space id={i} key={i} name={s.name}/>
           )}
         </div>
       </main>
