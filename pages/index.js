@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import Space from '../components/Space'
 
 export default function Home() {
-  const { counter } = useSelector(state => state.game)
+  const { spaces, counter } = useSelector(state => state.game)
 
   return (
     <>
@@ -13,11 +13,13 @@ export default function Home() {
       </Head>
 
       <main>
-        <div className="board">
-          <Space/>
-        </div>
         <div className="stats">
           Counter: { counter }
+        </div>
+        <div className="board">
+          {spaces.map((s, i) =>
+            <Space id={i} key={i}/>
+          )}
         </div>
       </main>
 
@@ -35,6 +37,11 @@ export default function Home() {
 
         .board {
           border: 5px solid red;
+          display: flex;
+          position: relative;
+          flex-direction: row;
+          flex-wrap: wrap;
+          height: 100vw;
         }
 
         .stats {
