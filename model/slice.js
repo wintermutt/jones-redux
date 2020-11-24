@@ -21,11 +21,18 @@ export default createSlice({
       {name: 'Grocery Store'},
       {name: ''}
     ],
-    counter: 0
+    players: [
+      {cash: 400},
+      {cash: 400}
+    ],
+    currentPlayer: 0,
+    week: 0,
+    timeLeft: 60,
+    position: 2
   },
   reducers: {
     increment(state) {
-      state.counter++
+      state.week++
     }
   }
 })

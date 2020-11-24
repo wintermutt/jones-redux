@@ -1,9 +1,10 @@
 import Head from 'next/head'
-import { useSelector } from 'react-redux'
+import Stats from '../components/Stats'
 import Space from '../components/Space'
+import { useSelector } from 'react-redux'
 
 export default function Home() {
-  const { spaces, counter } = useSelector(state => state.game)
+  const { spaces } = useSelector(state => state.game)
 
   return (
     <>
@@ -13,9 +14,7 @@ export default function Home() {
       </Head>
 
       <main>
-        <div className="stats">
-          Counter: { counter }
-        </div>
+        <Stats/>
         <div className="board">
           {spaces.map((s, i) =>
             <Space id={i} key={i} name={s.name}/>
@@ -42,12 +41,6 @@ export default function Home() {
           flex-direction: row;
           flex-wrap: wrap;
           height: 100vw;
-        }
-
-        .stats {
-          border: 5px solid blue;
-          flex-grow: 1;
-          padding: 10px;
         }
       `}</style>
     </>
