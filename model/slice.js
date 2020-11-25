@@ -38,7 +38,13 @@ export default createSlice({
   reducers: {
     moveTo(state, action) {
       const destination = action.payload
+      if (state.position == destination) return // Can't move to current position.
+
+      const destinationSpace = state.spaces[destination]
+      if (destinationSpace.name == '') return // Can't move to empty lots.
+
       const distance = getDistance(state.position, destination, state.spaces.length)
+      if (state.timeLeft < distance) return // Can't move with no time left.
 
       state.timeLeft -= distance
       state.position = destination
