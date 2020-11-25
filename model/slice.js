@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+function getDistance(from, to, length) {
+  const internally = Math.abs(from - to)
+  return Math.min(length - internally, internally)
+}
+
 export default createSlice({
   name: 'game',
   initialState: {
@@ -33,6 +38,9 @@ export default createSlice({
   reducers: {
     moveTo(state, action) {
       const destination = action.payload
+      const distance = getDistance(state.position, destination, state.spaces.length)
+
+      state.timeLeft -= distance
       state.position = destination
     }
   }
