@@ -26,9 +26,11 @@ export default function Space({ id, name }) {
           width: ${size}%;
           height: ${size}%;
           background: rgba(200, 200, 200, 0.5);
-          font-size: 0.6em;
+          font-size: 0.5em;
           text-align: center;
-          padding-top: 3px;
+          padding: 4px;
+          font-weight: bold;
+          text-transform: uppercase;
         }
       `}</style>
     </>
