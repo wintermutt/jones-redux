@@ -1,11 +1,12 @@
 import Head from 'next/head'
 import Stats from '../components/Stats'
 import Space from '../components/Space'
+import Dialog from '../components/Dialog'
 import Token from '../components/Token'
 import { useSelector } from 'react-redux'
 
 export default function Home() {
-  const { spaces, position } = useSelector(state => state.game)
+  const { spaces, position, inside } = useSelector(state => state.game)
 
   return (
     <>
@@ -16,12 +17,18 @@ export default function Home() {
 
       <main>
         <Stats/>
+        
         <div className="board">
           {spaces.map((s, i) =>
             <Space id={i} key={i} name={s.name}/>
           )}
           <Token position={position} />
+
+          {inside &&
+            <Dialog/>
+          }
         </div>
+        
       </main>
 
       <style jsx>{`

@@ -33,7 +33,8 @@ export default createSlice({
     currentPlayer: 0,
     week: 0,
     timeLeft: 60,
-    position: 2
+    position: 2,
+    inside: false
   },
   reducers: {
     moveTo(state, action) {
@@ -48,6 +49,11 @@ export default createSlice({
 
       state.timeLeft -= distance
       state.position = destination
+      state.inside = true
+    },
+    
+    exit(state, action) {
+      state.inside = false
     }
   }
 })
