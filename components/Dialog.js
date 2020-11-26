@@ -17,38 +17,77 @@ export default function Dialog() {
 
   return (
     <>
-      <div>
+      <div className="container">
         <h1>{title}</h1>
-        <button onClick={() => dispatch(exit())}>
-          Done
-        </button>
+
+        <ul className="menu">
+          {Array(20).fill(null).map(i =>
+            <li>Menu Item</li>
+          )}
+        </ul>
+
+        <div className="actions">
+          <button onClick={() => dispatch(exit())}>
+            Done
+          </button>
+        </div>
       </div>
 
       <style jsx>{`
-        div {
+        .container {
           position: absolute;
           top: ${spacing};
           left: ${spacing};
           bottom: ${spacing};
           right: ${spacing};
-          padding: 10px;
+          padding: 5px;
           border: 1px solid purple;
           background: rgba(200, 200, 200, 0.9);
           box-shadow: 0 1px 5px black;
+          display: flex;
+          flex-direction: column;
         }
 
         h1 {
-          margin-top: 0;
-          font-size: 1.5em;
+          margin: 0;
+          font-size: 1.4em;
+          border: 5px solid red;
+        }
+
+        .menu {
+          border: 5px solid green;
+          flex-grow: 1;
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: center;
+          margin: 0;
+          padding: 0;
+          list-style-type: none;
+        }
+
+        .menu li {
+          border: 2px solid #666;
+          padding: 5px;
+          margin: 2px;
+          width: 47%;
+        }
+
+        .actions {
+          border: 5px solid blue;
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-end;
         }
 
         button {
-          position: absolute;
-          bottom: 5px;
-          right: 5px;
           font-size: 0.8em;
           text-transform: uppercase;
-          padding: 10px;
+          padding: 8px;
+          margin-left: 5px;
+          display: inline-block;
         }
       `}</style>
     </>
