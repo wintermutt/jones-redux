@@ -65,7 +65,6 @@ export default function Dialog() {
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
-          justify-content: center;
           margin: 0;
           padding: 0;
           list-style-type: none;
@@ -75,7 +74,7 @@ export default function Dialog() {
           border: 2px solid #666;
           padding: 5px;
           margin: 2px;
-          width: 47%;
+          width: calc(50% - 4px);
           cursor: pointer;
         }
 
