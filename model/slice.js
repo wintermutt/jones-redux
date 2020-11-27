@@ -2,6 +2,10 @@ import { createSlice } from '@reduxjs/toolkit'
 import spaces from './spaces'
 import jobs from './jobs'
 
+function getNewPlayer() {
+  return {cash: 200}
+}
+
 function getDistance(from, to, length) {
   const internally = Math.abs(from - to)
   return Math.min(length - internally, internally)
@@ -12,10 +16,7 @@ export default createSlice({
   initialState: {
     spaces,
     jobs,
-    players: [
-      {cash: 400},
-      {cash: 400}
-    ],
+    players: Array(2).fill(null).map(i => getNewPlayer()),
     currentPlayer: 0,
     week: 0,
     timeLeft: 60,
