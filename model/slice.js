@@ -91,15 +91,16 @@ export default createSlice({
         {name: 'Groundskeeper', wage: 7},
         {name: 'Apartment Manager', wage: 9}
       ]
-    }
+    },
+    menu: []
   },
   reducers: {
     moveTo(state, action) {
       const destination = action.payload
-      if (state.position == destination) return // Can't move to current position.
+      if (state.position === destination) return // Can't move to current position.
 
       const destinationSpace = state.spaces[destination]
-      if (destinationSpace.name == '') return // Can't move to empty lots.
+      if (destinationSpace.name === '') return // Can't move to empty lots.
 
       const distance = getDistance(state.position, destination, state.spaces.length)
       if (state.timeLeft < distance) return // Can't move with no time left.
@@ -107,10 +108,17 @@ export default createSlice({
       state.timeLeft -= distance
       state.position = destination
       state.inside = true
+
+      if (state.spaces[state.position].name === 'Employment Office') {
+        state.menu = Object.keys(state.jobs).map(k => k)
+      } else {
+        state.menu = []
+      }
     },
     
     exit(state, action) {
       state.inside = false
+      state.menu = []
     }
   }
 })

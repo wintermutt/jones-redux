@@ -8,10 +8,11 @@ export default function Dialog() {
 
   const spacing = '50px'
 
-  const { title } = useSelector(state => {
+  const { title, menu } = useSelector(state => {
     const {spaces, position} = state.game
     return {
-      title: spaces[position].name
+      title: spaces[position].name,
+      menu: state.game.menu
     }
   })
 
@@ -21,8 +22,8 @@ export default function Dialog() {
         <h1>{title}</h1>
 
         <ul className="menu">
-          {Array(20).fill(null).map(i =>
-            <li>Menu Item</li>
+          {menu && menu.map(i =>
+            <li>{i}</li>
           )}
         </ul>
 
