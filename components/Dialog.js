@@ -52,13 +52,13 @@ export default function Dialog() {
         }
 
         h1 {
+          padding: 5px;
           margin: 0;
+          margin-bottom: 5px;
           font-size: 1.4em;
-          border: 5px solid red;
         }
 
         .menu {
-          border: 5px solid green;
           flex-grow: 1;
           overflow-y: auto;
           -webkit-overflow-scrolling: touch;
@@ -81,10 +81,13 @@ export default function Dialog() {
         }
 
         .actions {
-          border: 5px solid blue;
           display: flex;
           flex-direction: row;
           justify-content: flex-end;
+          position: absolute;
+          bottom: 0;
+          transform: translateY(50%);
+          right: 10px;
         }
 
         button {
@@ -92,7 +95,10 @@ export default function Dialog() {
           text-transform: uppercase;
           padding: 8px;
           margin-left: 5px;
-          display: inline-block;
+          background: green;
+          color: white;
+          border-width: 3px;
+          border-color: rgb(129, 190, 129) rgb(6, 97, 6) rgb(6, 97, 6) rgb(129, 190, 129);
         }
       `}</style>
     </>
