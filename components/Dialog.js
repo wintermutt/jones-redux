@@ -65,6 +65,7 @@ export default function Dialog() {
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
+          align-content: flex-start;
           margin: 0;
           padding: 0;
           list-style-type: none;
@@ -72,9 +73,10 @@ export default function Dialog() {
 
         .menu li {
           border: 2px solid #666;
-          padding: 5px;
+          padding: 3px;
           margin: 2px;
           width: calc(50% - 4px);
+          height: 3em;
           cursor: pointer;
         }
 
