@@ -45,7 +45,7 @@ export default function Dialog() {
           right: ${spacing};
           padding: 5px;
           border: 1px solid purple;
-          background: rgba(200, 200, 200, 0.9);
+          background: rgba(248, 225, 198, 0.9);
           box-shadow: 0 1px 5px black;
           display: flex;
           flex-direction: column;
@@ -72,12 +72,13 @@ export default function Dialog() {
         }
 
         .menu li {
-          border: 2px solid #666;
-          padding: 3px;
+          padding: 5px;
           margin: 2px;
           width: calc(50% - 4px);
           height: 3em;
           cursor: pointer;
+          background-color: rgba(255, 255, 255, 0.4);
+          border: 1px solid rgb(214, 185, 153);
         }
 
         .actions {
