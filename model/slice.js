@@ -27,8 +27,6 @@ export default createSlice({
   reducers: {
     moveTo(state, action) {
       const destination = action.payload
-      if (state.position === destination) return // Can't move to current position.
-
       const destinationSpace = state.spaces[destination]
       if (destinationSpace.name === '') return // Can't move to empty lots.
 
@@ -37,6 +35,8 @@ export default createSlice({
 
       state.timeLeft -= distance
       state.position = destination
+
+      state.timeLeft -= 1
       state.inside = true
 
       if (state.spaces[state.position].name === 'Employment Office') {

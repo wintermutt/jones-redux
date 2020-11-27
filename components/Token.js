@@ -27,6 +27,7 @@ export default function Token({ position }) {
           flex-direction: row;
           justify-content: center;
           align-items: flex-end;
+          pointer-events: none;
         }
 
         .token {
