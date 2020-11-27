@@ -11,21 +11,18 @@ function getDistance(from, to, length) {
   return Math.min(length - internally, internally)
 }
 
-function enterBuilding(state) {
+function enterCurrentBuilding(state) {
   const building = state.spaces[state.position]
 
   state.timeLeft -= 1
   state.inside = true
 
   if (building.name === 'Employment Office') {
-    state.menu = Object.keys(state.jobs).map(k => {
-        return {
-          label: k,
-          action: 'listEmployerJobs',
-          payload: {employer: k}
-        }
-      }
-    )
+    state.menu = Object.keys(state.jobs).map(k => ({
+      label: k,
+      action: 'listEmployerJobs',
+      payload: {employer: k}
+    }))
   } else {
     state.menu = []
   }
@@ -56,18 +53,16 @@ export default createSlice({
       state.timeLeft -= distance
       state.position = destination
 
-      enterBuilding(state)
+      enterCurrentBuilding(state)
     },
 
     listEmployerJobs(state, action) {
       const {employer} = action.payload
-      state.menu = state.jobs[employer].map(job => {
-        return {
-          label: `${job.name}: $${job.wage}`,
-          action: 'applyForJob',
-          payload: {employer, job: job.name}
-        }
-      })
+      state.menu = state.jobs[employer].map(job => ({
+        label: `${job.name}: $${job.wage}`,
+        action: 'applyForJob',
+        payload: {employer, job: job.name}
+      }))
     },
 
     applyForJob(state, action) {
