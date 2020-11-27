@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux'
 
 export default function Home() {
   const { spaces, position, inside } = useSelector(state => state.game)
+  const spaceWidth = 20
+  const spaceHeight = 14
 
   return (
     <>
@@ -20,9 +22,9 @@ export default function Home() {
         
         <div className="board">
           {spaces.map((s, i) =>
-            <Space id={i} key={i} name={s.name}/>
+            <Space id={i} key={i} name={s.name} width={spaceWidth} height={spaceHeight}/>
           )}
-          <Token position={position} />
+          <Token position={position} width={spaceWidth} height={spaceHeight}/>
 
           {inside &&
             <Dialog/>
@@ -40,16 +42,14 @@ export default function Home() {
           //justify-content: stretch;
           //align-items: flex-start;
           //padding: 0;
-          border: 5px solid green;
         }
 
         .board {
-          border: 5px solid red;
           display: flex;
           position: relative;
           flex-direction: row;
           flex-wrap: wrap;
-          height: 100vw;
+          height: ${spaceHeight * 5}vh;
         }
       `}</style>
     </>

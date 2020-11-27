@@ -1,8 +1,7 @@
 import getPosition from '../helpers/getPosition'
 
-export default function Token({ position }) {
-  const size = 20
-  const {top, left, bottom, right} = getPosition(size, position)
+export default function Token({ position, width, height }) {
+  const {top, left, bottom, right} = getPosition(width, height, position)
 
   return (
     <>
@@ -18,8 +17,8 @@ export default function Token({ position }) {
           bottom: ${bottom};
           right: ${right};
           border: 1px solid transparent;
-          width: ${size}%;
-          height: ${size}%;
+          width: ${width}vw;
+          height: ${height}vh;
           font-size: 0.6em;
           text-align: center;
           padding-top: 3px;
