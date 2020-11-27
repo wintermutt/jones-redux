@@ -22,8 +22,10 @@ export default function Dialog() {
         <h1>{title}</h1>
 
         <ul className="menu">
-          {menu && menu.map(i =>
-            <li>{i}</li>
+          {menu.map(i =>
+            <li onClick={() => dispatch(gameSlice.actions[i.action](i.payload))} key={i.label}>
+              {i.label}
+            </li>
           )}
         </ul>
 
@@ -74,6 +76,7 @@ export default function Dialog() {
           padding: 5px;
           margin: 2px;
           width: 47%;
+          cursor: pointer;
         }
 
         .actions {

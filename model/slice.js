@@ -110,10 +110,33 @@ export default createSlice({
       state.inside = true
 
       if (state.spaces[state.position].name === 'Employment Office') {
-        state.menu = Object.keys(state.jobs).map(k => k)
+        state.menu = Object.keys(state.jobs).map(k => {
+            return {
+              label: k,
+              action: 'listEmployerJobs',
+              payload: {employer: k}
+            }
+          }
+        )
       } else {
         state.menu = []
       }
+    },
+
+    listEmployerJobs(state, action) {
+      const {employer} = action.payload
+      state.menu = state.jobs[employer].map(job => {
+        return {
+          label: `${job.name}: $${job.wage}`,
+          action: 'applyForJob',
+          payload: {employer, job: job.name}
+        }
+      })
+    },
+
+    applyForJob(state, action) {
+      const {employer, job} = action.payload
+      console.log('Applied for job:', employer, job)
     },
     
     exit(state, action) {
