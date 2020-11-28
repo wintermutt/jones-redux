@@ -22,6 +22,8 @@ export default function Dialog() {
       <div className="container">
         <h1>{title}</h1>
 
+        <img width="80" height="100" src="/portraits/employment-office.jpg"/>
+
         <ul className="menu">
           {menu.map(i =>
             <li onClick={() => dispatch(gameSlice.actions[i.action](i.payload))} key={i.label}>
@@ -50,18 +52,36 @@ export default function Dialog() {
           bottom: ${spacing};
           right: ${spacing};
           padding: 5px;
-          border: 1px solid purple;
+          border: 1px solid rgb(214, 185, 153);
           background: rgba(248, 225, 198, 0.9);
           box-shadow: 0 1px 5px black;
-          display: flex;
-          flex-direction: column;
         }
 
         h1 {
-          padding: 5px;
+          font-size: 1.2em;
+          color: white;
+          background: rgb(190, 152, 126);
           margin: 0;
-          margin-bottom: 5px;
-          font-size: 1.4em;
+          position: absolute;
+          top: -5px;
+          left: 15px;
+          right: 90px;
+          height: 80px;
+          display: flex;
+          align-items: center;
+          text-align: center;
+          justify-content: center;
+          text-transform: uppercase;
+          text-shadow: -1px -1px 1px black;
+          box-shadow: 0 1px 5px black;
+        }
+
+        img {
+          position: absolute;
+          top: -15px;
+          right: -5px;
+          border: 3px solid white;
+          box-shadow: 0 1px 5px black;
         }
 
         .menu {
@@ -75,6 +95,11 @@ export default function Dialog() {
           margin: 0;
           padding: 0;
           list-style-type: none;
+          position: absolute;
+          top: 90px;
+          bottom: 25px;
+          left: 0;
+          right: 0;
         }
 
         .menu li {
