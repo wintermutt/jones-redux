@@ -18,14 +18,20 @@ function enterCurrentBuilding(state) {
   state.inside = true
 
   if (building.name === 'Employment Office') {
-    state.menu = Object.keys(state.jobs).map(k => ({
-      label: k,
-      action: 'listEmployerJobs',
-      payload: {employer: k}
-    }))
+    listEmployers(state)
   } else {
-    state.menu = []
+    state.ui.menu = []
   }
+}
+
+function listEmployers(state) {
+  state.ui.menu = Object.keys(state.jobs).map(k => ({
+    label: k,
+    action: 'listJobs',
+    payload: {employer: k}
+  }))
+
+  state.ui.buttons = []
 }
 
 export default createSlice({
@@ -39,7 +45,10 @@ export default createSlice({
     timeLeft: 60,
     position: 2,
     inside: false,
-    menu: []
+    ui: {
+      menu: [],
+      buttons: []  
+    }
   },
   reducers: {
     moveTo(state, action) {
@@ -56,13 +65,19 @@ export default createSlice({
       enterCurrentBuilding(state)
     },
 
-    listEmployerJobs(state, action) {
+    listEmployers(state, action) {
+      listEmployers(state)
+    },
+
+    listJobs(state, action) {
       const {employer} = action.payload
-      state.menu = state.jobs[employer].map(job => ({
+      state.ui.menu = state.jobs[employer].map(job => ({
         label: `${job.name}: $${job.wage}`,
         action: 'applyForJob',
         payload: {employer, job: job.name}
       }))
+
+      state.ui.buttons = [{label: 'Back', action: 'listEmployers'}]
     },
 
     applyForJob(state, action) {
@@ -72,7 +87,7 @@ export default createSlice({
     
     exit(state, action) {
       state.inside = false
-      state.menu = []
+      state.ui.menu = []
     }
   }
 })

@@ -8,11 +8,12 @@ export default function Dialog() {
 
   const spacing = '50px'
 
-  const { title, menu } = useSelector(state => {
+  const { title, menu, buttons } = useSelector(state => {
     const {spaces, position} = state.game
     return {
       title: spaces[position].name,
-      menu: state.game.menu
+      menu: state.game.ui.menu,
+      buttons: state.game.ui.buttons
     }
   })
 
@@ -30,6 +31,11 @@ export default function Dialog() {
         </ul>
 
         <div className="actions">
+          {buttons.map(b =>
+            <button onClick={() => dispatch(gameSlice.actions[b.action](b.payload))} key={b.label}>
+              {b.label}
+            </button>
+          )}
           <button onClick={() => dispatch(exit())}>
             Done
           </button>
