@@ -39,6 +39,13 @@ function enterCurrentBuilding(state) {
   }
 }
 
+function exit(state) {
+  state.inside = false
+  state.ui.menu = []
+  state.ui.buttons = []
+  state.ui.bubble = null
+}
+
 function listEmployers(state) {
   state.ui.menu = Object.keys(state.jobs).map(k => ({
     label: k,
@@ -68,6 +75,8 @@ export default createSlice({
   },
   reducers: {
     moveTo(state, action) {
+      if (state.inside) exit(state)
+
       const destination = action.payload
       const destinationSpace = state.spaces[destination]
       if (destinationSpace.name === '') return // Can't move to empty lots.
@@ -111,9 +120,8 @@ export default createSlice({
       }
     },
     
-    exit(state, action) {
-      state.inside = false
-      state.ui.menu = []
+    exit(state) {
+      exit(state)
     }
   }
 })
