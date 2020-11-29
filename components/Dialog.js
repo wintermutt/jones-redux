@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import gameSlice from '../model/slice'
+import Bubble from './Bubble'
 
 export default function Dialog() {
   const dispatch = useDispatch()
@@ -22,7 +23,10 @@ export default function Dialog() {
       <div className="container">
         <h1>{title}</h1>
 
-        <img width="80" height="100" src="/portraits/employment-office.jpg"/>
+        <div className="portrait">
+          <Bubble text="Welcome to ACNE Employment. We'll find you a job, no matter what it costs you!"/>
+          <img width="80" height="100" src="/portraits/employment-office.jpg"/>
+        </div>
 
         <ul className="menu">
           {menu.map(i =>
@@ -66,7 +70,7 @@ export default function Dialog() {
           top: -5px;
           left: 15px;
           right: 90px;
-          height: 80px;
+          height: 90px;
           display: flex;
           align-items: center;
           text-align: center;
@@ -76,12 +80,14 @@ export default function Dialog() {
           box-shadow: 0 1px 5px black;
         }
 
-        img {
+        .portrait {
           position: absolute;
-          top: -15px;
+          top: -18px;
           right: -5px;
-          border: 3px solid white;
           box-shadow: 0 1px 5px black;
+          background-color: white;
+          padding: 3px;
+          padding-bottom: 0;
         }
 
         .menu {
@@ -96,7 +102,7 @@ export default function Dialog() {
           padding: 0;
           list-style-type: none;
           position: absolute;
-          top: 90px;
+          top: 95px;
           bottom: 25px;
           left: 0;
           right: 0;
