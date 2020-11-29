@@ -10,7 +10,10 @@ export default [
   {name: 'Appliance Store'},
   {name: 'University'},
   {name: ''},
-  {name: 'Employment Office'},
+  {
+    name: 'Employment Office',
+    welcome: "Welcome to ACNE Employment. We'll find you a job, no matter what it costs you!"
+  },
   {name: 'Factory'},
   {name: 'Bank'},
   {name: 'Grocery Store'},

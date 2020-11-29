@@ -1,9 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit'
+import seedrandom from 'seedrandom'
 import spaces from './spaces'
 import jobs from './jobs'
 
+const devSeed = process.env.NODE_ENV ? 'development-seed' : null
+const {rng, seed} = seedrandom(devSeed, {
+  pass: (rng, seed) => ({rng, seed})
+})
+
 function getNewPlayer() {
-  return {cash: 200}
+  return {cash: 200, job: null}
+}
+
+function getCurrentPlayer(state) {
+  return state.players[state.currentPlayer]
 }
 
 function getDistance(from, to, length) {
@@ -16,6 +26,8 @@ function enterCurrentBuilding(state) {
 
   state.timeLeft -= 1
   state.inside = true
+
+  state.ui.bubble = building.welcome || `Welcome to the ${building.name}!`
 
   if (building.name === 'Employment Office') {
     listEmployers(state)
@@ -47,7 +59,8 @@ export default createSlice({
     inside: false,
     ui: {
       menu: [],
-      buttons: []  
+      buttons: [],
+      bubble: null
     }
   },
   reducers: {
@@ -82,7 +95,17 @@ export default createSlice({
 
     applyForJob(state, action) {
       const {employer, job} = action.payload
-      console.log('Applied for job:', employer, job)
+
+      const player = getCurrentPlayer(state)
+
+      state.timeLeft -= 1
+
+      if (rng() < 0.5) {
+        player.job = {employer, name: job}
+        state.ui.bubble = 'Congratulations, you got the job!'
+      } else {
+        state.ui.bubble = "Sorry, you didn't get the job."
+      }
     },
     
     exit(state, action) {

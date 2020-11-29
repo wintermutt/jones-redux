@@ -9,12 +9,13 @@ export default function Dialog() {
 
   const spacing = '50px'
 
-  const { title, menu, buttons } = useSelector(state => {
-    const {spaces, position} = state.game
+  const { title, bubble, menu, buttons } = useSelector(state => {
+    const {spaces, position, ui} = state.game
     return {
       title: spaces[position].name,
-      menu: state.game.ui.menu,
-      buttons: state.game.ui.buttons
+      bubble: ui.bubble,
+      menu: ui.menu,
+      buttons: ui.buttons
     }
   })
 
@@ -24,7 +25,7 @@ export default function Dialog() {
         <h1>{title}</h1>
 
         <div className="portrait">
-          <Bubble text="Welcome to ACNE Employment. We'll find you a job, no matter what it costs you!"/>
+          <Bubble text={bubble}/>
           <img width="80" height="100" src="/portraits/employment-office.jpg"/>
         </div>
 

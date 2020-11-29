@@ -2,11 +2,16 @@ import { useSelector } from 'react-redux'
 
 export default function Stats() {
   const {
-    currentPlayer, week, timeLeft, cash
+    currentPlayer, week, timeLeft, cash, job
   } = useSelector(state => {
+    const game = state.game
+    const player = game.players[game.currentPlayer]
+    const {cash, job} = player
+
     return {
-      ...state.game,
-      cash: state.game.players[state.game.currentPlayer].cash
+      ...game,
+      cash,
+      job: job ? `${job.name} at ${job.employer}` : 'Unemployed'
     }
   })
 
@@ -17,6 +22,7 @@ export default function Stats() {
         <div>Week #: { week }</div>
         <div>Time Left: { timeLeft } hours</div>
         <div>Cash: ${ cash.toFixed(2) }</div>
+        <div>Job: { job }</div>
       </div>
 
       <style jsx>{`
