@@ -66,6 +66,7 @@ export default function Dialog() {
           color: white;
           background: rgb(190, 152, 126);
           margin: 0;
+          padding: 5px;
           position: absolute;
           top: -5px;
           left: 15px;
