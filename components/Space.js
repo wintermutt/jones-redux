@@ -21,7 +21,7 @@ export default function Space({ id, name, width, height }) {
           left: ${left};
           bottom: ${bottom};
           right: ${right};
-          border: 1px solid purple;
+          border: 1px solid #aaa;
           width: ${width}vw;
           height: ${height}vh;
           background: rgba(200, 200, 200, 0.5);
