@@ -25,6 +25,8 @@ function getDistance(from, to, length) {
 function enterCurrentBuilding(state) {
   const building = state.spaces[state.position]
 
+  if (state.timeLeft < 1) return // Can't enter with no time left.
+
   state.timeLeft -= 1
   state.inside = true
 
