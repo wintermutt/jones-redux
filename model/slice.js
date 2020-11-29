@@ -3,7 +3,7 @@ import seedrandom from 'seedrandom'
 import spaces from './spaces'
 import jobs from './jobs'
 
-const devSeed = process.env.NODE_ENV ? 'development-seed' : null
+const devSeed = process.env.NODE_ENV === 'development' ? 'development-seed' : null
 const {rng, seed} = seedrandom(devSeed, {
   pass: (rng, seed) => ({rng, seed})
 })
