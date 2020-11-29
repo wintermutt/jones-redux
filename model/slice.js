@@ -110,6 +110,11 @@ export default createSlice({
 
       const player = getCurrentPlayer(state)
 
+      if (state.timeLeft < 1) {
+        state.ui.bubble = "Sorry, we're closing."
+        return
+      }
+
       state.timeLeft -= 1
 
       if (rng() < 0.5) {
