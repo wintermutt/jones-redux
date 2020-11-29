@@ -21,9 +21,9 @@ export default function Stats() {
 
       <style jsx>{`
         .stats {
-          border: 5px solid blue;
           flex-grow: 1;
-          padding: 10px;
+          padding: 15px;
+          font-size: 0.7em;
         }
       `}</style>
     </>

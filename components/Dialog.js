@@ -55,21 +55,20 @@ export default function Dialog() {
           left: ${spacing};
           bottom: ${spacing};
           right: ${spacing};
-          padding: 5px;
-          border: 1px solid rgb(214, 185, 153);
-          background: rgba(248, 225, 198, 0.9);
-          box-shadow: 0 1px 5px black;
+          border: 2px solid rgb(214, 185, 153);
+          background: rgba(248, 225, 198);
+          box-shadow: 2px 2px 1px black;
         }
 
         h1 {
-          font-size: 1.2em;
+          font-size: 0.9em;
           color: white;
           background: rgb(190, 152, 126);
           margin: 0;
           padding: 5px;
           position: absolute;
           top: -5px;
-          left: 15px;
+          left: 10px;
           right: 90px;
           height: 90px;
           display: flex;
@@ -78,14 +77,14 @@ export default function Dialog() {
           justify-content: center;
           text-transform: uppercase;
           text-shadow: -1px -1px 1px black;
-          box-shadow: 0 1px 5px black;
+          box-shadow: 2px 2px 1px black;
         }
 
         .portrait {
           position: absolute;
-          top: -18px;
+          top: -21px;
           right: -5px;
-          box-shadow: 0 1px 5px black;
+          box-shadow: 2px 2px 1px black;
           background-color: white;
           padding: 3px;
           padding-bottom: 0;
@@ -100,7 +99,7 @@ export default function Dialog() {
           flex-wrap: wrap;
           align-content: flex-start;
           margin: 0;
-          padding: 0;
+          padding: 5px;
           list-style-type: none;
           position: absolute;
           top: 95px;
@@ -110,13 +109,15 @@ export default function Dialog() {
         }
 
         .menu li {
-          padding: 5px;
+          padding: 10px;
           margin: 2px;
           width: calc(50% - 4px);
-          height: 3em;
+          height: 45px;
           cursor: pointer;
-          background-color: rgba(255, 255, 255, 0.4);
-          border: 1px solid rgb(214, 185, 153);
+          background-color: rgba(255, 255, 255, 0.3);
+          border: 2px solid rgb(214, 185, 153, 0.4);
+          font-size: 0.5em;
+          line-height: 150%;
         }
 
         .actions {
@@ -130,7 +131,8 @@ export default function Dialog() {
         }
 
         button {
-          font-size: 0.8em;
+          font-family: 'Press Start 2P';
+          font-size: 0.7em;
           text-transform: uppercase;
           padding: 8px;
           margin-left: 5px;

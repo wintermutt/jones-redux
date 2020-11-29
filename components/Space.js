@@ -25,7 +25,8 @@ export default function Space({ id, name, width, height }) {
           width: ${width}vw;
           height: ${height}vh;
           background: rgba(200, 200, 200, 0.5);
-          font-size: 0.5em;
+          font-size: 6px;
+          line-height: 200%;
           text-align: center;
           padding: 4px;
           font-weight: bold;

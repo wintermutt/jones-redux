@@ -12,10 +12,12 @@ export default function Bubble({ text }) {
           bottom: 135px;
           right: 0;
           width: 240px;
+          color: rgb(42, 54, 51);
           border: 1px solid rgb(116, 136, 132);
           border-radius: 10px;
           background: rgb(206, 235, 229);
-          font-size: 0.9em;
+          font-size: 0.7em;
+          line-height: 170%;
           padding: 15px;
         }
 
