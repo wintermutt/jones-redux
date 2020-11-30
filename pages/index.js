@@ -24,7 +24,7 @@ export default function Home() {
           <div className="middle"></div>
 
           {spaces.map((s, i) =>
-            <Space id={i} key={i} name={s.name} width={spaceWidth} height={spaceHeight}/>
+            <Space id={i} key={i} space={s} width={spaceWidth} height={spaceHeight}/>
           )}
           <Token position={position} width={spaceWidth} height={spaceHeight}/>
 

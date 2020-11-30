@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux'
 import gameSlice from '../model/slice'
 import getPosition from '../helpers/getPosition'
 
-export default function Space({ id, name, width, height }) {
+export default function Space({ id, space, width, height }) {
   const dispatch = useDispatch()
   const { moveTo } = gameSlice.actions
 
@@ -11,7 +11,7 @@ export default function Space({ id, name, width, height }) {
   return (
     <>
       <div onClick={() => dispatch(moveTo(id))}>
-        {name}
+        {space.name}
       </div>
 
       <style jsx>{`
@@ -21,10 +21,10 @@ export default function Space({ id, name, width, height }) {
           left: ${left};
           bottom: ${bottom};
           right: ${right};
-          border: 1px solid #aaa;
           width: ${width}vw;
           height: ${height}vh;
-          background: rgba(200, 200, 200, 0.5);
+          background: ${space.background || '#ddd'};
+          color: #fff;
           font-size: 6px;
           line-height: 200%;
           text-align: center;
