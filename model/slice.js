@@ -104,7 +104,8 @@ export default createSlice({
     listJobs(state, action) {
       const {employer} = action.payload
       state.ui.menu = state.jobs[employer].map(job => ({
-        label: `${job.name}: $${job.wage}`,
+        label: job.name,
+        amount: job.wage,
         action: 'applyForJob',
         payload: {...job, employer}
       }))

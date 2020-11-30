@@ -33,6 +33,9 @@ export default function Dialog() {
           {menu.map(i =>
             <li onClick={() => dispatch(gameSlice.actions[i.action](i.payload))} key={i.label}>
               {i.label}
+              {i.amount &&
+                <span className="amount">${i.amount}</span>
+              }
             </li>
           )}
         </ul>
@@ -110,15 +113,22 @@ export default function Dialog() {
         }
 
         .menu li {
-          padding: 10px;
-          margin: 2px;
-          width: calc(50% - 4px);
-          height: 45px;
+          padding: 7px;
+          margin: 1px;
+          width: calc(50% - 2px);
+          height: 50px;
           cursor: pointer;
           background-color: rgba(255, 255, 255, 0.3);
           border: 2px solid rgb(214, 185, 153, 0.4);
           font-size: 8px;
           line-height: 150%;
+          position: relative;
+        }
+
+        .menu li .amount {
+          position: absolute;
+          right: 5px;
+          bottom: 3px;
         }
 
         .actions {
