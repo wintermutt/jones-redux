@@ -21,6 +21,8 @@ export default function Home() {
         <Stats/>
         
         <div className="board">
+          <div className="middle"></div>
+
           {spaces.map((s, i) =>
             <Space id={i} key={i} name={s.name} width={spaceWidth} height={spaceHeight}/>
           )}
@@ -36,12 +38,21 @@ export default function Home() {
       <style jsx>{`
         main {
           display: flex;
-          //width: 100%;
           height: 100vh;
           flex-direction: column;
-          //justify-content: stretch;
-          //align-items: flex-start;
-          //padding: 0;
+        }
+
+        .middle {
+          position: absolute;
+          top: ${spaceHeight}vh;
+          left: ${spaceWidth}vw;
+          right: ${spaceWidth}vw;
+          bottom: ${spaceHeight}vh;
+          background-color: rgb(200, 239, 253);
+          background-image: url(/players/player1.png);
+          background-position: center;
+          background-size: contain;
+          background-repeat: no-repeat;
         }
 
         .board {
