@@ -39,10 +39,19 @@ function enterCurrentBuilding(state) {
     })
   }
 
+  state.ui.menu = []
+
+  if (building.products) {
+    state.ui.menu = building.products.map(p => ({
+      label: p.name,
+      amount: p.price,
+      action: 'buy',
+      payload: p
+    }))
+  }
+
   if (building.name === 'Employment Office') {
     listEmployers(state)
-  } else {
-    state.ui.menu = []
   }
 }
 
@@ -139,6 +148,15 @@ export default createSlice({
       state.timeLeft -= 10
       const player = getCurrentPlayer(state)
       player.cash += player.job.wage
+    },
+
+    buy(state, action) {
+      const product = action.payload
+      const player = getCurrentPlayer(state)
+
+      if (player.cash < product.price) return
+      
+      player.cash -= product.price
     },
 
     exit(state) {
