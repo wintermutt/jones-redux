@@ -24,6 +24,7 @@ function getDistance(from, to, length) {
 
 function enterCurrentBuilding(state) {
   const building = state.spaces[state.position]
+  const player = getCurrentPlayer(state)
 
   if (state.timeLeft < 1) return // Can't enter with no time left.
 
@@ -31,6 +32,12 @@ function enterCurrentBuilding(state) {
   state.inside = true
 
   state.ui.bubble = building.welcome || `Welcome to the ${building.name}!`
+
+  if (player.job && player.job.employer === building.name) {
+    state.ui.buttons.push({
+      label: 'Work', action: 'work'
+    })
+  }
 
   if (building.name === 'Employment Office') {
     listEmployers(state)
@@ -99,14 +106,14 @@ export default createSlice({
       state.ui.menu = state.jobs[employer].map(job => ({
         label: `${job.name}: $${job.wage}`,
         action: 'applyForJob',
-        payload: {employer, job: job.name}
+        payload: {...job, employer}
       }))
 
       state.ui.buttons = [{label: 'Back', action: 'listEmployers'}]
     },
 
     applyForJob(state, action) {
-      const {employer, job} = action.payload
+      const job = action.payload
 
       const player = getCurrentPlayer(state)
 
@@ -118,13 +125,21 @@ export default createSlice({
       state.timeLeft -= 1
 
       if (rng() < 0.5) {
-        player.job = {employer, name: job}
+        player.job = job
         state.ui.bubble = 'Congratulations, you got the job!'
       } else {
         state.ui.bubble = "Sorry, you didn't get the job."
       }
     },
     
+    work(state) {
+      if (state.timeLeft < 10) return
+
+      state.timeLeft -= 10
+      const player = getCurrentPlayer(state)
+      player.cash += player.job.wage
+    },
+
     exit(state) {
       exit(state)
     }
