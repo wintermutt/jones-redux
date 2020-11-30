@@ -75,8 +75,8 @@ export default function Dialog() {
           position: absolute;
           top: -1px;
           left: -1px;
-          right: 90px;
-          height: 90px;
+          right: 80px;
+          height: 102px;
           display: flex;
           align-items: center;
           text-align: center;
@@ -87,12 +87,14 @@ export default function Dialog() {
 
         .portrait {
           position: absolute;
-          top: -21px;
-          right: -5px;
-          box-shadow: 2px 2px 1px black;
-          background-color: white;
-          padding: 3px;
-          padding-bottom: 0;
+          top: -1px;
+          right: -1px;
+          padding: 0;
+          border: 1px solid black;
+        }
+
+        .portrait img {
+          margin-bottom: -4px;
         }
 
         .menu {
@@ -107,7 +109,7 @@ export default function Dialog() {
           padding: 5px;
           list-style-type: none;
           position: absolute;
-          top: 95px;
+          top: 100px;
           bottom: 25px;
           left: 0;
           right: 0;
