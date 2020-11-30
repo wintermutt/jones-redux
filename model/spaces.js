@@ -1,6 +1,6 @@
 export default [
   {name: 'Luxury Condo', background: '#917859', internalBackground: '#ccc'},
-  {name: 'Rent Office', background: '#708ae2', internalBackground: '#ccc'},
+  {name: 'Rent Office', background: '#708ae2', internalBackground: '#a1e2a1'},
   {name: 'Low-Cost Housing', background: '#8282c9', internalBackground: '#ccc'},
   {name: 'Pawn Shop', background: '#279b77', internalBackground: '#51a281'},
   {name: 'Discount Store', background: '#689148', internalBackground: '#82d2b8'},
