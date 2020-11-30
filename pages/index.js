@@ -53,6 +53,7 @@ export default function Home() {
           background-position: center;
           background-size: contain;
           background-repeat: no-repeat;
+          border: 2px solid black;
         }
 
         .board {

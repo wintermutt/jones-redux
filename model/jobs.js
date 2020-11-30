@@ -4,7 +4,7 @@ export default {
     {name: 'Assistant Manager', wage: 7},
     {name: 'Manager', wage: 8}
   ],
-  'Burger Joint': [
+  "Mr. Ronald's": [
     {name: 'Cook', wage: 4},
     {name: 'Clerk', wage: 6},
     {name: 'Assistant Manager', wage: 7},
@@ -25,7 +25,7 @@ export default {
     {name: 'Teacher', wage: 13},
     {name: 'Professor', wage: 24}
   ],
-  'Factory': [
+  'Vandelay Industries': [
     {name: 'Janitor', wage: 8},
     {name: 'Assembly Worker', wage: 9},
     {name: 'Secretary', wage: 10},

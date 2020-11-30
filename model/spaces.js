@@ -50,7 +50,12 @@ export default [
     background: '#3881a8',
     welcome: "Welcome to ACNE Employment. We'll find you a job, no matter what it costs you!"
   },
-  {name: 'Factory', background: '#8282c9'},
+  {
+    name: 'Vandelay Industries',
+    portrait: 'vandelay-industries.jpg',
+    background: '#8282c9',
+    welcome: 'Welcome to Vandelay Industries. We manufacture latex and latex-related goods.'
+  },
   {name: 'Bank', background: '#49a849'},
   {
     name: 'Grocery Store',
