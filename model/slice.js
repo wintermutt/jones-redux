@@ -126,9 +126,9 @@ export default createSlice({
 
       if (rng() < 0.5) {
         player.job = job
-        state.ui.bubble = 'Congratulations, you got the job!'
+        state.ui.bubble = 'Congratulations,\nyou got the job!'
       } else {
-        state.ui.bubble = "Sorry, you didn't get the job."
+        state.ui.bubble = "Sorry. You didn't get the job due to:\n\nNot enough education."
       }
     },
     

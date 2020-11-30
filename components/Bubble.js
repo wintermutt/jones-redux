@@ -11,7 +11,7 @@ export default function Bubble({ text }) {
           position: absolute;
           bottom: 135px;
           right: 0;
-          width: 240px;
+          width: 270px;
           color: rgb(42, 54, 51);
           border: 1px solid rgb(116, 136, 132);
           border-radius: 10px;
@@ -19,6 +19,7 @@ export default function Bubble({ text }) {
           font-size: 0.7em;
           line-height: 170%;
           padding: 15px;
+          white-space: pre-wrap;
         }
 
         .arrow {
