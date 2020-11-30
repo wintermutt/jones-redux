@@ -5,13 +5,15 @@ export default [
   {name: 'Pawn Shop'},
   {name: 'Discount Store'},
   {
-    name: 'Burger Joint',
+    name: "Mr. Ronald's",
+    portrait: 'mr-ronalds.jpg',
+    welcome: "Welcome to Mr. Ronald's. Not affiliated with McDowell's: they have the Big Mick, we have the Big Max!",
     products: [
       {name: 'Hamburger', price: 83},
       {name: 'Cheeseburger', price: 94},
       {name: 'Big Max', price: 131},
-      {name: 'Fries', price: 68},
-      {name: 'Shake', price: 108},
+      {name: 'Mr. Fries', price: 68},
+      {name: 'Mr. Shake', price: 108},
       {name: 'Cola', price: 73}
     ]
   },
