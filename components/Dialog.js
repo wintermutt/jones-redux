@@ -9,7 +9,7 @@ export default function Dialog() {
 
   const spacing = '50px'
 
-  const { title, portrait, bubble, menu, buttons } = useSelector(state => {
+  const { title, portrait, bubble, menu, buttons, background } = useSelector(state => {
     const {spaces, position, ui} = state.game
     const building = spaces[position]
     return {
@@ -17,7 +17,8 @@ export default function Dialog() {
       portrait: building.portrait || 'employment-office.jpg',
       bubble: ui.bubble,
       menu: ui.menu,
-      buttons: ui.buttons
+      buttons: ui.buttons,
+      background: building.internalBackground || '#f8e1c6'
     }
   })
 
@@ -61,20 +62,19 @@ export default function Dialog() {
           left: ${spacing};
           bottom: ${spacing};
           right: ${spacing};
-          border: 2px solid rgb(214, 185, 153);
-          background: rgba(248, 225, 198);
-          box-shadow: 2px 2px 1px black;
+          border: 1px solid black;
+          background: ${background};
         }
 
         h1 {
           font-size: 12px;
           color: white;
-          background: rgb(190, 152, 126);
+          background: rgba(0, 0, 0, 0.5);
           margin: 0;
           padding: 10px;
           position: absolute;
-          top: -5px;
-          left: 10px;
+          top: -1px;
+          left: -1px;
           right: 90px;
           height: 90px;
           display: flex;
@@ -82,8 +82,7 @@ export default function Dialog() {
           text-align: center;
           justify-content: center;
           text-transform: uppercase;
-          text-shadow: -1px -1px 1px black;
-          box-shadow: 2px 2px 1px black;
+          border: 1px solid black;
         }
 
         .portrait {
@@ -121,7 +120,6 @@ export default function Dialog() {
           height: 50px;
           cursor: pointer;
           background-color: rgba(255, 255, 255, 0.3);
-          border: 2px solid rgb(214, 185, 153, 0.4);
           font-size: 8px;
           line-height: 150%;
           position: relative;

@@ -1,12 +1,13 @@
 export default [
-  {name: 'Luxury Condo', background: '#917859'},
-  {name: 'Rent Office', background: '#708ae2'},
-  {name: 'Low-Cost Housing', background: '#8282c9'},
-  {name: 'Pawn Shop', background: '#279b77'},
-  {name: 'Discount Store', background: '#689148'},
+  {name: 'Luxury Condo', background: '#917859', internalBackground: '#ccc'},
+  {name: 'Rent Office', background: '#708ae2', internalBackground: '#ccc'},
+  {name: 'Low-Cost Housing', background: '#8282c9', internalBackground: '#ccc'},
+  {name: 'Pawn Shop', background: '#279b77', internalBackground: '#51a281'},
+  {name: 'Discount Store', background: '#689148', internalBackground: '#82d2b8'},
   {
     name: "Mr. Ronald's",
     background: '#fa6a49',
+    internalBackground: '#f8dd91',
     portrait: 'mr-ronalds.jpg',
     welcome: "Welcome to Mr. Ronald's. Not affiliated with McDowell's: they have the Big Mick, we have the Big Max!",
     products: [
@@ -21,6 +22,7 @@ export default [
   {
     name: 'Clothing Store',
     background: '#d19159',
+    internalBackground: '#99bbe1',
     products: [
       {name: 'Business Suit', price: 312},
       {name: 'Dress Clothes', price: 132},
@@ -31,6 +33,7 @@ export default [
   {
     name: 'Appliance Store',
     background: '#5991e2',
+    internalBackground: '#bad3fa',
     products: [
       {name: 'Refrigerator', price: 928},
       {name: 'Freezer', price: 543},
@@ -43,23 +46,26 @@ export default [
       {name: 'Computer', price: 1694}
     ]
   },
-  {name: 'University', background: '#e28141'},
+  {name: 'University', background: '#e28141', internalBackground: '#cbe2fa'},
   {name: '', background: '#499859'},
   {
     name: 'Employment Office',
     background: '#3881a8',
+    internalBackground: '#8ad19a',
     welcome: "Welcome to ACNE Employment. We'll find you a job, no matter what it costs you!"
   },
   {
     name: 'Vandelay Industries',
     portrait: 'vandelay-industries.jpg',
     background: '#8282c9',
+    internalBackground: '#1f7860',
     welcome: 'Welcome to Vandelay Industries. We manufacture latex and latex-related goods.'
   },
-  {name: 'Bank', background: '#49a849'},
+  {name: 'Bank', background: '#49a849', internalBackground: '#9aaab0'},
   {
     name: 'Grocery Store',
     background: '#e27182',
+    internalBackground: '#dacbe1',
     products: [
       {name: 'Food for 1 Week', price: 58},
       {name: 'Food for 2 Weeks', price: 106},
