@@ -30,12 +30,12 @@ export default function Token({ position, width, height }) {
         }
 
         .token {
-          width: 15px;
-          height: 15px;
-          border-radius: 50%;
-          background: red;
-          margin-bottom: 10px;
-          box-shadow: 0 1px 1px black;
+          width: 16px;
+          height: 14px;
+          border-radius: 10px;
+          background: rgb(48, 179, 48);
+          margin-bottom: 15px;
+          box-shadow: 0 4px 0 rgb(28, 114, 28);
         }
       `}</style>
     </>
