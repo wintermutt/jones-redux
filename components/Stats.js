@@ -39,7 +39,8 @@ export default function Stats() {
         .stats {
           flex-grow: 1;
           padding: 15px;
-          font-size: 0.7em;
+          font-size: 8px;
+          line-height: 200%;
         }
       `}</style>
     </>

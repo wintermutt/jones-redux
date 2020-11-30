@@ -16,7 +16,7 @@ export default function Bubble({ text }) {
           border: 1px solid rgb(116, 136, 132);
           border-radius: 10px;
           background: rgb(206, 235, 229);
-          font-size: 0.7em;
+          font-size: 10px;
           line-height: 170%;
           padding: 15px;
           white-space: pre-wrap;

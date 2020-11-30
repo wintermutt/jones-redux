@@ -19,7 +19,7 @@ export default function Token({ position, width, height }) {
           border: 1px solid transparent;
           width: ${width}vw;
           height: ${height}vh;
-          font-size: 0.6em;
+          font-size: 6px;
           text-align: center;
           padding-top: 3px;
           display: flex;

@@ -62,11 +62,11 @@ export default function Dialog() {
         }
 
         h1 {
-          font-size: 0.9em;
+          font-size: 12px;
           color: white;
           background: rgb(190, 152, 126);
           margin: 0;
-          padding: 5px;
+          padding: 10px;
           position: absolute;
           top: -5px;
           left: 10px;
@@ -117,7 +117,7 @@ export default function Dialog() {
           cursor: pointer;
           background-color: rgba(255, 255, 255, 0.3);
           border: 2px solid rgb(214, 185, 153, 0.4);
-          font-size: 0.5em;
+          font-size: 8px;
           line-height: 150%;
         }
 
@@ -133,7 +133,7 @@ export default function Dialog() {
 
         button {
           font-family: 'Press Start 2P';
-          font-size: 0.7em;
+          font-size: 10px;
           text-transform: uppercase;
           padding: 8px;
           margin-left: 5px;
