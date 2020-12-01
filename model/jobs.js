@@ -1,57 +1,57 @@
 export default {
   'Discount Store': [
-    {name: 'Clerk', wage: 4},
-    {name: 'Assistant Manager', wage: 7},
-    {name: 'Manager', wage: 8}
+    {name: 'Clerk', wage: 6},
+    {name: 'Assistant Manager', wage: 10},
+    {name: 'Manager', wage: 11}
   ],
   "Mr. Ronald's": [
-    {name: 'Cook', wage: 4},
-    {name: 'Clerk', wage: 6},
-    {name: 'Assistant Manager', wage: 7},
-    {name: 'Manager', wage: 8}
+    {name: 'Cook', wage: 6},
+    {name: 'Clerk', wage: 8},
+    {name: 'Assistant Manager', wage: 10},
+    {name: 'Manager', wage: 11}
   ],
   'Clothing Store': [
-    {name: 'Salesperson', wage: 8},
-    {name: 'Assistant Manager', wage: 10},
-    {name: 'Manager', wage: 14}
+    {name: 'Salesperson', wage: 11},
+    {name: 'Assistant Manager', wage: 15},
+    {name: 'Manager', wage: 20}
   ],
   'Appliance Store': [
-    {name: 'Salesperson', wage: 6},
-    {name: 'Electronics Repair', wage: 4},
-    {name: 'Manager', wage: 16}
+    {name: 'Salesperson', wage: 8},
+    {name: 'Electronics Repair', wage: 18},
+    {name: 'Manager', wage: 23}
   ],
   'University': [
-    {name: 'Janitor', wage: 4},
-    {name: 'Teacher', wage: 13},
-    {name: 'Professor', wage: 24}
+    {name: 'Janitor', wage: 6},
+    {name: 'Teacher', wage: 18},
+    {name: 'Professor', wage: 35}
   ],
   'Vandelay Industries': [
-    {name: 'Janitor', wage: 8},
-    {name: 'Assembly Worker', wage: 9},
-    {name: 'Secretary', wage: 10},
-    {name: "Machinist's Helper", wage: 12},
-    {name: 'Executive Secretary', wage: 21},
-    {name: 'Machinist', wage: 22},
-    {name: 'Department Manager', wage: 26},
-    {name: 'Engineer', wage: 27},
-    {name: 'General Manager', wage: 30}
+    {name: 'Janitor', wage: 11},
+    {name: 'Assembly Worker', wage: 13},
+    {name: 'Secretary', wage: 15},
+    {name: "Machinist's Helper", wage: 17},
+    {name: 'Executive Secretary', wage: 30},
+    {name: 'Machinist', wage: 32},
+    {name: 'Department Manager', wage: 38},
+    {name: 'Engineer', wage: 40},
+    {name: 'General Manager', wage: 43}
   ],
   'Bank': [
-    {name: 'Janitor', wage: 7},
-    {name: 'Teller', wage: 12},
-    {name: 'Assistant Manager', wage: 16},
-    {name: 'Manager', wage: 22},
-    {name: 'Investment Broker', wage: 26}
+    {name: 'Janitor', wage: 10},
+    {name: 'Teller', wage: 17},
+    {name: 'Assistant Manager', wage: 23},
+    {name: 'Manager', wage: 32},
+    {name: 'Investment Broker', wage: 38}
   ],
   'Grocery Store': [
-    {name: 'Janitor', wage: 6},
-    {name: 'Checker', wage: 9},
-    {name: 'Butcher', wage: 14},
-    {name: 'Assistant Manager', wage: 18},
-    {name: 'Manager', wage: 21}
+    {name: 'Janitor', wage: 8},
+    {name: 'Checker', wage: 13},
+    {name: 'Butcher', wage: 20},
+    {name: 'Assistant Manager', wage: 25},
+    {name: 'Manager', wage: 30}
   ],
   'Rent Office': [
-    {name: 'Groundskeeper', wage: 7},
-    {name: 'Apartment Manager', wage: 9}
+    {name: 'Groundskeeper', wage: 10},
+    {name: 'Apartment Manager', wage: 13}
   ]
 }
