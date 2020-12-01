@@ -19,20 +19,9 @@ export default function Stats() {
   return (
     <>
       <div className="stats">
-        <div>Week #: { week }</div>
-        <div>Time Left: { timeLeft } hours</div>
-        <div>Player { currentPlayer + 1 }</div>
-        {job &&
-          <>
-            <div>Works at { job.employer }</div>
-            <div>As a { job.name }</div>
-            <div>Hourly wage: ${ wage }</div>
-          </>
-        }
-        {!job &&
-          <div>Unemployed</div>
-        }
-        <div>Cash: ${ Math.round(cash) }</div>
+        <div>Week # {week}, {timeLeft} hours left</div>
+        <div>Player {currentPlayer + 1}: {job ? `${job.name} at ${job.employer}` : 'Unemployed'}</div>
+        <div>Cash: ${Math.round(cash)}</div>
       </div>
 
       <style jsx>{`
