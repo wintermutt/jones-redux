@@ -17,6 +17,11 @@ function getCurrentPlayer(state) {
   return state.players[state.currentPlayer]
 }
 
+function getCurrentPrice(basePrice, reading) {
+  // Source: https://jonesinthefastlane.fandom.com/wiki/Economy#Item_Prices
+  return basePrice + Math.floor((basePrice * reading) / 60)
+}
+
 function getDistance(from, to, length) {
   const internally = Math.abs(from - to)
   return Math.min(length - internally, internally)
@@ -44,7 +49,7 @@ function enterCurrentBuilding(state) {
   if (building.products) {
     state.ui.menu = building.products.map(p => ({
       label: p.name,
-      amount: p.price,
+      amount: getCurrentPrice(p.price, state.economyReading),
       action: 'buy',
       payload: p
     }))
@@ -83,6 +88,7 @@ export default createSlice({
     timeLeft: 60,
     position: 2,
     inside: false,
+    economyReading: 0,
     ui: {
       menu: [],
       buttons: [],
@@ -112,12 +118,17 @@ export default createSlice({
 
     listJobs(state, action) {
       const {employer} = action.payload
-      state.ui.menu = state.jobs[employer].map(job => ({
-        label: job.name,
-        amount: job.wage,
-        action: 'applyForJob',
-        payload: {...job, employer}
-      }))
+
+      state.ui.menu = state.jobs[employer].map(job => {
+        const currentWage = getCurrentPrice(job.wage, state.economyReading)
+
+        return {
+          label: job.name,
+          amount: currentWage,
+          action: 'applyForJob',
+          payload: {...job, wage: currentWage, employer}
+        }
+      })
 
       state.ui.buttons = [{label: 'Back', action: 'listEmployers'}]
     },
@@ -153,10 +164,11 @@ export default createSlice({
     buy(state, action) {
       const product = action.payload
       const player = getCurrentPlayer(state)
+      const price = getCurrentPrice(product.price, state.economyReading)
 
-      if (player.cash < product.price) return
+      if (player.cash < price) return
       
-      player.cash -= product.price
+      player.cash -= price
     },
 
     exit(state) {
