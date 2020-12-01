@@ -13,8 +13,8 @@ function getNewPlayer() {
   return {cash: 200, job: null}
 }
 
-function getCurrentPlayer(state) {
-  return state.players[state.currentPlayer]
+function getCurrentPlayer({players, currentPlayer}) {
+  return players[currentPlayer]
 }
 
 function getCurrentPrice(basePrice, reading) {
@@ -28,10 +28,12 @@ function getDistance(from, to, length) {
 }
 
 function enterCurrentBuilding(state) {
-  const building = state.spaces[state.position]
+  const {spaces, position, timeLeft} = state
+
+  const building = spaces[position]
   const player = getCurrentPlayer(state)
 
-  state.timeLeft -= Math.min(state.timeLeft, 2)
+  state.timeLeft -= Math.min(timeLeft, 2)
   state.inside = true
 
   state.ui.bubble = building.welcome || `Welcome to the ${building.name}!`
@@ -76,10 +78,12 @@ function listEmployers(state) {
 }
 
 function endTurn(state) {
+  const {currentPlayer, players} = state
+
   state.week++
 
-  const nextPlayer = state.currentPlayer + 1
-  state.currentPlayer = nextPlayer === state.players.length ? 0 : nextPlayer
+  const nextPlayer = currentPlayer + 1
+  state.currentPlayer = nextPlayer === players.length ? 0 : nextPlayer
 
   state.timeLeft = 60
   state.position = 2
@@ -108,17 +112,19 @@ export default createSlice({
   },
   reducers: {
     moveTo(state, action) {
+      const {spaces, inside, position, timeLeft} = state
+
       const destination = action.payload
-      const destinationSpace = state.spaces[destination]
+      const destinationSpace = spaces[destination]
 
       if (destinationSpace.name === '') return // Can't move to empty lots.
 
-      if (state.inside) exit(state)
+      if (inside) exit(state)
 
-      const distance = getDistance(state.position, destination, state.spaces.length)
+      const distance = getDistance(position, destination, spaces.length)
       const timeRequired = distance * 0.625 // 10 / 16, source: https://jonesinthefastlane.fandom.com/wiki/Locations
 
-      if (state.timeLeft < timeRequired) {
+      if (timeLeft < timeRequired) {
         endTurn(state)
         return // Can't move with no time left.
       }
@@ -134,10 +140,12 @@ export default createSlice({
     },
 
     listJobs(state, action) {
+      const {jobs, economyReading} = state
+
       const {employer} = action.payload
 
-      state.ui.menu = state.jobs[employer].map(job => {
-        const currentWage = getCurrentPrice(job.wage, state.economyReading)
+      state.ui.menu = jobs[employer].map(job => {
+        const currentWage = getCurrentPrice(job.wage, economyReading)
 
         return {
           label: job.name,
@@ -151,16 +159,18 @@ export default createSlice({
     },
 
     applyForJob(state, action) {
+      const {timeLeft} = state
+
       const job = action.payload
 
       const player = getCurrentPlayer(state)
 
-      if (state.timeLeft < 1) {
+      if (timeLeft < 1) {
         state.ui.bubble = "Sorry, we're closing."
         return
       }
 
-      state.timeLeft -= Math.min(state.timeLeft, 4)
+      state.timeLeft -= Math.min(timeLeft, 4)
 
       if (rng() < 0.5) {
         player.job = job
@@ -171,9 +181,11 @@ export default createSlice({
     },
     
     work(state) {
-      if (state.timeLeft === 0) return
+      const {timeLeft} = state
 
-      const hoursWorked = Math.min(state.timeLeft, 6)
+      if (timeLeft === 0) return
+
+      const hoursWorked = Math.min(timeLeft, 6)
 
       const player = getCurrentPlayer(state)
       player.cash += player.job.wage * hoursWorked * 1.3333333333333333
@@ -182,9 +194,11 @@ export default createSlice({
     },
 
     buy(state, action) {
+      const {economyReading} = state
+
       const product = action.payload
       const player = getCurrentPlayer(state)
-      const price = getCurrentPrice(product.price, state.economyReading)
+      const price = getCurrentPrice(product.price, economyReading)
 
       if (player.cash < price) return
       
