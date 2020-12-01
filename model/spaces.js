@@ -6,8 +6,8 @@ export default [
     name: 'Rent Office',
     background: '#708ae2',
     internalBackground: '#a1e2a1'
-    // Rent Low-Cost Apartment: 568
-    // Rent Security Apartment: 830
+    // Rent Low-Cost Apartment: 325
+    // Rent Security Apartment: 475
   },
   {name: 'Low-Cost Housing', background: '#8282c9', internalBackground: '#ccc'},
   {name: 'Pawn Shop', background: '#279b77', internalBackground: '#51a281'},
@@ -16,12 +16,23 @@ export default [
     background: '#689148',
     internalBackground: '#82d2b8',
     products: [
-      {name: 'Stereo', price: 787},
-      {name: 'VCR', price: 437},
-      {name: 'Baseball Tickets', price: 78},
-      {name: 'Theatre Tickets', price: 52},
-      {name: 'Encyclopedia', price: 830},
-      {name: 'Dog Food', price: 30}
+      {name: 'Refrigerator', price: 650},
+      {name: 'Stove', price: 490},
+      {name: 'Stereo', price: 450},
+      {name: 'Color TV', price: 349},
+      {name: 'Black & White TV', price: 110},
+      {name: 'VCR', price: 250},
+      {name: 'Encyclopedia', price: 475},
+      {name: 'Dictionary', price: 70},
+      {name: 'Atlas', price: 55},
+      {name: 'Casual Clothes', price: 35},
+      {name: 'Dress Clothes', price: 90},
+      {name: 'Baseball Tickets', price: 45},
+      {name: 'Theatre Tickets', price: 30},
+      {name: 'Concert Tickets', price: 40},
+      {name: 'Dog Food', price: 18},
+      {name: '8-Track Player', price: 75},
+      {name: 'Works of Capote', price: 100}
     ]
   },
   {
@@ -31,12 +42,12 @@ export default [
     portrait: 'mr-ronalds.jpg',
     welcome: "Welcome to Mr. Ronald's. Not affiliated with McDowell's: they have the Big Mick, we have the Big Max!",
     products: [
-      {name: 'Hamburger', price: 137},
-      {name: 'Cheeseburger', price: 155},
-      {name: 'Big Max', price: 216},
-      {name: 'Mr. Fries', price: 113},
-      {name: 'Mr. Shake', price: 178},
-      {name: 'Cola', price: 120}
+      {name: 'Hamburger', price: 79},
+      {name: 'Cheeseburger', price: 89},
+      {name: 'Big Max', price: 124},
+      {name: 'Mr. Fries', price: 65},
+      {name: 'Mr. Shake', price: 102},
+      {name: 'Cola', price: 69}
     ]
   },
   {
@@ -44,9 +55,9 @@ export default [
     background: '#d19159',
     internalBackground: '#99bbe1',
     products: [
-      {name: 'Business Suit', price: 515},
-      {name: 'Dress Clothes', price: 218},
-      {name: 'Casual Clothes', price: 127}
+      {name: 'Business Suit', price: 295},
+      {name: 'Dress Clothes', price: 125},
+      {name: 'Casual Clothes', price: 73}
     ]
   },
   {name: '', background: '#1f7860'},
@@ -55,22 +66,22 @@ export default [
     background: '#5991e2',
     internalBackground: '#bad3fa',
     products: [
-      {name: 'Refrigerator', price: 1532},
-      {name: 'Freezer', price: 897},
-      {name: 'Stove', price: 997},
-      {name: 'Color TV', price: 918},
-      {name: 'VCR', price: 582},
-      {name: 'Stereo', price: 720},
-      {name: 'Microwave', price: 577},
-      {name: 'Hot Tub', price: 2195},
-      {name: 'Computer', price: 2797}
+      {name: 'Refrigerator', price: 876},
+      {name: 'Freezer', price: 513},
+      {name: 'Stove', price: 570},
+      {name: 'Color TV', price: 525},
+      {name: 'VCR', price: 333},
+      {name: 'Stereo', price: 412},
+      {name: 'Microwave', price: 330},
+      {name: 'Hot Tub', price: 1255},
+      {name: 'Computer', price: 1599}
     ]
   },
   {
     name: 'University',
     background: '#e28141',
     internalBackground: '#cbe2fa'
-    // Enrollment: 87
+    // Enrollment: 50
   },
   {name: '', background: '#499859'},
   {
@@ -102,9 +113,9 @@ export default [
     background: '#e27182',
     internalBackground: '#dacbe1',
     products: [
-      {name: 'Food for 1 Week', price: 95},
-      {name: 'Food for 2 Weeks', price: 175},
-      {name: 'Food for 4 Weeks', price: 332},
+      {name: 'Food for 1 Week', price: 55},
+      {name: 'Food for 2 Weeks', price: 100},
+      {name: 'Food for 4 Weeks', price: 190},
       {name: '10 Lottery Tickets', price: 10},
       {name: 'Newspaper', price: 1}
     ]
