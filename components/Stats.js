@@ -32,7 +32,7 @@ export default function Stats() {
         {!job &&
           <div>Unemployed</div>
         }
-        <div>Cash: ${ cash.toFixed(2) }</div>
+        <div>Cash: ${ Math.round(cash) }</div>
       </div>
 
       <style jsx>{`
