@@ -129,7 +129,7 @@ export default createSlice({
       enterCurrentBuilding(state)
     },
 
-    listEmployers(state, action) {
+    listEmployers(state) {
       listEmployers(state)
     },
 
