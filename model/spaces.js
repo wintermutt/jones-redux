@@ -84,7 +84,7 @@ export default [
     portrait: 'vandelay-industries.jpg',
     background: '#8282c9',
     internalBackground: '#1f7860',
-    welcome: 'Welcome to Vandelay Industries. We manufacture latex and latex-related goods.'
+    welcome: "Welcome to Vandelay Industries, the world's largest manufacturer of latex and latex-related goods."
   },
   {
     name: 'Bank',
