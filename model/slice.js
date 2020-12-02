@@ -10,7 +10,7 @@ const {rng, seed} = seedrandom(dev ? 'devseed347378' : null, {
 })
 
 function getNewPlayer() {
-  return {cash: 200, job: null}
+  return {cash: 200, job: null, enrollments: 0}
 }
 
 function getCurrentPlayer({players, currentPlayer}) {
@@ -28,7 +28,7 @@ function getDistance(from, to, length) {
 }
 
 function enterCurrentBuilding(state) {
-  const {spaces, position, timeLeft} = state
+  const {spaces, position, timeLeft, economyReading} = state
 
   const building = spaces[position]
   const player = getCurrentPlayer(state)
@@ -41,6 +41,14 @@ function enterCurrentBuilding(state) {
   if (player.job && player.job.employer === building.name) {
     state.ui.buttons.push({
       label: 'Work', action: 'work'
+    })
+  }
+
+  if (building.enrollment) {
+    state.ui.buttons.push({
+      label: 'Enroll',
+      action: 'enroll',
+      payload: getCurrentPrice(building.enrollment, economyReading)
     })
   }
 
@@ -203,6 +211,16 @@ export default createSlice({
       if (player.cash < price) return
       
       player.cash -= price
+    },
+
+    enroll(state, action) {
+      const cost = action.payload
+      const player = getCurrentPlayer(state)
+
+      if (player.cash < cost) return
+
+      player.cash -= cost
+      player.enrollments++
     },
 
     exit(state) {

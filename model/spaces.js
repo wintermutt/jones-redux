@@ -80,8 +80,8 @@ export default [
   {
     name: 'University',
     background: '#e28141',
-    internalBackground: '#cbe2fa'
-    // Enrollment: 50
+    internalBackground: '#cbe2fa',
+    enrollment: 50
   },
   {name: '', background: '#499859'},
   {
