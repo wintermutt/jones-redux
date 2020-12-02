@@ -6,7 +6,7 @@ import Token from '../components/Token'
 import { useSelector } from 'react-redux'
 
 export default function Home() {
-  const { spaces, position, inside } = useSelector(state => state.game)
+  const {spaces, position, inside, currentPlayer} = useSelector(state => state.game)
   const spaceWidth = 20
   const spaceHeight = 14
 
@@ -49,7 +49,7 @@ export default function Home() {
           right: ${spaceWidth}vw;
           bottom: ${spaceHeight}vh;
           background-color: rgb(200, 239, 253);
-          background-image: url(/players/player1.png);
+          background-image: url(/players/player${currentPlayer + 1}.png);
           background-position: center;
           background-size: contain;
           background-repeat: no-repeat;
