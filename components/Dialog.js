@@ -62,7 +62,7 @@ export default function Dialog() {
           left: ${spacing};
           bottom: ${spacing};
           right: ${spacing};
-          border: 1px solid black;
+          border: 2px solid black;
           background: ${background};
         }
 
@@ -73,24 +73,24 @@ export default function Dialog() {
           margin: 0;
           padding: 10px;
           position: absolute;
-          top: -1px;
-          left: -1px;
+          top: -2px;
+          left: -2px;
           right: 80px;
-          height: 102px;
+          height: 104px;
           display: flex;
           align-items: center;
           text-align: center;
           justify-content: center;
           text-transform: uppercase;
-          border: 1px solid black;
+          border: 2px solid black;
         }
 
         .portrait {
           position: absolute;
-          top: -1px;
-          right: -1px;
+          top: -2px;
+          right: -2px;
           padding: 0;
-          border: 1px solid black;
+          border: 2px solid black;
         }
 
         .portrait img {

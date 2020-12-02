@@ -13,7 +13,7 @@ export default function Bubble({ text }) {
           right: 0;
           width: 270px;
           color: rgb(42, 54, 51);
-          border: 1px solid rgb(116, 136, 132);
+          border: 2px solid rgb(116, 136, 132);
           border-radius: 10px;
           background: rgb(206, 235, 229);
           font-size: 10px;
@@ -24,21 +24,21 @@ export default function Bubble({ text }) {
 
         .arrow {
           position: absolute;
-          bottom: -22px;
+          bottom: -23px;
           right: 28px;
-          border-left: 13px solid transparent;
-          border-right: 13px solid transparent;
+          border-left: 14px solid transparent;
+          border-right: 14px solid transparent;
           border-top: 22px solid rgb(116, 136, 132);
         }
 
         .arrow:before {
           content: '';
+          position: absolute;
+          bottom: 3px;
+          right: -12px;
           border-left: 12px solid transparent;
           border-right: 12px solid transparent;
           border-top: 21px solid rgb(206, 235, 229);
-          position: absolute;
-          bottom: 2px;
-          right: -12px;
         }
       `}</style>
     </>
