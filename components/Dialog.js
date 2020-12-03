@@ -9,26 +9,21 @@ export default function Dialog() {
 
   const spacing = '50px'
 
-  const { title, portrait, bubble, menu, buttons, background } = useSelector(state => {
-    const {spaces, position, ui} = state.game
-    const building = spaces[position]
-    return {
-      title: building.name,
-      portrait: building.portrait || 'employment-office.jpg',
-      bubble: ui.bubble,
-      menu: ui.menu,
-      buttons: ui.buttons,
-      background: building.internalBackground || '#f8e1c6'
-    }
-  })
+  const building = useSelector(state => state.game.spaces[state.game.position])
+  const portrait = building.portrait || 'employment-office.jpg'
+  const backgroundColor = building.internalBackground || '#f8e1c6'
+
+  const bubbleText = useSelector(state => state.game.ui.bubble)
+  const menu = useSelector(state => state.game.ui.menu)
+  const buttons = useSelector(state => state.game.ui.buttons)
 
   return (
     <>
       <div className="container">
-        <h1>{title}</h1>
+        <h1>{building.name}</h1>
 
         <div className="portrait">
-          <Bubble text={bubble}/>
+          <Bubble text={bubbleText}/>
           <img width="80" height="100" src={`/portraits/${portrait}`}/>
         </div>
 
@@ -63,7 +58,7 @@ export default function Dialog() {
           bottom: ${spacing};
           right: ${spacing};
           border: 2px solid black;
-          background: ${background};
+          background: ${backgroundColor};
         }
 
         h1 {
