@@ -35,26 +35,11 @@ function enterCurrentBuilding(state) {
   const {timeLeft, economyReading} = state
 
   const building = getCurrentBuilding(state)
-  const player = getCurrentPlayer(state)
 
   state.timeLeft -= Math.min(timeLeft, 2)
   state.inside = true
 
   state.ui.bubble = building.welcome || `Welcome to the ${building.name}!`
-
-  if (player.job && player.job.employer === building.name) {
-    state.ui.buttons.push({
-      label: 'Work', action: 'work'
-    })
-  }
-
-  if (building.enrollment) {
-    state.ui.buttons.push({
-      label: 'Enroll',
-      action: 'enroll',
-      payload: getCurrentPrice(building.enrollment, economyReading)
-    })
-  }
 
   state.ui.menu = []
 
@@ -75,7 +60,6 @@ function enterCurrentBuilding(state) {
 function exit(state) {
   state.inside = false
   state.ui.menu = []
-  state.ui.buttons = []
   state.ui.bubble = null
 }
 
@@ -85,8 +69,6 @@ function listEmployers(state) {
     action: 'listJobs',
     payload: {employer: k}
   }))
-
-  state.ui.buttons = []
 }
 
 function endTurn(state) {
@@ -104,6 +86,17 @@ function endTurn(state) {
   state.economyReading += (rng() < 0.5 ? 1 : -1)
 }
 
+export const canEnrollHere = ({game}) => {
+  const building = getCurrentBuilding(game)
+  return building.enrollment !== undefined
+}
+
+export const canWorkHere = ({game}) => {
+  const player = getCurrentPlayer(game)
+  const building = getCurrentBuilding(game)
+  return player.job && player.job.employer === building.name
+}
+
 export default createSlice({
   name: 'game',
   initialState: {
@@ -118,7 +111,6 @@ export default createSlice({
     economyReading: 3,
     ui: {
       menu: [],
-      buttons: [],
       bubble: null
     }
   },
@@ -166,8 +158,6 @@ export default createSlice({
           payload: {...job, wage: currentWage, employer}
         }
       })
-
-      state.ui.buttons = [{label: 'Back', action: 'listEmployers'}]
     },
 
     applyForJob(state, action) {
@@ -218,8 +208,10 @@ export default createSlice({
     },
 
     enroll(state, action) {
-      const cost = action.payload
       const player = getCurrentPlayer(state)
+      const building = getCurrentBuilding(state)
+
+      const cost = getCurrentPrice(building.enrollment, state.economyReading)
 
       if (player.cash < cost) return
 

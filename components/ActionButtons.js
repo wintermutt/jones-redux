@@ -1,24 +1,25 @@
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import gameSlice from '../model/slice'
+import { canEnrollHere, canWorkHere } from '../model/slice'
 
 export default function ActionButtons() {
   const dispatch = useDispatch()
-  const {exit} = gameSlice.actions
+  const {exit, enroll, work} = gameSlice.actions
 
-  const buttons = useSelector(state => state.game.ui.buttons)
+  const canEnroll = useSelector(canEnrollHere)
+  const canWork = useSelector(canWorkHere)
 
   return (
     <>
       <div className="actions">
-        {buttons.map(b =>
-          <button onClick={() => dispatch(gameSlice.actions[b.action](b.payload))} key={b.label}>
-            {b.label}
-          </button>
-        )}
-        <button onClick={() => dispatch(exit())}>
-          Done
-        </button>
+        {/* <button>Back</button> */}
+
+        {canEnroll && <button onClick={() => dispatch(enroll())}>Enroll</button>}
+
+        {canWork && <button onClick={() => dispatch(work())}>Work</button>}
+
+        <button onClick={() => dispatch(exit())}>Done</button>
       </div>
 
       <style jsx>{`
