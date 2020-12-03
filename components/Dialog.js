@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import gameSlice from '../model/slice'
 import Bubble from './Bubble'
+import Menu from './Menu'
 
 export default function Dialog() {
   const dispatch = useDispatch()
@@ -13,7 +14,6 @@ export default function Dialog() {
   const portrait = building.portrait || 'employment-office.jpg'
   const backgroundColor = building.internalBackground || '#f8e1c6'
 
-  const menu = useSelector(state => state.game.ui.menu)
   const buttons = useSelector(state => state.game.ui.buttons)
 
   return (
@@ -26,16 +26,7 @@ export default function Dialog() {
           <img width="80" height="100" src={`/portraits/${portrait}`}/>
         </div>
 
-        <ul className="menu">
-          {menu.map(i =>
-            <li onClick={() => dispatch(gameSlice.actions[i.action](i.payload))} key={i.label}>
-              {i.label}
-              {i.amount &&
-                <span className="amount">${i.amount}</span>
-              }
-            </li>
-          )}
-        </ul>
+        <Menu/>
 
         <div className="actions">
           {buttons.map(b =>
@@ -89,42 +80,6 @@ export default function Dialog() {
 
         .portrait img {
           margin-bottom: -4px;
-        }
-
-        .menu {
-          flex-grow: 1;
-          overflow-y: auto;
-          -webkit-overflow-scrolling: touch;
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-          align-content: flex-start;
-          margin: 0;
-          padding: 5px;
-          list-style-type: none;
-          position: absolute;
-          top: 100px;
-          bottom: 25px;
-          left: 0;
-          right: 0;
-        }
-
-        .menu li {
-          padding: 7px;
-          margin: 1px;
-          width: calc(50% - 2px);
-          height: 50px;
-          cursor: pointer;
-          background-color: rgba(255, 255, 255, 0.3);
-          font-size: 8px;
-          line-height: 150%;
-          position: relative;
-        }
-
-        .menu li .amount {
-          position: absolute;
-          right: 5px;
-          bottom: 3px;
         }
 
         .actions {
