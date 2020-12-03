@@ -17,6 +17,10 @@ function getCurrentPlayer({players, currentPlayer}) {
   return players[currentPlayer]
 }
 
+function getCurrentBuilding({spaces, position}) {
+  return spaces[position]
+}
+
 function getCurrentPrice(basePrice, reading) {
   // Source: https://jonesinthefastlane.fandom.com/wiki/Economy#Item_Prices
   return basePrice + Math.floor((basePrice * reading) / 60)
@@ -28,9 +32,9 @@ function getDistance(from, to, length) {
 }
 
 function enterCurrentBuilding(state) {
-  const {spaces, position, timeLeft, economyReading} = state
+  const {timeLeft, economyReading} = state
 
-  const building = spaces[position]
+  const building = getCurrentBuilding(state)
   const player = getCurrentPlayer(state)
 
   state.timeLeft -= Math.min(timeLeft, 2)
