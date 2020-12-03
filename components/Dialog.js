@@ -13,7 +13,6 @@ export default function Dialog() {
   const portrait = building.portrait || 'employment-office.jpg'
   const backgroundColor = building.internalBackground || '#f8e1c6'
 
-  const bubbleText = useSelector(state => state.game.ui.bubble)
   const menu = useSelector(state => state.game.ui.menu)
   const buttons = useSelector(state => state.game.ui.buttons)
 
@@ -23,7 +22,7 @@ export default function Dialog() {
         <h1>{building.name}</h1>
 
         <div className="portrait">
-          <Bubble text={bubbleText}/>
+          <Bubble/>
           <img width="80" height="100" src={`/portraits/${portrait}`}/>
         </div>
 
