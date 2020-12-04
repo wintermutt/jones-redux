@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux'
+import { getCurrentBuilding } from '../model/slice'
 import Bubble from './Bubble'
 import Menu from './Menu'
 import ActionButtons from './ActionButtons'
@@ -6,7 +7,7 @@ import ActionButtons from './ActionButtons'
 export default function Dialog() {
   const spacing = '50px'
 
-  const building = useSelector(state => state.game.spaces[state.game.position])
+  const building = useSelector(getCurrentBuilding)
   const portrait = building.portrait || 'employment-office.jpg'
   const backgroundColor = building.internalBackground || '#f8e1c6'
 
@@ -16,7 +17,7 @@ export default function Dialog() {
         <h1>{building.name}</h1>
 
         <Bubble/>
-        
+
         <div className="portrait">
           <img width="80" height="100" src={`/portraits/${portrait}`}/>
         </div>
