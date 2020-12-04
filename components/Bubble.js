@@ -13,9 +13,9 @@ export default function Bubble() {
       <style jsx>{`
         .bubble {
           position: absolute;
-          bottom: 135px;
+          top: -28px;
           right: 0;
-          width: 270px;
+          transform: translateY(-100%);
           color: rgb(42, 54, 51);
           border: 2px solid rgb(116, 136, 132);
           border-radius: 10px;

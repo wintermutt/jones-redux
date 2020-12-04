@@ -15,8 +15,9 @@ export default function Dialog() {
       <div className="container">
         <h1>{building.name}</h1>
 
+        <Bubble/>
+        
         <div className="portrait">
-          <Bubble/>
           <img width="80" height="100" src={`/portraits/${portrait}`}/>
         </div>
 
