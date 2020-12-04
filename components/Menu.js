@@ -20,7 +20,7 @@ export default function Menu() {
   const jobs = useSelector(getEmployerJobs)
 
   if (building.name === 'Employment Office') {
-    if (context === null) {
+    if (context.name === 'inside') {
       items = employers.map(e => ({
         label: e,
         handleClick: () => dispatch(gameSlice.actions.goToEmployerJobs(e))

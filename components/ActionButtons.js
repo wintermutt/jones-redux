@@ -14,7 +14,7 @@ export default function ActionButtons() {
   return (
     <>
       <div className="actions">
-        {context && context.name === 'employerJobs' &&
+        {context.name === 'employerJobs' &&
           <button onClick={() => dispatch(back())}>Back</button>
         }
 
