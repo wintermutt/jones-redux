@@ -7,7 +7,7 @@ import BoardMiddle from '../components/BoardMiddle'
 import { useSelector } from 'react-redux'
 
 export default function Home() {
-  const {spaces, inside} = useSelector(state => state.game)
+  const {spaces} = useSelector(state => state.game)
   const spaceWidth = 20
   const spaceHeight = 14
 
@@ -29,9 +29,7 @@ export default function Home() {
           )}
           <Token width={spaceWidth} height={spaceHeight}/>
 
-          {inside &&
-            <Dialog/>
-          }
+          <Dialog/>
         </div>
         
       </main>

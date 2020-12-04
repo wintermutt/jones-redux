@@ -5,12 +5,16 @@ import Menu from './Menu'
 import ActionButtons from './ActionButtons'
 
 export default function Dialog() {
-  const spacing = '50px'
-
+  const {inside} = useSelector(state => state.game)
   const building = useSelector(getCurrentBuilding)
+
+  if (!inside) return null
+  
   const portrait = building.portrait || 'employment-office.jpg'
   const backgroundColor = building.internalBackground || '#f8e1c6'
-
+  
+  const spacing = '50px'
+  
   return (
     <>
       <div className="container">
