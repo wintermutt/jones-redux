@@ -1,20 +1,14 @@
 import { useSelector } from 'react-redux'
+import { getCurrentPlayer } from '../model/slice'
 
 export default function Stats() {
-  const {
-    currentPlayer, week, timeLeft, cash, job, wage, enrollments
-  } = useSelector(state => {
-    const game = state.game
-    const player = game.players[game.currentPlayer]
-    const {cash, job, enrollments} = player
+  const {week} = useSelector(state => state.game)
+  const {timeLeft} = useSelector(state => state.game)
+  const {currentPlayer} = useSelector(state => state.game)
 
-    return {
-      ...game,
-      cash,
-      job,
-      enrollments
-    }
-  })
+  const {cash} = useSelector(getCurrentPlayer)
+  const {enrollments} = useSelector(getCurrentPlayer)
+  const {job} = useSelector(getCurrentPlayer)
 
   return (
     <>
