@@ -44,30 +44,32 @@ function endTurn(state) {
   state.economyReading += (rng() < 0.5 ? 1 : -1)
 }
 
-export const getContext = ({game}) => game.ui.context
+export function getContext({game}) {
+  return game.ui.context
+}
 
-export const getCurrentPlayer = ({game}) => {
+export function getCurrentPlayer({game}) {
   const {players, currentPlayer} = game
   return players[currentPlayer]
 }
 
-export const getCurrentBuilding = ({game}) => {
+export function getCurrentBuilding({game}) {
   const {spaces, position} = game
   return spaces[position]
 }
 
-export const canEnrollHere = (state) => {
+export function canEnrollHere(state) {
   const building = getCurrentBuilding(state)
   return building.enrollment !== undefined
 }
 
-export const canWorkHere = (state) => {
+export function canWorkHere(state) {
   const player = getCurrentPlayer(state)
   const building = getCurrentBuilding(state)
   return player.job && player.job.employer === building.name
 }
 
-export const getLocalProducts = (state) => {
+export function getLocalProducts(state) {
   const {economyReading} = state.game
   const building = getCurrentBuilding(state)
 
@@ -79,11 +81,11 @@ export const getLocalProducts = (state) => {
   }))
 }
 
-export const getEmployers = (state) => {
+export function getEmployers(state) {
   return Object.keys(state.game.jobs)
 }
 
-export const getEmployerJobs = (state) => {
+export function getEmployerJobs(state) {
   const {economyReading} = state.game
   const context = getContext(state)
 
