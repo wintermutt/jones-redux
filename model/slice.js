@@ -213,10 +213,10 @@ export function getEmployers(state) {
 }
 
 export function getEmployerJobs(state) {
-  const {economyReading} = state.game
   const context = getContext(state)
+  const {economyReading} = state.game
 
-  if (context === null || context.name !== 'employerJobs') return null
+  if (context.name !== 'employerJobs') return null
 
   const employer = context.employer
 
