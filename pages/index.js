@@ -3,10 +3,11 @@ import Stats from '../components/Stats'
 import Space from '../components/Space'
 import Dialog from '../components/Dialog'
 import Token from '../components/Token'
+import BoardMiddle from '../components/BoardMiddle'
 import { useSelector } from 'react-redux'
 
 export default function Home() {
-  const {spaces, position, inside, currentPlayer} = useSelector(state => state.game)
+  const {spaces, position, inside} = useSelector(state => state.game)
   const spaceWidth = 20
   const spaceHeight = 14
 
@@ -21,7 +22,7 @@ export default function Home() {
         <Stats/>
         
         <div className="board">
-          <div className="middle"></div>
+          <BoardMiddle spaceWidth={spaceWidth} spaceHeight={spaceHeight}/>
 
           {spaces.map((s, i) =>
             <Space id={i} key={i} space={s} width={spaceWidth} height={spaceHeight}/>
@@ -40,20 +41,6 @@ export default function Home() {
           display: flex;
           height: 100vh;
           flex-direction: column;
-        }
-
-        .middle {
-          position: absolute;
-          top: ${spaceHeight}vh;
-          left: ${spaceWidth}vw;
-          right: ${spaceWidth}vw;
-          bottom: ${spaceHeight}vh;
-          background-color: rgb(200, 239, 253);
-          background-image: url(/players/player${currentPlayer + 1}.png);
-          background-position: center;
-          background-size: contain;
-          background-repeat: no-repeat;
-          border: 2px solid black;
         }
 
         .board {
