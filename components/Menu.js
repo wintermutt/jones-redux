@@ -1,17 +1,28 @@
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import gameSlice from '../model/slice'
+import { getLocalProducts } from '../model/slice'
 
 export default function Menu() {
   const dispatch = useDispatch()
 
-  const menu = useSelector(state => state.game.ui.menu)
+  let items = []
+
+  const localProducts = useSelector(getLocalProducts)
+
+  if (localProducts) {
+    items = localProducts.map(p => ({
+      label: p.name,
+      amount: p.price,
+      handleClick: () => dispatch(gameSlice.actions.buy(p.name))
+    }))  
+  }
 
   return (
     <>
       <ul>
-        {menu.map(i =>
-          <li onClick={() => dispatch(gameSlice.actions[i.action](i.payload))} key={i.label}>
+        {items.map(i =>
+          <li onClick={i.handleClick} key={i.label}>
             {i.label}
             {i.amount &&
               <span className="amount">${i.amount}</span>

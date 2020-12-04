@@ -13,10 +13,6 @@ function getNewPlayer() {
   return {cash: 200, job: null, enrollments: 0}
 }
 
-function getCurrentPlayer({players, currentPlayer}) {
-  return players[currentPlayer]
-}
-
 function getCurrentBuilding({spaces, position}) {
   return spaces[position]
 }
@@ -42,15 +38,6 @@ function enterCurrentBuilding(state) {
   state.ui.bubble = building.welcome || `Welcome to the ${building.name}!`
 
   state.ui.menu = []
-
-  if (building.products) {
-    state.ui.menu = building.products.map(p => ({
-      label: p.name,
-      amount: getCurrentPrice(p.price, state.economyReading),
-      action: 'buy',
-      payload: p
-    }))
-  }
 
   if (building.name === 'Employment Office') {
     listEmployers(state)
@@ -86,15 +73,32 @@ function endTurn(state) {
   state.economyReading += (rng() < 0.5 ? 1 : -1)
 }
 
+export const getCurrentPlayer = ({game}) => {
+  const {players, currentPlayer} = game
+  return players[currentPlayer]
+}
+
 export const canEnrollHere = ({game}) => {
   const building = getCurrentBuilding(game)
   return building.enrollment !== undefined
 }
 
 export const canWorkHere = ({game}) => {
-  const player = getCurrentPlayer(game)
+  const player = getCurrentPlayer({game})
   const building = getCurrentBuilding(game)
   return player.job && player.job.employer === building.name
+}
+
+export const getLocalProducts = ({game}) => {
+  const {economyReading} = game
+  const building = getCurrentBuilding(game)
+
+  if (building.products === undefined) return null
+  
+  return building.products.map(p => ({
+    name: p.name,
+    price: getCurrentPrice(p.price, economyReading)
+  }))
 }
 
 export default createSlice({
@@ -165,7 +169,7 @@ export default createSlice({
 
       const job = action.payload
 
-      const player = getCurrentPlayer(state)
+      const player = getCurrentPlayer({game: state})
 
       if (timeLeft < 1) {
         state.ui.bubble = "Sorry, we're closing."
@@ -189,7 +193,7 @@ export default createSlice({
 
       const hoursWorked = Math.min(timeLeft, 6)
 
-      const player = getCurrentPlayer(state)
+      const player = getCurrentPlayer({game: state})
       player.cash += player.job.wage * hoursWorked * 1.3333333333333333
 
       state.timeLeft -= hoursWorked
@@ -197,9 +201,11 @@ export default createSlice({
 
     buy(state, action) {
       const {economyReading} = state
+      const productName = action.payload
 
-      const product = action.payload
-      const player = getCurrentPlayer(state)
+      const player = getCurrentPlayer({game: state})
+      const building = getCurrentBuilding(state)
+      const product = building.products.find(p => p.name === productName)
       const price = getCurrentPrice(product.price, economyReading)
 
       if (player.cash < price) return
@@ -208,7 +214,7 @@ export default createSlice({
     },
 
     enroll(state, action) {
-      const player = getCurrentPlayer(state)
+      const player = getCurrentPlayer({game: state})
       const building = getCurrentBuilding(state)
 
       const cost = getCurrentPrice(building.enrollment, state.economyReading)
