@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import Tile from '../components/Tile'
-import Dialog from '../components/Dialog'
+import Window from '../components/Window'
 import Token from '../components/Token'
 import BoardMiddle from '../components/BoardMiddle'
 
@@ -18,7 +18,7 @@ export default function Board({spaceWidth, spaceHeight}) {
 
         <Token width={spaceWidth} height={spaceHeight}/>
 
-        <Dialog/>
+        <Window/>
       </div>
 
       <style jsx>{`

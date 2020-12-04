@@ -4,7 +4,7 @@ import Bubble from './Bubble'
 import Menu from './Menu'
 import ActionButtons from './ActionButtons'
 
-export default function Dialog() {
+export default function Window() {
   const {inside} = useSelector(state => state.game)
   const building = useSelector(getCurrentBuilding)
 
