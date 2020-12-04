@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import seedrandom from 'seedrandom'
-import spaces from './spaces'
+import buildings from './buildings'
 import jobs from './jobs'
 
 const dev = process.env.NODE_ENV === 'development'
@@ -12,7 +12,7 @@ const {rng, seed} = seedrandom(dev ? 'devseed347378' : null, {
 export default createSlice({
   name: 'game',
   initialState: {
-    spaces,
+    buildings,
     jobs,
     players: Array(2).fill(null).map(i => getNewPlayer()),
     currentPlayer: 0,
@@ -28,16 +28,16 @@ export default createSlice({
   },
   reducers: {
     moveTo(state, action) {
-      const {spaces, inside, position, timeLeft} = state
+      const {buildings, inside, position, timeLeft} = state
 
       const destination = action.payload
-      const destinationSpace = spaces[destination]
+      const building = buildings[destination]
 
-      if (destinationSpace.name === '') return // Can't move to empty lots.
+      if (building.name === '') return // Can't move to empty lots.
 
       if (inside) exit(state)
 
-      const distance = getDistance(position, destination, spaces.length)
+      const distance = getDistance(position, destination, buildings.length)
       const timeRequired = distance * 0.625 // 10 / 16, source: https://jonesinthefastlane.fandom.com/wiki/Locations
 
       if (timeLeft < timeRequired) {
@@ -51,7 +51,7 @@ export default createSlice({
       state.timeLeft -= Math.min(state.timeLeft, 2)
       state.inside = true
     
-      state.ui.bubble = destinationSpace.welcome || `Welcome to the ${destinationSpace.name}!`    
+      state.ui.bubble = building.welcome || `Welcome to the ${building.name}!`    
     },
 
     goToEmployerJobs(state, action) {
@@ -181,8 +181,8 @@ export function getCurrentPlayer({game}) {
 }
 
 export function getCurrentBuilding({game}) {
-  const {spaces, position} = game
-  return spaces[position]
+  const {buildings, position} = game
+  return buildings[position]
 }
 
 export function canEnrollHere(state) {

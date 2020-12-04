@@ -1,17 +1,18 @@
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import gameSlice from '../model/slice'
 import getPosition from '../helpers/getPosition'
 
-export default function Space({ id, space, width, height }) {
+export default function Tile({position, width, height}) {
   const dispatch = useDispatch()
-  const { moveTo } = gameSlice.actions
+  const {moveTo} = gameSlice.actions
 
-  const {top, left, bottom, right} = getPosition(width, height, id)
+  const building = useSelector(state => state.game.buildings[position])
+  const {top, left, bottom, right} = getPosition(width, height, position)
 
   return (
     <>
-      <div onClick={() => dispatch(moveTo(id))}>
-        {space.name}
+      <div onClick={() => dispatch(moveTo(position))}>
+        {building.name}
       </div>
 
       <style jsx>{`
@@ -23,7 +24,7 @@ export default function Space({ id, space, width, height }) {
           right: ${right};
           width: ${width}vw;
           height: ${height}vh;
-          background: ${space.background || '#ddd'};
+          background: ${building.background || '#ddd'};
           color: #fff;
           font-size: 6px;
           line-height: 200%;

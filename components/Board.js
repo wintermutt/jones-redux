@@ -1,19 +1,19 @@
 import { useSelector } from 'react-redux'
-import Space from '../components/Space'
+import Tile from '../components/Tile'
 import Dialog from '../components/Dialog'
 import Token from '../components/Token'
 import BoardMiddle from '../components/BoardMiddle'
 
 export default function Board({spaceWidth, spaceHeight}) {
-  const {spaces} = useSelector(state => state.game)
+  const {buildings} = useSelector(state => state.game)
 
   return (
     <>
       <div className="board">
         <BoardMiddle spaceWidth={spaceWidth} spaceHeight={spaceHeight}/>
 
-        {spaces.map((s, i) =>
-          <Space id={i} key={i} space={s} width={spaceWidth} height={spaceHeight}/>
+        {buildings.map((b, i) =>
+          <Tile position={i} key={i} width={spaceWidth} height={spaceHeight}/>
         )}
 
         <Token width={spaceWidth} height={spaceHeight}/>
