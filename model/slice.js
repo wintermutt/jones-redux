@@ -212,13 +212,10 @@ export function getEmployers(state) {
   return Object.keys(state.game.jobs)
 }
 
-export function getEmployerJobs(state) {
-  const context = getContext(state)
+export function getEmployerJobs(state, employer) {
   const {economyReading} = state.game
 
-  if (context.name !== 'employerJobs') return null
-
-  const employer = context.employer
+  if (!employer) return null
 
   return state.game.jobs[employer].map(job => ({
     name: job.name,

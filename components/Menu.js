@@ -16,7 +16,7 @@ export default function Menu() {
   const context = useSelector(getContext)
   const products = useSelector(getLocalProducts)
   const employers = useSelector(getEmployers)
-  const jobs = useSelector(getEmployerJobs)
+  const jobs = useSelector(state => getEmployerJobs(state, context.employer))
 
   let items = []
 
