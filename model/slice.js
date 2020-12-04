@@ -32,26 +32,11 @@ function enterCurrentBuilding(state) {
   state.inside = true
 
   state.ui.bubble = building.welcome || `Welcome to the ${building.name}!`
-
-  state.ui.menu = []
-
-  if (building.name === 'Employment Office') {
-    listEmployers(state)
-  }
 }
 
 function exit(state) {
   state.inside = false
-  state.ui.menu = []
   state.ui.bubble = null
-}
-
-function listEmployers(state) {
-  state.ui.menu = Object.keys(state.jobs).map(k => ({
-    label: k,
-    action: 'listJobs',
-    payload: {employer: k}
-  }))
 }
 
 function endTurn(state) {
@@ -68,6 +53,8 @@ function endTurn(state) {
 
   state.economyReading += (rng() < 0.5 ? 1 : -1)
 }
+
+export const getContext = ({game}) => game.ui.context
 
 export const getCurrentPlayer = ({game}) => {
   const {players, currentPlayer} = game
@@ -102,6 +89,24 @@ export const getLocalProducts = (state) => {
   }))
 }
 
+export const getEmployers = (state) => {
+  return Object.keys(state.game.jobs)
+}
+
+export const getJobs = (state) => {
+  const {economyReading} = state.game
+  const context = getContext(state)
+
+  if (context === null || context.name !== 'jobList') return null
+
+  const employer = context.employer
+
+  return state.game.jobs[employer].map(job => ({
+    name: job.name,
+    wage: getCurrentPrice(job.wage, economyReading)
+  }))
+}
+
 export default createSlice({
   name: 'game',
   initialState: {
@@ -115,7 +120,7 @@ export default createSlice({
     inside: false,
     economyReading: 3,
     ui: {
-      menu: [],
+      context: null,
       bubble: null
     }
   },
@@ -144,31 +149,17 @@ export default createSlice({
       enterCurrentBuilding(state)
     },
 
-    listEmployers(state) {
-      listEmployers(state)
-    },
-
     listJobs(state, action) {
-      const {jobs, economyReading} = state
-
-      const {employer} = action.payload
-
-      state.ui.menu = jobs[employer].map(job => {
-        const currentWage = getCurrentPrice(job.wage, economyReading)
-
-        return {
-          label: job.name,
-          amount: currentWage,
-          action: 'applyForJob',
-          payload: {...job, wage: currentWage, employer}
-        }
-      })
+      state.ui.context = {name: 'jobList', employer: action.payload}
     },
 
     applyForJob(state, action) {
       const {timeLeft} = state
 
-      const job = action.payload
+      const employerName = state.ui.context.employer
+      const jobName = action.payload
+      const job = state.jobs[employerName].find(j => j.name === jobName)
+      job.employer = employerName
 
       const player = getCurrentPlayer({game: state})
 
