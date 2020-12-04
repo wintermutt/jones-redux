@@ -23,17 +23,6 @@ function getDistance(from, to, length) {
   return Math.min(length - internally, internally)
 }
 
-function enterCurrentBuilding(state) {
-  const {timeLeft, economyReading} = state
-
-  const building = getCurrentBuilding({game: state})
-
-  state.timeLeft -= Math.min(timeLeft, 2)
-  state.inside = true
-
-  state.ui.bubble = building.welcome || `Welcome to the ${building.name}!`
-}
-
 function exit(state) {
   state.inside = false
   state.ui.bubble = null
@@ -146,7 +135,10 @@ export default createSlice({
       state.timeLeft -= timeRequired
       state.position = destination
 
-      enterCurrentBuilding(state)
+      state.timeLeft -= Math.min(state.timeLeft, 2)
+      state.inside = true
+    
+      state.ui.bubble = building.welcome || `Welcome to the ${building.name}!`    
     },
 
     goToEmployerJobs(state, action) {
