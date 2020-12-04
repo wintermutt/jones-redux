@@ -1,16 +1,8 @@
 import Head from 'next/head'
+import Board from '../components/Board'
 import Stats from '../components/Stats'
-import Space from '../components/Space'
-import Dialog from '../components/Dialog'
-import Token from '../components/Token'
-import BoardMiddle from '../components/BoardMiddle'
-import { useSelector } from 'react-redux'
 
 export default function Home() {
-  const {spaces} = useSelector(state => state.game)
-  const spaceWidth = 20
-  const spaceHeight = 14
-
   return (
     <>
       <Head>
@@ -19,19 +11,8 @@ export default function Home() {
       </Head>
 
       <main>
-        <Stats/>
-        
-        <div className="board">
-          <BoardMiddle spaceWidth={spaceWidth} spaceHeight={spaceHeight}/>
-
-          {spaces.map((s, i) =>
-            <Space id={i} key={i} space={s} width={spaceWidth} height={spaceHeight}/>
-          )}
-          <Token width={spaceWidth} height={spaceHeight}/>
-
-          <Dialog/>
-        </div>
-        
+        <Stats/>        
+        <Board spaceWidth={20} spaceHeight={14}/>
       </main>
 
       <style jsx>{`
@@ -39,14 +20,6 @@ export default function Home() {
           display: flex;
           height: 100vh;
           flex-direction: column;
-        }
-
-        .board {
-          display: flex;
-          position: relative;
-          flex-direction: row;
-          flex-wrap: wrap;
-          height: ${spaceHeight * 5}vh;
         }
       `}</style>
     </>
