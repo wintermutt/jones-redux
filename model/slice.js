@@ -172,7 +172,7 @@ function endTurn(state) {
 }
 
 export function getContext({game}) {
-  return game.ui.context || (game.inside ? {name: 'inside'} : {name: 'board'})
+  return game.ui.context || (game.inside ? {name: 'buildingMain'} : {name: 'board'})
 }
 
 export function getCurrentPlayer({game}) {

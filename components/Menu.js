@@ -20,7 +20,7 @@ export default function Menu() {
 
   let items = []
 
-  if (context.name === 'inside' && products) {
+  if (context.name === 'buildingMain' && products) {
     items = products.map(p => ({
       label: p.name,
       amount: p.price,
@@ -28,7 +28,7 @@ export default function Menu() {
     }))  
   }
 
-  if (context.name === 'inside' && building.name === 'Employment Office') {
+  if (context.name === 'buildingMain' && building.name === 'Employment Office') {
     items = employers.map(e => ({
       label: e,
       handleClick: () => dispatch(goToEmployerJobs(e))
