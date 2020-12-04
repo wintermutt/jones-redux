@@ -1,6 +1,8 @@
 import getPosition from '../helpers/getPosition'
+import { useSelector } from 'react-redux'
 
-export default function Token({ position, width, height }) {
+export default function Token({width, height}) {
+  const {position} = useSelector(state => state.game)
   const {top, left, bottom, right} = getPosition(width, height, position)
 
   return (
