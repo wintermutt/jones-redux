@@ -1,12 +1,12 @@
 import { useSelector } from 'react-redux'
 
-export default function Bubble() {
-  const bubbleText = useSelector(state => state.game.ui.bubble)
+export default function SpeechBubble() {
+  const text = useSelector(state => state.game.ui.bubble)
 
   return (
     <>
       <div className="bubble">
-        {bubbleText}
+        {text}
         <div className="arrow"></div>
       </div>
 

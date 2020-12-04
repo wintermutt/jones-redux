@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { getCurrentBuilding } from '../model/slice'
-import Bubble from './Bubble'
+import SpeechBubble from './SpeechBubble'
 import Menu from './Menu'
 import ActionButtons from './ActionButtons'
 
@@ -20,7 +20,7 @@ export default function Window() {
       <div className="container">
         <h1>{building.name}</h1>
 
-        <Bubble/>
+        <SpeechBubble/>
 
         <div className="portrait">
           <img width="80" height="100" src={`/portraits/${portrait}`}/>
