@@ -9,96 +9,6 @@ const {rng, seed} = seedrandom(dev ? 'devseed347378' : null, {
   pass: (rng, seed) => ({rng, seed})
 })
 
-function getNewPlayer() {
-  return {cash: 200, job: null, enrollments: 0}
-}
-
-function getCurrentPrice(basePrice, reading) {
-  // Source: https://jonesinthefastlane.fandom.com/wiki/Economy#Item_Prices
-  return basePrice + Math.floor((basePrice * reading) / 60)
-}
-
-function getDistance(from, to, length) {
-  const internally = Math.abs(from - to)
-  return Math.min(length - internally, internally)
-}
-
-function exit(state) {
-  state.inside = false
-  state.ui.context = null
-  state.ui.bubble = null
-}
-
-function endTurn(state) {
-  const {currentPlayer, players} = state
-
-  state.week++
-
-  const nextPlayer = currentPlayer + 1
-  state.currentPlayer = nextPlayer === players.length ? 0 : nextPlayer
-
-  state.timeLeft = 60
-  state.position = 2
-  state.inside = false
-
-  state.economyReading += (rng() < 0.5 ? 1 : -1)
-}
-
-export function getContext({game}) {
-  return game.ui.context
-}
-
-export function getCurrentPlayer({game}) {
-  const {players, currentPlayer} = game
-  return players[currentPlayer]
-}
-
-export function getCurrentBuilding({game}) {
-  const {spaces, position} = game
-  return spaces[position]
-}
-
-export function canEnrollHere(state) {
-  const building = getCurrentBuilding(state)
-  return building.enrollment !== undefined
-}
-
-export function canWorkHere(state) {
-  const player = getCurrentPlayer(state)
-  const building = getCurrentBuilding(state)
-  return player.job && player.job.employer === building.name
-}
-
-export function getLocalProducts(state) {
-  const {economyReading} = state.game
-  const building = getCurrentBuilding(state)
-
-  if (building.products === undefined) return null
-  
-  return building.products.map(p => ({
-    name: p.name,
-    price: getCurrentPrice(p.price, economyReading)
-  }))
-}
-
-export function getEmployers(state) {
-  return Object.keys(state.game.jobs)
-}
-
-export function getEmployerJobs(state) {
-  const {economyReading} = state.game
-  const context = getContext(state)
-
-  if (context === null || context.name !== 'employerJobs') return null
-
-  const employer = context.employer
-
-  return state.game.jobs[employer].map(job => ({
-    name: job.name,
-    wage: getCurrentPrice(job.wage, economyReading)
-  }))
-}
-
 export default createSlice({
   name: 'game',
   initialState: {
@@ -225,3 +135,93 @@ export default createSlice({
     }
   }
 })
+
+function getNewPlayer() {
+  return {cash: 200, job: null, enrollments: 0}
+}
+
+function getCurrentPrice(basePrice, reading) {
+  // Source: https://jonesinthefastlane.fandom.com/wiki/Economy#Item_Prices
+  return basePrice + Math.floor((basePrice * reading) / 60)
+}
+
+function getDistance(from, to, length) {
+  const internally = Math.abs(from - to)
+  return Math.min(length - internally, internally)
+}
+
+function exit(state) {
+  state.inside = false
+  state.ui.context = null
+  state.ui.bubble = null
+}
+
+function endTurn(state) {
+  const {currentPlayer, players} = state
+
+  state.week++
+
+  const nextPlayer = currentPlayer + 1
+  state.currentPlayer = nextPlayer === players.length ? 0 : nextPlayer
+
+  state.timeLeft = 60
+  state.position = 2
+  state.inside = false
+
+  state.economyReading += (rng() < 0.5 ? 1 : -1)
+}
+
+export function getContext({game}) {
+  return game.ui.context
+}
+
+export function getCurrentPlayer({game}) {
+  const {players, currentPlayer} = game
+  return players[currentPlayer]
+}
+
+export function getCurrentBuilding({game}) {
+  const {spaces, position} = game
+  return spaces[position]
+}
+
+export function canEnrollHere(state) {
+  const building = getCurrentBuilding(state)
+  return building.enrollment !== undefined
+}
+
+export function canWorkHere(state) {
+  const player = getCurrentPlayer(state)
+  const building = getCurrentBuilding(state)
+  return player.job && player.job.employer === building.name
+}
+
+export function getLocalProducts(state) {
+  const {economyReading} = state.game
+  const building = getCurrentBuilding(state)
+
+  if (building.products === undefined) return null
+  
+  return building.products.map(p => ({
+    name: p.name,
+    price: getCurrentPrice(p.price, economyReading)
+  }))
+}
+
+export function getEmployers(state) {
+  return Object.keys(state.game.jobs)
+}
+
+export function getEmployerJobs(state) {
+  const {economyReading} = state.game
+  const context = getContext(state)
+
+  if (context === null || context.name !== 'employerJobs') return null
+
+  const employer = context.employer
+
+  return state.game.jobs[employer].map(job => ({
+    name: job.name,
+    wage: getCurrentPrice(job.wage, economyReading)
+  }))
+}
