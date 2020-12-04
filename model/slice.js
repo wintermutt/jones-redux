@@ -25,6 +25,7 @@ function getDistance(from, to, length) {
 
 function exit(state) {
   state.inside = false
+  state.ui.context = null
   state.ui.bubble = null
 }
 
