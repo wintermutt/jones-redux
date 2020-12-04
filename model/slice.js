@@ -13,10 +13,6 @@ function getNewPlayer() {
   return {cash: 200, job: null, enrollments: 0}
 }
 
-function getCurrentBuilding({spaces, position}) {
-  return spaces[position]
-}
-
 function getCurrentPrice(basePrice, reading) {
   // Source: https://jonesinthefastlane.fandom.com/wiki/Economy#Item_Prices
   return basePrice + Math.floor((basePrice * reading) / 60)
@@ -30,7 +26,7 @@ function getDistance(from, to, length) {
 function enterCurrentBuilding(state) {
   const {timeLeft, economyReading} = state
 
-  const building = getCurrentBuilding(state)
+  const building = getCurrentBuilding({game: state})
 
   state.timeLeft -= Math.min(timeLeft, 2)
   state.inside = true
@@ -78,20 +74,25 @@ export const getCurrentPlayer = ({game}) => {
   return players[currentPlayer]
 }
 
-export const canEnrollHere = ({game}) => {
-  const building = getCurrentBuilding(game)
+export const getCurrentBuilding = ({game}) => {
+  const {spaces, position} = game
+  return spaces[position]
+}
+
+export const canEnrollHere = (state) => {
+  const building = getCurrentBuilding(state)
   return building.enrollment !== undefined
 }
 
-export const canWorkHere = ({game}) => {
-  const player = getCurrentPlayer({game})
-  const building = getCurrentBuilding(game)
+export const canWorkHere = (state) => {
+  const player = getCurrentPlayer(state)
+  const building = getCurrentBuilding(state)
   return player.job && player.job.employer === building.name
 }
 
-export const getLocalProducts = ({game}) => {
-  const {economyReading} = game
-  const building = getCurrentBuilding(game)
+export const getLocalProducts = (state) => {
+  const {economyReading} = state.game
+  const building = getCurrentBuilding(state)
 
   if (building.products === undefined) return null
   
@@ -204,7 +205,7 @@ export default createSlice({
       const productName = action.payload
 
       const player = getCurrentPlayer({game: state})
-      const building = getCurrentBuilding(state)
+      const building = getCurrentBuilding({game: state})
       const product = building.products.find(p => p.name === productName)
       const price = getCurrentPrice(product.price, economyReading)
 
@@ -215,7 +216,7 @@ export default createSlice({
 
     enroll(state, action) {
       const player = getCurrentPlayer({game: state})
-      const building = getCurrentBuilding(state)
+      const building = getCurrentBuilding({game: state})
 
       const cost = getCurrentPrice(building.enrollment, state.economyReading)
 
