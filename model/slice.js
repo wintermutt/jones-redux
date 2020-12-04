@@ -93,11 +93,11 @@ export const getEmployers = (state) => {
   return Object.keys(state.game.jobs)
 }
 
-export const getJobs = (state) => {
+export const getEmployerJobs = (state) => {
   const {economyReading} = state.game
   const context = getContext(state)
 
-  if (context === null || context.name !== 'jobList') return null
+  if (context === null || context.name !== 'employerJobs') return null
 
   const employer = context.employer
 
@@ -149,8 +149,8 @@ export default createSlice({
       enterCurrentBuilding(state)
     },
 
-    listJobs(state, action) {
-      state.ui.context = {name: 'jobList', employer: action.payload}
+    goToEmployerJobs(state, action) {
+      state.ui.context = {name: 'employerJobs', employer: action.payload}
     },
 
     applyForJob(state, action) {

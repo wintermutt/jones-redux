@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import gameSlice from '../model/slice'
-import { getCurrentBuilding, getContext, getLocalProducts, getEmployers, getJobs } from '../model/slice'
+import { getCurrentBuilding, getContext, getLocalProducts, getEmployers, getEmployerJobs } from '../model/slice'
 
 export default function Menu() {
   const dispatch = useDispatch()
@@ -12,15 +12,15 @@ export default function Menu() {
   const context = useSelector(getContext)
   const localProducts = useSelector(getLocalProducts)
   const employers = useSelector(getEmployers)
-  const jobs = useSelector(getJobs)
+  const jobs = useSelector(getEmployerJobs)
 
   if (building.name === 'Employment Office') {
     if (context === null) {
       items = employers.map(e => ({
         label: e,
-        handleClick: () => dispatch(gameSlice.actions.listJobs(e))
+        handleClick: () => dispatch(gameSlice.actions.goToEmployerJobs(e))
       }))
-    } else if (context.name === 'jobList') {
+    } else if (context.name === 'employerJobs') {
       items = jobs.map(j => ({
         label: j.name,
         amount: j.wage,
