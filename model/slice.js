@@ -220,6 +220,13 @@ export default createSlice({
     exit(state) {
       exit(state)
       if (state.timeLeft === 0) endTurn(state)
+    },
+
+    back(state) {
+      const context = getContext({game: state})
+      if (context && context.name === 'employerJobs') {
+        state.ui.context = null
+      }
     }
   }
 })

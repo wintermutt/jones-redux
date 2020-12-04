@@ -1,19 +1,22 @@
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import gameSlice from '../model/slice'
-import { canEnrollHere, canWorkHere } from '../model/slice'
+import { getContext, canEnrollHere, canWorkHere } from '../model/slice'
 
 export default function ActionButtons() {
   const dispatch = useDispatch()
-  const {exit, enroll, work} = gameSlice.actions
+  const {back, exit, enroll, work} = gameSlice.actions
 
+  const context = useSelector(getContext)
   const canEnroll = useSelector(canEnrollHere)
   const canWork = useSelector(canWorkHere)
 
   return (
     <>
       <div className="actions">
-        {/* <button>Back</button> */}
+        {context && context.name === 'employerJobs' &&
+          <button onClick={() => dispatch(back())}>Back</button>
+        }
 
         {canEnroll && <button onClick={() => dispatch(enroll())}>Enroll</button>}
 
