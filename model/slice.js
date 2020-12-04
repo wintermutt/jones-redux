@@ -139,7 +139,7 @@ export default createSlice({
       state.timeLeft -= Math.min(state.timeLeft, 2)
       state.inside = true
     
-      state.ui.bubble = building.welcome || `Welcome to the ${building.name}!`    
+      state.ui.bubble = destinationSpace.welcome || `Welcome to the ${destinationSpace.name}!`    
     },
 
     goToEmployerJobs(state, action) {
