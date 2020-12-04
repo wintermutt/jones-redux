@@ -10,35 +10,37 @@ import gameSlice, {
 
 export default function Menu() {
   const dispatch = useDispatch()
-
-  let items = []
+  const {buy, goToEmployerJobs, applyForJob} = gameSlice.actions
 
   const building = useSelector(getCurrentBuilding)
   const context = useSelector(getContext)
-  const localProducts = useSelector(getLocalProducts)
+  const products = useSelector(getLocalProducts)
   const employers = useSelector(getEmployers)
   const jobs = useSelector(getEmployerJobs)
 
-  if (building.name === 'Employment Office') {
-    if (context.name === 'inside') {
-      items = employers.map(e => ({
-        label: e,
-        handleClick: () => dispatch(gameSlice.actions.goToEmployerJobs(e))
-      }))
-    } else if (context.name === 'employerJobs') {
-      items = jobs.map(j => ({
-        label: j.name,
-        amount: j.wage,
-        handleClick: () => dispatch(gameSlice.actions.applyForJob(j.name))
-      }))
-    }
-  }
-  else if (localProducts) {
-    items = localProducts.map(p => ({
+  let items = []
+
+  if (context.name === 'inside' && products) {
+    items = products.map(p => ({
       label: p.name,
       amount: p.price,
-      handleClick: () => dispatch(gameSlice.actions.buy(p.name))
+      handleClick: () => dispatch(buy(p.name))
     }))  
+  }
+
+  if (context.name === 'inside' && building.name === 'Employment Office') {
+    items = employers.map(e => ({
+      label: e,
+      handleClick: () => dispatch(goToEmployerJobs(e))
+    }))
+  }
+  
+  if (context.name === 'employerJobs') {
+    items = jobs.map(j => ({
+      label: j.name,
+      amount: j.wage,
+      handleClick: () => dispatch(applyForJob(j.name))
+    }))
   }
 
   return (
