@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux'
 import { getCurrentBuilding } from '../model/slice'
 import SpeechBubble from './SpeechBubble'
+import Portrait from './Portrait'
 import Menu from './Menu'
 import ActionButtons from './ActionButtons'
 
@@ -10,7 +11,6 @@ export default function Window() {
 
   if (!inside) return null
   
-  const portrait = building.portrait || 'employment-office.jpg'
   const backgroundColor = building.internalBackground || '#f8e1c6'
   
   const spacing = '50px'
@@ -21,13 +21,8 @@ export default function Window() {
         <h1>{building.name}</h1>
 
         <SpeechBubble/>
-
-        <div className="portrait">
-          <img width="80" height="100" src={`/portraits/${portrait}`}/>
-        </div>
-
+        <Portrait/>
         <Menu/>
-
         <ActionButtons/>
       </div>
 
@@ -59,18 +54,6 @@ export default function Window() {
           justify-content: center;
           text-transform: uppercase;
           border: 2px solid black;
-        }
-
-        .portrait {
-          position: absolute;
-          top: -2px;
-          right: -2px;
-          padding: 0;
-          border: 2px solid black;
-        }
-
-        .portrait img {
-          margin-bottom: -4px;
         }
       `}</style>
     </>
