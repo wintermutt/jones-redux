@@ -110,7 +110,7 @@ export default createSlice({
       player.cash -= price
     },
 
-    enroll(state, action) {
+    enroll(state) {
       const player = getCurrentPlayer({game: state})
       const building = getCurrentBuilding({game: state})
 
