@@ -71,18 +71,11 @@ const gameSlice = createSlice({
       state.timeLeft -= hoursWorked
     },
 
-    buy(state, action) {
-      const {economyReading} = state
-      const productName = action.payload
-
-      const player = getCurrentPlayer({game: state})
-      const building = getCurrentBuilding({game: state})
-      const product = building.products.find(p => p.name === productName)
-      const price = getCurrentPrice(product.price, economyReading)
-
-      if (player.cash < price) return
+    boughtProduct(game, action) {
+      const product = action.payload
+      const player = getCurrentPlayer({game})
       
-      player.cash -= price
+      player.cash -= product.price
     },
 
     enrolled(game, action) {
@@ -246,6 +239,20 @@ export const enroll = () => (dispatch, getState) => {
   const cost = getCurrentPrice(building.enrollment, economyReading)
 
   player.cash < cost ? dispatch(notEnoughCash()) : dispatch(enrolled(cost))
+}
+
+export const buy = (productName) => (dispatch, getState) => {
+  const state = getState()
+  const {economyReading} = state.game
+  const {notEnoughCash, boughtProduct} = gameSlice.actions
+
+  const player = getCurrentPlayer(state)
+  const building = getCurrentBuilding(state)
+  const productDefinition = building.products.find(p => p.name === productName)
+  const price = getCurrentPrice(productDefinition.price, economyReading)
+  const product = {...productDefinition, name: productName, price}
+
+  player.cash < price ? dispatch(notEnoughCash()) : dispatch(boughtProduct(product))
 }
 
 export default gameSlice
