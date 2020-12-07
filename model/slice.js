@@ -65,10 +65,10 @@ const gameSlice = createSlice({
       player.enrollments++
     },
 
-    back(state) {
-      const context = getContext({game: state})
-      if (context && context.name === 'employerJobs') {
-        state.ui.context = null
+    wentBack(game) {
+      const context = getContext({game})
+      if (context.name === 'employerJobs') {
+        game.ui.context = null
       }
     },
 
@@ -214,6 +214,11 @@ export const moveTo = (destination) => (dispatch, getState) => {
 export const selectContext = (context) => (dispatch, getState) => {
   const {selectedContext} = gameSlice.actions
   dispatch(selectedContext(context))
+}
+
+export const goBack = () => (dispatch) => {
+  const {wentBack} = gameSlice.actions
+  dispatch(wentBack())
 }
 
 export const applyForJob = (jobName) => (dispatch, getState) => {
