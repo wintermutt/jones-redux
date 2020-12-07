@@ -38,8 +38,8 @@ const gameSlice = createSlice({
       game.ui.bubble = building.welcome || `Welcome to the ${building.name}!`    
     },
 
-    goToEmployerJobs(state, action) {
-      state.ui.context = {name: 'employerJobs', employer: action.payload}
+    selectedContext(game, {payload}) {
+      game.ui.context = payload
     },
     
     worked(state, {payload}) {
@@ -207,6 +207,11 @@ export const moveTo = (destination) => (dispatch, getState) => {
   const timeSpent = timeToMove + timeToEnter
 
   dispatch(movedTo({destination, timeSpent}))
+}
+
+export const selectContext = (context) => (dispatch, getState) => {
+  const {selectedContext} = gameSlice.actions
+  dispatch(selectedContext(context))
 }
 
 export const applyForJob = (jobName) => (dispatch, getState) => {

@@ -6,13 +6,13 @@ import gameSlice, {
   getLocalProducts,
   getEmployers,
   getEmployerJobs,
+  selectContext,
   buy,
   applyForJob
 } from '../model/slice'
 
 export default function Menu() {
   const dispatch = useDispatch()
-  const {goToEmployerJobs} = gameSlice.actions
 
   const building = useSelector(getCurrentBuilding)
   const context = useSelector(getContext)
@@ -31,9 +31,9 @@ export default function Menu() {
   }
 
   if (context.name === 'buildingMain' && building.name === 'Employment Office') {
-    items = employers.map(e => ({
-      label: e,
-      handleClick: () => dispatch(goToEmployerJobs(e))
+    items = employers.map(employer => ({
+      label: employer,
+      handleClick: () => dispatch(selectContext({name: 'employerJobs', employer}))
     }))
   }
   
