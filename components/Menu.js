@@ -5,12 +5,13 @@ import gameSlice, {
   getContext,
   getLocalProducts,
   getEmployers,
-  getEmployerJobs
+  getEmployerJobs,
+  applyForJob
 } from '../model/slice'
 
 export default function Menu() {
   const dispatch = useDispatch()
-  const {buy, goToEmployerJobs, applyForJob} = gameSlice.actions
+  const {buy, goToEmployerJobs} = gameSlice.actions
 
   const building = useSelector(getCurrentBuilding)
   const context = useSelector(getContext)
