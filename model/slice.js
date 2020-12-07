@@ -105,7 +105,7 @@ const gameSlice = createSlice({
       }
     },
 
-    noTimeLeft({ui}) {
+    notEnoughTime({ui}) {
       ui.bubble = "Sorry, we're closing."
     },
 
@@ -220,7 +220,7 @@ export function getEmployerJobs(state, employer) {
 export const applyForJob = (jobName) => (dispatch, getState) => {
   const state = getState()
   const {jobs, timeLeft, economyReading, ui} = state.game
-  const {noTimeLeft, appliedForJob, gotJob, rejectedForJob} = gameSlice.actions
+  const {notEnoughTime: noTimeLeft, appliedForJob, gotJob, rejectedForJob} = gameSlice.actions
 
   const {employer} = ui.context
   const jobDefinition = jobs[employer].find(j => j.name === jobName)
