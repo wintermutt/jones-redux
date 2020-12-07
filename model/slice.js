@@ -58,17 +58,12 @@ const gameSlice = createSlice({
       state.ui.context = {name: 'employerJobs', employer: action.payload}
     },
     
-    work(state) {
-      const {timeLeft} = state
-
-      if (timeLeft === 0) return
-
-      const hoursWorked = Math.min(timeLeft, 6)
-
+    worked(state, {payload}) {
+      const {earnings, timeSpent} = payload
       const player = getCurrentPlayer({game: state})
-      player.cash += player.job.wage * hoursWorked * 1.3333333333333333
-
-      state.timeLeft -= hoursWorked
+      
+      player.cash += earnings
+      state.timeLeft -= timeSpent
     },
 
     boughtProduct(game, action) {
@@ -99,7 +94,7 @@ const gameSlice = createSlice({
     },
 
     notEnoughTime({ui}) {
-      ui.bubble = "Sorry, we're closing."
+      ui.bubble = "No time left."
     },
 
     notEnoughCash({ui}) {
@@ -213,7 +208,7 @@ export function getEmployerJobs(state, employer) {
 export const applyForJob = (jobName) => (dispatch, getState) => {
   const state = getState()
   const {jobs, timeLeft, economyReading, ui} = state.game
-  const {notEnoughTime: noTimeLeft, appliedForJob, gotJob, rejectedForJob} = gameSlice.actions
+  const {notEnoughTime, appliedForJob, gotJob, rejectedForJob} = gameSlice.actions
 
   const {employer} = ui.context
   const jobDefinition = jobs[employer].find(j => j.name === jobName)
@@ -221,7 +216,7 @@ export const applyForJob = (jobName) => (dispatch, getState) => {
   const job = {name: jobName, employer, wage}
 
   if (timeLeft < 1) {
-    dispatch(noTimeLeft())
+    dispatch(notEnoughTime())
     return
   }
 
@@ -253,6 +248,23 @@ export const buy = (productName) => (dispatch, getState) => {
   const product = {...productDefinition, name: productName, price}
 
   player.cash < price ? dispatch(notEnoughCash()) : dispatch(boughtProduct(product))
+}
+
+export const work = () => (dispatch, getState) => {
+  const state = getState()
+  const {timeLeft} = state.game
+  const player = getCurrentPlayer(state)
+  const {notEnoughTime, worked} = gameSlice.actions
+
+  if (timeLeft === 0) {
+    dispatch(notEnoughTime())
+    return
+  }
+
+  const timeSpent = Math.min(timeLeft, 6)
+  const earnings = player.job.wage * timeSpent * 1.3333333333333333
+
+  dispatch(worked({earnings, timeSpent}))
 }
 
 export default gameSlice
