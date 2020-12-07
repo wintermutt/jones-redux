@@ -85,13 +85,9 @@ const gameSlice = createSlice({
       player.cash -= price
     },
 
-    enroll(state) {
-      const player = getCurrentPlayer({game: state})
-      const building = getCurrentBuilding({game: state})
-
-      const cost = getCurrentPrice(building.enrollment, state.economyReading)
-
-      if (player.cash < cost) return
+    enrolled(game, action) {
+      const player = getCurrentPlayer({game})
+      const cost = action.payload
 
       player.cash -= cost
       player.enrollments++
@@ -111,6 +107,10 @@ const gameSlice = createSlice({
 
     noTimeLeft({ui}) {
       ui.bubble = "Sorry, we're closing."
+    },
+
+    notEnoughCash({ui}) {
+      ui.bubble = "You do not have enough cash."
     },
     
     appliedForJob(game) {
@@ -234,6 +234,18 @@ export const applyForJob = (jobName) => (dispatch, getState) => {
 
   dispatch(appliedForJob(job))
   rng() < 0.5 ? dispatch(gotJob(job)) : dispatch(rejectedForJob(job))
+}
+
+export const enroll = () => (dispatch, getState) => {
+  const state = getState()
+  const {economyReading} = state.game
+  const player = getCurrentPlayer(state)
+  const building = getCurrentBuilding(state)
+  const {notEnoughCash, enrolled} = gameSlice.actions
+
+  const cost = getCurrentPrice(building.enrollment, economyReading)
+
+  player.cash < cost ? dispatch(notEnoughCash()) : dispatch(enrolled(cost))
 }
 
 export default gameSlice
