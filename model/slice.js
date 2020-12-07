@@ -119,12 +119,8 @@ const gameSlice = createSlice({
     },
     
     gotJob(game, action) {
-      const {economyReading} = game
       const player = getCurrentPlayer({game})
-      const {job, employer} = action.payload
-      const wage = getCurrentPrice(job.wage, economyReading)
-
-      player.job = {...job, employer, wage}
+      player.job = action.payload
       game.ui.bubble = 'Congratulations,\nyou got the job!'
     },
     
@@ -223,20 +219,21 @@ export function getEmployerJobs(state, employer) {
 
 export const applyForJob = (jobName) => (dispatch, getState) => {
   const state = getState()
-  const {jobs, timeLeft, ui} = state.game
+  const {jobs, timeLeft, economyReading, ui} = state.game
   const {noTimeLeft, appliedForJob, gotJob, rejectedForJob} = gameSlice.actions
 
   const {employer} = ui.context
-  const job = jobs[employer].find(j => j.name === jobName)
-  const payload = {job, employer}
+  const jobDefinition = jobs[employer].find(j => j.name === jobName)
+  const wage = getCurrentPrice(jobDefinition.wage, economyReading)
+  const job = {name: jobName, employer, wage}
 
   if (timeLeft < 1) {
     dispatch(noTimeLeft())
     return
   }
 
-  dispatch(appliedForJob(payload))
-  rng() < 0.5 ? dispatch(gotJob(payload)) : dispatch(rejectedForJob(payload))
+  dispatch(appliedForJob(job))
+  rng() < 0.5 ? dispatch(gotJob(job)) : dispatch(rejectedForJob(job))
 }
 
 export default gameSlice
