@@ -42,24 +42,24 @@ const gameSlice = createSlice({
       game.ui.context = payload
     },
     
-    worked(state, {payload}) {
+    worked(game, {payload}) {
       const {earnings, timeSpent} = payload
-      const player = getCurrentPlayer({game: state})
+      const player = getCurrentPlayer({game})
       
       player.cash += earnings
-      state.timeLeft -= timeSpent
+      game.timeLeft -= timeSpent
     },
 
-    boughtProduct(game, action) {
-      const product = action.payload
+    boughtProduct(game, {payload}) {
+      const product = payload
       const player = getCurrentPlayer({game})
       
       player.cash -= product.price
     },
 
-    enrolled(game, action) {
+    enrolled(game, {payload}) {
       const player = getCurrentPlayer({game})
-      const cost = action.payload
+      const cost = payload
 
       player.cash -= cost
       player.enrollments++
@@ -85,9 +85,11 @@ const gameSlice = createSlice({
       game.timeLeft -= Math.min(timeLeft, 4)
     },
     
-    gotJob(game, action) {
+    gotJob(game, {payload}) {
       const player = getCurrentPlayer({game})
-      player.job = action.payload
+      const job = payload
+
+      player.job = job
       game.ui.bubble = 'Congratulations,\nyou got the job!'
     },
     
