@@ -1,11 +1,11 @@
 import store from './store'
-import slice, { getCurrentPlayer, getLocalProducts, buy } from './slice'
+import { getCurrentPlayer, getLocalProducts, moveTo, buy } from './slice'
 
 test('buy', () => {
   let player = getCurrentPlayer(store.getState())
   const initialCash = player.cash
 
-  store.dispatch(slice.actions.moveTo(5))
+  store.dispatch(moveTo(5))
   
   const localProducts = getLocalProducts(store.getState())
   const product = localProducts[0]

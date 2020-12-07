@@ -27,31 +27,15 @@ const gameSlice = createSlice({
     }
   },
   reducers: {
-    moveTo(state, action) {
-      const {buildings, inside, position, timeLeft} = state
+    movedTo(game, {payload}) {
+      const {destination, timeSpent} = payload
 
-      const destination = action.payload
-      const building = buildings[destination]
-
-      if (building.name === '') return // Can't move to empty lots.
-
-      if (inside) exit(state)
-
-      const distance = getDistance(position, destination, buildings.length)
-      const timeRequired = distance * 0.625 // 10 / 16, source: https://jonesinthefastlane.fandom.com/wiki/Locations
-
-      if (timeLeft < timeRequired) {
-        endTurn(state)
-        return // Can't move with no time left.
-      }
-
-      state.timeLeft -= timeRequired
-      state.position = destination
-
-      state.timeLeft -= Math.min(state.timeLeft, 2)
-      state.inside = true
+      game.timeLeft -= timeSpent
+      game.position = destination
+      game.inside = true
     
-      state.ui.bubble = building.welcome || `Welcome to the ${building.name}!`    
+      const building = getCurrentBuilding({game})
+      game.ui.bubble = building.welcome || `Welcome to the ${building.name}!`    
     },
 
     goToEmployerJobs(state, action) {
@@ -79,11 +63,6 @@ const gameSlice = createSlice({
 
       player.cash -= cost
       player.enrollments++
-    },
-
-    exit(state) {
-      exit(state)
-      if (state.timeLeft === 0) endTurn(state)
     },
 
     back(state) {
@@ -114,6 +93,27 @@ const gameSlice = createSlice({
     
     rejectedForJob({ui}) {
       ui.bubble = "Sorry. You didn't get the job due to:\n\nNot enough education."
+    },
+
+    leftBuilding(game) {
+      game.inside = false
+      game.ui.context = null
+      game.ui.bubble = null    
+    },
+    
+    turnEnded(game) {
+      const {currentPlayer, players} = game
+
+      game.week++
+    
+      const nextPlayer = currentPlayer + 1
+      game.currentPlayer = nextPlayer === players.length ? 0 : nextPlayer
+    
+      game.timeLeft = 60
+      game.position = 2
+      game.inside = false
+    
+      game.economyReading += (rng() < 0.5 ? 1 : -1)
     }
   }
 })
@@ -130,27 +130,6 @@ function getCurrentPrice(basePrice, reading) {
 function getDistance(from, to, length) {
   const internally = Math.abs(from - to)
   return Math.min(length - internally, internally)
-}
-
-function exit(state) {
-  state.inside = false
-  state.ui.context = null
-  state.ui.bubble = null
-}
-
-function endTurn(state) {
-  const {currentPlayer, players} = state
-
-  state.week++
-
-  const nextPlayer = currentPlayer + 1
-  state.currentPlayer = nextPlayer === players.length ? 0 : nextPlayer
-
-  state.timeLeft = 60
-  state.position = 2
-  state.inside = false
-
-  state.economyReading += (rng() < 0.5 ? 1 : -1)
 }
 
 export function getContext({game}) {
@@ -203,6 +182,31 @@ export function getEmployerJobs(state, employer) {
     name: job.name,
     wage: getCurrentPrice(job.wage, economyReading)
   }))
+}
+
+export const moveTo = (destination) => (dispatch, getState) => {
+  const state = getState()
+  const {buildings, inside, position, timeLeft} = state.game
+  const {movedTo, leftBuilding, turnEnded} = gameSlice.actions
+
+  const building = buildings[destination]
+
+  if (building.name === '') return // Can't move to empty lots.
+
+  if (inside) dispatch(leftBuilding())
+
+  const distance = getDistance(position, destination, buildings.length)
+  const timeToMove = distance * 0.625 // 10 / 16, source: https://jonesinthefastlane.fandom.com/wiki/Locations
+
+  if (timeLeft < timeToMove) {
+    dispatch(turnEnded())
+    return
+  }
+
+  const timeToEnter = Math.min(timeLeft, 2)
+  const timeSpent = timeToMove + timeToEnter
+
+  dispatch(movedTo({destination, timeSpent}))
 }
 
 export const applyForJob = (jobName) => (dispatch, getState) => {
@@ -265,6 +269,19 @@ export const work = () => (dispatch, getState) => {
   const earnings = player.job.wage * timeSpent * 1.3333333333333333
 
   dispatch(worked({earnings, timeSpent}))
+}
+
+export const leaveBuilding = () => (dispatch, getState) => {
+  const {game} = getState()
+  const {leftBuilding, turnEnded} = gameSlice.actions
+  
+  dispatch(leftBuilding())
+  if (game.timeLeft === 0) dispatch(turnEnded())
+}
+
+export const endTurn = () => (dispatch) => {
+  const {turnEnded} = game.actions
+  dispatch(turnEnded())
 }
 
 export default gameSlice
