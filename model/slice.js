@@ -168,7 +168,7 @@ export const moveTo = (destination) => (dispatch, getState) => {
     return
   }
 
-  const timeToEnter = Math.min(timeLeft, 2)
+  const timeToEnter = Math.min(timeLeft - timeToMove, 2)
   const timeSpent = timeToMove + timeToEnter
 
   dispatch(movedTo({destination, building, timeSpent}))
