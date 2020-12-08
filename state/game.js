@@ -1,7 +1,7 @@
 import { createSlice, createAction } from '@reduxjs/toolkit'
 import seedrandom from 'seedrandom'
-import buildings from './buildings'
-import jobs from './jobs'
+
+import { jobs, buildings } from './data.yaml'
 
 const dev = process.env.NODE_ENV === 'development'
 
