@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAction } from '@reduxjs/toolkit'
 import seedrandom from 'seedrandom'
 import buildings from './buildings'
 import jobs from './jobs'
@@ -20,11 +20,7 @@ const gameSlice = createSlice({
     timeLeft: 60,
     position: 2,
     inside: false,
-    economyReading: 3,
-    ui: {
-      context: null,
-      bubble: null
-    }
+    economyReading: 3
   },
   reducers: {
     movedTo(game, {payload}) {
@@ -32,14 +28,7 @@ const gameSlice = createSlice({
 
       game.timeLeft -= timeSpent
       game.position = destination
-      game.inside = true
-    
-      const building = getCurrentBuilding({game})
-      game.ui.bubble = building.welcome || `Welcome to the ${building.name}!`    
-    },
-
-    selectedContext(game, {payload}) {
-      game.ui.context = payload
+      game.inside = true    
     },
     
     worked(game, {payload}) {
@@ -64,21 +53,6 @@ const gameSlice = createSlice({
       player.cash -= cost
       player.enrollments++
     },
-
-    wentBack(game) {
-      const context = getContext({game})
-      if (context.name === 'employerJobs') {
-        game.ui.context = null
-      }
-    },
-
-    notEnoughTime({ui}) {
-      ui.bubble = "No time left."
-    },
-
-    notEnoughCash({ui}) {
-      ui.bubble = "You do not have enough cash."
-    },
     
     appliedForJob(game) {
       const {timeLeft} = game
@@ -90,17 +64,10 @@ const gameSlice = createSlice({
       const job = payload
 
       player.job = job
-      game.ui.bubble = 'Congratulations,\nyou got the job!'
     },
     
-    rejectedForJob({ui}) {
-      ui.bubble = "Sorry. You didn't get the job due to:\n\nNot enough education."
-    },
-
     leftBuilding(game) {
       game.inside = false
-      game.ui.context = null
-      game.ui.bubble = null    
     },
     
     turnEnded(game) {
@@ -132,10 +99,6 @@ function getCurrentPrice(basePrice, reading) {
 function getDistance(from, to, length) {
   const internally = Math.abs(from - to)
   return Math.min(length - internally, internally)
-}
-
-export function getContext({game}) {
-  return game.ui.context || (game.inside ? {name: 'buildingMain'} : {name: 'board'})
 }
 
 export function getCurrentPlayer({game}) {
@@ -208,23 +171,13 @@ export const moveTo = (destination) => (dispatch, getState) => {
   const timeToEnter = Math.min(timeLeft, 2)
   const timeSpent = timeToMove + timeToEnter
 
-  dispatch(movedTo({destination, timeSpent}))
-}
-
-export const selectContext = (context) => (dispatch, getState) => {
-  const {selectedContext} = gameSlice.actions
-  dispatch(selectedContext(context))
-}
-
-export const goBack = () => (dispatch) => {
-  const {wentBack} = gameSlice.actions
-  dispatch(wentBack())
+  dispatch(movedTo({destination, building, timeSpent}))
 }
 
 export const applyForJob = (jobName) => (dispatch, getState) => {
-  const state = getState()
-  const {jobs, timeLeft, economyReading, ui} = state.game
-  const {notEnoughTime, appliedForJob, gotJob, rejectedForJob} = gameSlice.actions
+  const {game, ui} = getState()
+  const {jobs, timeLeft, economyReading} = game
+  const {appliedForJob, gotJob} = gameSlice.actions
 
   const {employer} = ui.context
   const jobDefinition = jobs[employer].find(j => j.name === jobName)
@@ -245,7 +198,7 @@ export const enroll = () => (dispatch, getState) => {
   const {economyReading} = state.game
   const player = getCurrentPlayer(state)
   const building = getCurrentBuilding(state)
-  const {notEnoughCash, enrolled} = gameSlice.actions
+  const {enrolled} = gameSlice.actions
 
   const cost = getCurrentPrice(building.enrollment, economyReading)
 
@@ -255,7 +208,7 @@ export const enroll = () => (dispatch, getState) => {
 export const buy = (productName) => (dispatch, getState) => {
   const state = getState()
   const {economyReading} = state.game
-  const {notEnoughCash, boughtProduct} = gameSlice.actions
+  const {boughtProduct} = gameSlice.actions
 
   const player = getCurrentPlayer(state)
   const building = getCurrentBuilding(state)
@@ -270,7 +223,7 @@ export const work = () => (dispatch, getState) => {
   const state = getState()
   const {timeLeft} = state.game
   const player = getCurrentPlayer(state)
-  const {notEnoughTime, worked} = gameSlice.actions
+  const {worked} = gameSlice.actions
 
   if (timeLeft === 0) {
     dispatch(notEnoughTime())
@@ -295,5 +248,9 @@ export const endTurn = () => (dispatch) => {
   const {turnEnded} = game.actions
   dispatch(turnEnded())
 }
+
+export const notEnoughTime = createAction('game/notEnoughTime')
+export const notEnoughCash = createAction('game/notEnoughCash')
+export const rejectedForJob = createAction('game/rejectedForJob')
 
 export default gameSlice

@@ -1,14 +1,13 @@
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import {
-  getContext,
   canEnrollHere,
   canWorkHere,
-  goBack,
   enroll,
   work,
   leaveBuilding
 } from '../model/slice'
+import { getContext, goBack } from '../model/ui'
 
 export default function ActionButtons() {
   const dispatch = useDispatch()

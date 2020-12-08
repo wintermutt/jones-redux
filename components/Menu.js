@@ -1,15 +1,15 @@
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import gameSlice, {
+import {
   getCurrentBuilding,
-  getContext,
   getLocalProducts,
   getEmployers,
   getEmployerJobs,
-  selectContext,
   buy,
   applyForJob
 } from '../model/slice'
+
+import { getContext, selectContext } from '../model/ui'
 
 export default function Menu() {
   const dispatch = useDispatch()
