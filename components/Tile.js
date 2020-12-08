@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { moveTo } from '../model/slice'
+import { moveTo } from '../model/game'
 import getPosition from '../helpers/getPosition'
 
 export default function Tile({position, width, height}) {

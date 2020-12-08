@@ -7,7 +7,7 @@ import {
   getEmployerJobs,
   buy,
   applyForJob
-} from '../model/slice'
+} from '../model/game'
 
 import { getContext, selectContext } from '../model/ui'
 

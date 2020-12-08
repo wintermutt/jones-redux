@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { getCurrentBuilding } from '../model/slice'
+import { getCurrentBuilding } from '../model/game'
 import SpeechBubble from './SpeechBubble'
 import Portrait from './Portrait'
 import Menu from './Menu'

@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { getCurrentPlayer } from '../model/slice'
+import { getCurrentPlayer } from '../model/game'
 
 export default function Stats() {
   const {week} = useSelector(state => state.game)

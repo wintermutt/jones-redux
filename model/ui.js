@@ -3,7 +3,7 @@ import gameSlice, {
   notEnoughTime,
   notEnoughCash,
   rejectedForJob,
-} from './slice'
+} from './game'
 
 const {movedTo, gotJob, leftBuilding} = gameSlice.actions
 

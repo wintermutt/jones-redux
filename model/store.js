@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import gameSlice from './slice'
+import gameSlice from './game'
 import uiSlice from './ui'
 
 export default configureStore({

@@ -6,7 +6,7 @@ import {
   enroll,
   work,
   leaveBuilding
-} from '../model/slice'
+} from '../model/game'
 import { getContext, goBack } from '../model/ui'
 
 export default function ActionButtons() {

@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { getBubbleText } from '../model/ui.js'
+import { getBubbleText } from '../model/ui'
 
 export default function SpeechBubble() {
   const text = useSelector(getBubbleText)
