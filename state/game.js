@@ -253,4 +253,6 @@ export const notEnoughTime = createAction('game/notEnoughTime')
 export const notEnoughCash = createAction('game/notEnoughCash')
 export const rejectedForJob = createAction('game/rejectedForJob')
 
-export default gameSlice
+export const { movedTo, gotJob, leftBuilding } = gameSlice.actions
+
+export default gameSlice.reducer

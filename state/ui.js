@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
-import gameSlice, {
+import {
   notEnoughTime,
   notEnoughCash,
   rejectedForJob,
+  movedTo,
+  gotJob,
+  leftBuilding
 } from './game'
-
-const {movedTo, gotJob, leftBuilding} = gameSlice.actions
 
 const uiSlice = createSlice({
   name: 'ui',
@@ -73,4 +74,4 @@ export const goBack = () => (dispatch) => {
   dispatch(wentBack())
 }
 
-export default uiSlice
+export default uiSlice.reducer
