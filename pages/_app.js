@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { Provider } from 'react-redux'
-import store from '../model/store'
+import store from '../state/store'
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {

@@ -7,9 +7,9 @@ import {
   getEmployerJobs,
   buy,
   applyForJob
-} from '../model/game'
+} from '../state/game'
 
-import { getContext, selectContext } from '../model/ui'
+import { getContext, selectContext } from '../state/ui'
 
 export default function Menu() {
   const dispatch = useDispatch()

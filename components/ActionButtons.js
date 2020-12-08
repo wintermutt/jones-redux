@@ -6,8 +6,8 @@ import {
   enroll,
   work,
   leaveBuilding
-} from '../model/game'
-import { getContext, goBack } from '../model/ui'
+} from '../state/game'
+import { getContext, goBack } from '../state/ui'
 
 export default function ActionButtons() {
   const dispatch = useDispatch()

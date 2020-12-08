@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { getCurrentBuilding } from '../model/game'
+import { getCurrentBuilding } from '../state/game'
 
 export default function Portrait() {
   let {portrait} = useSelector(state => getCurrentBuilding(state))
