@@ -1,4 +1,4 @@
-import { jobs } from './data.yaml'
+import { jobs } from './static.yaml'
 import { random } from './common'
 import { getCurrentPrice } from './economy'
 import {

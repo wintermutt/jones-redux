@@ -10,7 +10,7 @@ import {
   turnEnded
 } from './actions'
 
-import { buildings } from './data.yaml'
+import { buildings } from './static.yaml'
 
 const gameSlice = createSlice({
   name: 'game',
