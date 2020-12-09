@@ -4,10 +4,7 @@ import seedrandom from 'seedrandom'
 import { jobs, buildings } from './data.yaml'
 
 const dev = process.env.NODE_ENV === 'development'
-
-const {rng, seed} = seedrandom(dev ? 'devseed347378' : null, {
-  pass: (rng, seed) => ({rng, seed})
-})
+const rng = seedrandom(dev ? 'devseed347378' : null)
 
 const gameSlice = createSlice({
   name: 'game',
