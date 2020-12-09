@@ -1,5 +1,5 @@
 import { buildings } from './static.yaml'
-import { getCurrentPlayer } from './game'
+import { getCurrentPlayer } from './players'
 import { getCurrentPrice } from './economy'
 
 export function getNumberOfBuildings() {
@@ -14,8 +14,9 @@ export function getBuildingAt(position) {
   return buildings[position]
 }
 
-export function getCurrentBuilding({game}) {
-  return getBuildingAt(game.position)
+export function getCurrentBuilding(state) {
+  const {position} = getCurrentPlayer(state)
+  return getBuildingAt(position)
 }
 
 export function getDistance(from, to) {

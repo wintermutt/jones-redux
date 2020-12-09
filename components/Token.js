@@ -1,8 +1,9 @@
 import getPositionCSS from '../helpers/getPositionCSS'
 import { useSelector } from 'react-redux'
+import { getCurrentPlayerPosition } from '../state/players'
 
 export default function Token({width, height}) {
-  const {position} = useSelector(state => state.game)
+  const position = useSelector(getCurrentPlayerPosition)
   const {top, left, bottom, right} = getPositionCSS(width, height, position)
 
   return (

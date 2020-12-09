@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { enroll, work, leaveBuilding } from '../state/game'
+import { enroll, work, leaveBuilding } from '../state/players'
 import { canEnrollHere, canWorkHere } from '../state/buildings'
 import { getContext, goBack } from '../state/ui'
 

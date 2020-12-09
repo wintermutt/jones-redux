@@ -1,20 +1,21 @@
 import { useSelector } from 'react-redux'
-import { getCurrentPlayer } from '../state/game'
+import { getCurrentPlayerNumber, getCurrentPlayer } from '../state/players'
 
 export default function Stats() {
-  const {week} = useSelector(state => state.game)
-  const {timeLeft} = useSelector(state => state.game)
-  const {currentPlayer} = useSelector(state => state.game)
-
-  const {cash} = useSelector(getCurrentPlayer)
-  const {enrollments} = useSelector(getCurrentPlayer)
-  const {job} = useSelector(getCurrentPlayer)
+  const number = useSelector(getCurrentPlayerNumber)
+  const {
+    week,
+    timeLeft,
+    job,
+    cash,
+    enrollments
+  } = useSelector(getCurrentPlayer)
 
   return (
     <>
       <div className="stats">
         <div>Week # {week}, {timeLeft} hours left</div>
-        <div>Player {currentPlayer + 1}: {job ? `${job.name} at ${job.employer}` : 'Unemployed'}</div>
+        <div>Player {number}: {job ? `${job.name} at ${job.employer}` : 'Unemployed'}</div>
         {job &&
           <div>Hourly Wage: ${job.wage}</div>
         }

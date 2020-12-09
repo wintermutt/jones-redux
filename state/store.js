@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import game from './game'
 import ui from './ui'
+import players from './players'
 import economy from './economy'
 
 export default configureStore({
-  reducer: {game, ui, economy},
+  reducer: {ui, players, economy},
   devTools: true,
 })

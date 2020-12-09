@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { moveTo } from '../state/game'
+import { moveTo } from '../state/players'
 import { getBuildingAt } from '../state/buildings'
 import getPositionCSS from '../helpers/getPositionCSS'
 

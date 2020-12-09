@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux'
+import { isCurrentPlayerInside } from '../state/players'
 import { getCurrentBuilding } from '../state/buildings'
 import SpeechBubble from './SpeechBubble'
 import Portrait from './Portrait'
@@ -6,7 +7,7 @@ import Menu from './Menu'
 import ActionButtons from './ActionButtons'
 
 export default function Window() {
-  const {inside} = useSelector(state => state.game)
+  const inside = useSelector(isCurrentPlayerInside)
   const building = useSelector(getCurrentBuilding)
 
   if (!inside) return null

@@ -1,7 +1,8 @@
 import { useSelector } from 'react-redux'
+import { getCurrentPlayerNumber } from '../state/players'
 
 export default function BoardMiddle({spaceWidth, spaceHeight}) {
-  const {currentPlayer} = useSelector(state => state.game)
+  const number = useSelector(getCurrentPlayerNumber)
 
   return (
     <>
@@ -15,7 +16,7 @@ export default function BoardMiddle({spaceWidth, spaceHeight}) {
           right: ${spaceWidth}vw;
           bottom: ${spaceHeight}vh;
           background-color: rgb(200, 239, 253);
-          background-image: url(/players/player${currentPlayer + 1}.png);
+          background-image: url(/players/player${number}.png);
           background-position: center;
           background-size: contain;
           background-repeat: no-repeat;

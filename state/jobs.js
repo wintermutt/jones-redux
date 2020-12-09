@@ -1,5 +1,6 @@
 import { buildings } from './static.yaml'
 import { random } from './common'
+import { getCurrentPlayer } from './players'
 import { getCurrentPrice } from './economy'
 import {
   notEnoughTime,
@@ -27,18 +28,19 @@ export function getEmployerJobs({economy}, employer) {
 }
 
 export const applyForJob = (jobName) => (dispatch, getState) => {
-  const {game, ui, economy} = getState()
+  const state = getState()
+  const {timeLeft} = getCurrentPlayer(state)
 
-  const {employer} = ui.context
+  const {employer} = state.ui.context
   const building = buildings.find(b => b.name === employer) 
 
   const jobDefinition = building.jobs.find(j => j.name === jobName)
-  const wage = getCurrentPrice({economy}, jobDefinition.wage)
+  const wage = getCurrentPrice(state, jobDefinition.wage)
   const job = {name: jobName, employer, wage}
 
   // Requires at least 1 hour left:
   // https://jonesinthefastlane.fandom.com/wiki/Employment_Office#Opening_Hours
-  if (game.timeLeft < 1) {
+  if (timeLeft < 1) {
     dispatch(notEnoughTime())
     return
   }

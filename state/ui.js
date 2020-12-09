@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { isCurrentPlayerInside } from './players'
 import {
   movedTo,
   leftBuilding,
@@ -56,8 +57,9 @@ const uiSlice = createSlice({
   }
 })
 
-export function getContext({game, ui}) {
-  return ui.context || (game.inside ? {name: 'buildingMain'} : {name: 'board'})
+export function getContext(state) {
+  const inside = isCurrentPlayerInside(state)
+  return state.ui.context || (inside ? {name: 'buildingMain'} : {name: 'board'})
 }
 
 export function getBubbleText({ui}) {

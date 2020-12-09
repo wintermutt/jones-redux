@@ -1,5 +1,5 @@
 import store from './store'
-import { getCurrentPlayer, moveTo, buy } from './game'
+import { getCurrentPlayer, moveTo, buy } from './players'
 import { getLocalProducts } from './buildings'
 
 test('buy', () => {

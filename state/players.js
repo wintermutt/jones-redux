@@ -12,34 +12,30 @@ import {
   turnEnded
 } from './actions'
 
-const gameSlice = createSlice({
-  name: 'game',
+const playersSlice = createSlice({
+  name: 'players',
   initialState: {
-    players: Array(2).fill(null).map(i => getNewPlayer()),
-    currentPlayer: 0,
-    week: 1,
-    timeLeft: 60,
-    position: 2,
-    inside: false
+    all: Array(2).fill(null).map(i => getNewPlayer()),
+    current: 0
   },
   reducers: {
-    worked(game, {payload}) {
+    worked(players, {payload}) {
       const {earnings, timeSpent} = payload
-      const player = getCurrentPlayer({game})
+      const player = getCurrent(players)
       
       player.cash += earnings
-      game.timeLeft -= timeSpent
+      player.timeLeft -= timeSpent
     },
 
-    boughtProduct(game, {payload}) {
+    boughtProduct(players, {payload}) {
       const product = payload
-      const player = getCurrentPlayer({game})
+      const player = getCurrent(players)
       
       player.cash -= product.price
     },
 
-    enrolled(game, {payload}) {
-      const player = getCurrentPlayer({game})
+    enrolled(players, {payload}) {
+      const player = getCurrent(players)
       const cost = payload
 
       player.cash -= cost
@@ -47,57 +43,87 @@ const gameSlice = createSlice({
     }    
   },
   extraReducers: {    
-    [movedTo](game, {payload}) {
+    [movedTo](players, {payload}) {
       const {destination, timeSpent} = payload
+      const player = getCurrent(players)
 
-      game.timeLeft -= timeSpent
-      game.position = destination
-      game.inside = true    
+      player.timeLeft -= timeSpent
+      player.position = destination
+      player.inside = true    
     },
 
-    [leftBuilding](game) {
-      game.inside = false
+    [leftBuilding](players) {
+      const player = getCurrent(players)
+
+      player.inside = false
     },    
 
-    [appliedForJob](game) {
-      const {timeLeft} = game
-      game.timeLeft -= Math.min(timeLeft, timeCosts.jobApplication)
+    [appliedForJob](players) {
+      const player = getCurrent(players)
+      const {timeLeft} = player
+      
+      player.timeLeft -= Math.min(timeLeft, timeCosts.jobApplication)
     },
 
-    [gotJob](game, {payload}) {
-      const player = getCurrentPlayer({game})
+    [gotJob](players, {payload}) {
       const job = payload
+      const player = getCurrent(players)
 
       player.job = job
     },
 
-    [turnEnded](game) {
-      const {currentPlayer, players} = game
+    [turnEnded](players) {
+      const {current, all} = players
+    
+      const nextPlayer = current + 1
+      players.current = nextPlayer === all.length ? 0 : nextPlayer
 
-      game.week++
-    
-      const nextPlayer = currentPlayer + 1
-      game.currentPlayer = nextPlayer === players.length ? 0 : nextPlayer
-    
-      game.timeLeft = 60
-      game.position = 2
-      game.inside = false    
+      const player = getCurrent(players)
+
+      player.week++
+      player.timeLeft = 60
+      player.position = 2
+      player.inside = false
     }
   }
 })
 
 function getNewPlayer() {
-  return {cash: 200, job: null, enrollments: 0}
+  return {
+    week: 1,
+    timeLeft: 60,
+    position: 2,
+    inside: false,
+    cash: 200,
+    job: null,
+    enrollments: 0
+  }
 }
 
-export function getCurrentPlayer({game}) {
-  const {players, currentPlayer} = game
-  return players[currentPlayer]
+function getCurrent({all, current}) {
+  return all[current]
+}
+
+export function getCurrentPlayer({players}) {
+  return getCurrent(players)
+}
+
+export function getCurrentPlayerNumber({players}) {
+  return players.current + 1
+}
+
+export function getCurrentPlayerPosition(state) {
+  return getCurrentPlayer(state).position
+}
+
+export function isCurrentPlayerInside(state) {
+  return getCurrentPlayer(state).inside
 }
 
 export const moveTo = (destination) => (dispatch, getState) => {
   const state = getState()
-  const {inside, position, timeLeft} = state.game
+  const player = getCurrentPlayer(state)
+  const {inside, position, timeLeft} = player
 
   if (isEmptyLot(position)) return
   
@@ -123,7 +149,7 @@ export const enroll = () => (dispatch, getState) => {
   const state = getState()
   const player = getCurrentPlayer(state)
   const building = getCurrentBuilding(state)
-  const {enrolled} = gameSlice.actions
+  const {enrolled} = playersSlice.actions
 
   const cost = getCurrentPrice(state, building.enrollment)
 
@@ -132,10 +158,10 @@ export const enroll = () => (dispatch, getState) => {
 
 export const buy = (productName) => (dispatch, getState) => {
   const state = getState()
-  const {boughtProduct} = gameSlice.actions
-
   const player = getCurrentPlayer(state)
   const building = getCurrentBuilding(state)
+  const {boughtProduct} = playersSlice.actions
+
   const productDefinition = building.products.find(p => p.name === productName)
   const price = getCurrentPrice(state, productDefinition.price)
   const product = {...productDefinition, name: productName, price}
@@ -145,9 +171,9 @@ export const buy = (productName) => (dispatch, getState) => {
 
 export const work = () => (dispatch, getState) => {
   const state = getState()
-  const {timeLeft} = state.game
   const player = getCurrentPlayer(state)
-  const {worked} = gameSlice.actions
+  const {timeLeft} = player
+  const {worked} = playersSlice.actions
 
   if (timeLeft === 0) {
     dispatch(notEnoughTime())
@@ -161,14 +187,15 @@ export const work = () => (dispatch, getState) => {
 }
 
 export const leaveBuilding = () => (dispatch, getState) => {
-  const {game} = getState()
+  const state = getState()
+  const player = getCurrentPlayer(state)
   
   dispatch(leftBuilding())
-  if (game.timeLeft === 0) dispatch(turnEnded())
+  if (player.timeLeft === 0) dispatch(turnEnded())
 }
 
 export const endTurn = () => (dispatch) => {
   dispatch(turnEnded())
 }
 
-export default gameSlice.reducer
+export default playersSlice.reducer
