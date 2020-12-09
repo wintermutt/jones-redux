@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { getCurrentBuilding } from '../state/game'
+import { getCurrentBuilding } from '../state/buildings'
 import SpeechBubble from './SpeechBubble'
 import Portrait from './Portrait'
 import Menu from './Menu'

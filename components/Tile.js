@@ -1,11 +1,12 @@
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { moveTo } from '../state/game'
+import { getBuildingAt } from '../state/buildings'
 import getPosition from '../helpers/getPosition'
 
 export default function Tile({position, width, height}) {
   const dispatch = useDispatch()
 
-  const building = useSelector(state => state.game.buildings[position])
+  const building = getBuildingAt(position)
   const {top, left, bottom, right} = getPosition(width, height, position)
 
   return (

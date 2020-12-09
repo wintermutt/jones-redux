@@ -1,11 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
-import {
-  canEnrollHere,
-  canWorkHere,
-  enroll,
-  work,
-  leaveBuilding
-} from '../state/game'
+import { enroll, work, leaveBuilding } from '../state/game'
+import { canEnrollHere, canWorkHere } from '../state/buildings'
 import { getContext, goBack } from '../state/ui'
 
 export default function ActionButtons() {

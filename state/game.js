@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getCurrentPrice } from './economy'
+import { getBuildingAt, getCurrentBuilding, getDistance, isEmptyLot } from './buildings'
 import {
   movedTo,
   leftBuilding,
@@ -10,12 +11,9 @@ import {
   turnEnded
 } from './actions'
 
-import { buildings } from './static.yaml'
-
 const gameSlice = createSlice({
   name: 'game',
   initialState: {
-    buildings,
     players: Array(2).fill(null).map(i => getNewPlayer()),
     currentPlayer: 0,
     week: 1,
@@ -91,54 +89,22 @@ function getNewPlayer() {
   return {cash: 200, job: null, enrollments: 0}
 }
 
-function getDistance(from, to, length) {
-  const internally = Math.abs(from - to)
-  return Math.min(length - internally, internally)
-}
-
 export function getCurrentPlayer({game}) {
   const {players, currentPlayer} = game
   return players[currentPlayer]
 }
 
-export function getCurrentBuilding({game}) {
-  const {buildings, position} = game
-  return buildings[position]
-}
-
-export function canEnrollHere(state) {
-  const building = getCurrentBuilding(state)
-  return building.enrollment !== undefined
-}
-
-export function canWorkHere(state) {
-  const player = getCurrentPlayer(state)
-  const building = getCurrentBuilding(state)
-  return player.job && player.job.employer === building.name
-}
-
-export function getLocalProducts(state) {
-  const building = getCurrentBuilding(state)
-
-  if (building.products === undefined) return null
-  
-  return building.products.map(p => ({
-    name: p.name,
-    price: getCurrentPrice(state, p.price)
-  }))
-}
-
 export const moveTo = (destination) => (dispatch, getState) => {
   const state = getState()
-  const {buildings, inside, position, timeLeft} = state.game
+  const {inside, position, timeLeft} = state.game
 
-  const building = buildings[destination]
-
-  if (building.name === '') return // Can't move to empty lots.
+  if (isEmptyLot(position)) return
+  
+  const building = getBuildingAt(destination)
 
   if (inside) dispatch(leftBuilding())
 
-  const distance = getDistance(position, destination, buildings.length)
+  const distance = getDistance(position, destination)
   const timeToMove = distance * 0.625 // 10 / 16, source: https://jonesinthefastlane.fandom.com/wiki/Locations
 
   if (timeLeft < timeToMove) {

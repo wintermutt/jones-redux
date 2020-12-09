@@ -1,18 +1,21 @@
-import { useSelector } from 'react-redux'
+import { getNumberOfBuildings } from '../state/buildings'
 import Tile from '../components/Tile'
 import Window from '../components/Window'
 import Token from '../components/Token'
 import BoardMiddle from '../components/BoardMiddle'
 
+const tiles = Array(getNumberOfBuildings())
+  .fill(null)
+  .map((_, i) => i)
+
 export default function Board({spaceWidth, spaceHeight}) {
-  const {buildings} = useSelector(state => state.game)
 
   return (
     <>
       <div className="board">
         <BoardMiddle spaceWidth={spaceWidth} spaceHeight={spaceHeight}/>
 
-        {buildings.map((b, i) =>
+        {tiles.map(i =>
           <Tile position={i} key={i} width={spaceWidth} height={spaceHeight}/>
         )}
 

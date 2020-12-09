@@ -1,5 +1,6 @@
 import store from './store'
-import { getCurrentPlayer, getLocalProducts, moveTo, buy } from './game'
+import { getCurrentPlayer, moveTo, buy } from './game'
+import { getLocalProducts } from './buildings'
 
 test('buy', () => {
   let player = getCurrentPlayer(store.getState())

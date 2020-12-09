@@ -1,11 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux'
-import {
-  getCurrentBuilding,
-  getLocalProducts,
-  buy
-} from '../state/game'
+import { getCurrentBuilding, getLocalProducts } from '../state/buildings'
 import { getEmployers, getEmployerJobs, applyForJob } from '../state/jobs'
 import { getContext, changeContext } from '../state/ui'
+import { buy } from '../state/game'
 
 export default function Menu() {
   const dispatch = useDispatch()
