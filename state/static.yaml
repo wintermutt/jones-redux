@@ -1,53 +1,5 @@
 # https://jonesinthefastlane.fandom.com/wiki/Economy#Item_Prices
 
-jobs:
-  Discount Store:
-    - {name: Clerk, wage: 5}
-    - {name: Assistant Manager, wage: 7}
-    - {name: Manager, wage: 8}
-  Mr. Ronald's:
-    - {name: Cook, wage: 5}
-    - {name: Clerk, wage: 6}
-    - {name: Assistant Manager, wage: 7}
-    - {name: Manager, wage: 8}
-  Clothing Store:
-    - {name: Salesperson, wage: 8}
-    - {name: Assistant Manager, wage: 9}
-    - {name: Manager, wage: 12}
-  Appliance Store:
-    - {name: Salesperson, wage: 7}
-    - {name: Electronics Repair, wage: 11}
-    - {name: Manager, wage: 14}
-  University:
-    - {name: Janitor, wage: 5}
-    - {name: Teacher, wage: 11}
-    - {name: Professor, wage: 20}
-  Vandelay Industries:
-    - {name: Janitor, wage: 7}
-    - {name: Assembly Worker, wage: 8}
-    - {name: Secretary, wage: 9}
-    - {name: Machinist's Helper, wage: 10}
-    - {name: Executive Secretary, wage: 18}
-    - {name: Machinist, wage: 19}
-    - {name: Department Manager, wage: 22}
-    - {name: Engineer, wage: 23}
-    - {name: General Manager, wage: 25}
-  Bank:
-    - {name: Janitor, wage: 6}
-    - {name: Teller, wage: 10}
-    - {name: Assistant Manager, wage: 14}
-    - {name: Manager, wage: 19}
-    - {name: Investment Broker, wage: 22}
-  Grocery Store:
-    - {name: Janitor, wage: 6}
-    - {name: Checker, wage: 8}
-    - {name: Butcher, wage: 12}
-    - {name: Assistant Manager, wage: 15}
-    - {name: Manager, wage: 18}
-  Rent Office:
-    - {name: Groundskeeper, wage: 7}
-    - {name: Apartment Manager, wage: 9}
-
 buildings:
   - name: Luxury Condo
     background: "#917859"
@@ -58,6 +10,9 @@ buildings:
     internalBackground: "#a1e2a1"
     # Rent Low-Cost Apartment: 325
     # Rent Security Apartment: 475
+    jobs:
+      - {name: Groundskeeper, wage: 7}
+      - {name: Apartment Manager, wage: 9}
   
   - name: Low-Cost Housing
     background: "#8282c9"
@@ -70,6 +25,10 @@ buildings:
   - name: Discount Store
     background: "#689148"
     internalBackground: "#82d2b8"
+    jobs:
+      - {name: Clerk, wage: 5}
+      - {name: Assistant Manager, wage: 7}
+      - {name: Manager, wage: 8}
     products:
       - {name: Refrigerator, price: 650}
       - {name: Stove, price: 490}
@@ -95,6 +54,11 @@ buildings:
     portrait: mr-ronalds.jpg
     welcome: "Welcome to Mr. Ronald's. Not affiliated with McDowell's: they have the
       Big Mick, we have the Big Max!"
+    jobs:
+      - {name: Cook, wage: 5}
+      - {name: Clerk, wage: 6}
+      - {name: Assistant Manager, wage: 7}
+      - {name: Manager, wage: 8}
     products:
       - {name: Hamburger, price: 79}
       - {name: Cheeseburger, price: 89}
@@ -106,6 +70,10 @@ buildings:
   - name: Clothing Store
     background: "#d19159"
     internalBackground: "#99bbe1"
+    jobs:
+      - {name: Salesperson, wage: 8}
+      - {name: Assistant Manager, wage: 9}
+      - {name: Manager, wage: 12}
     products:
       - {name: Business Suit, price: 295}
       - {name: Dress Clothes, price: 125}
@@ -117,6 +85,10 @@ buildings:
   - name: Appliance Store
     background: "#5991e2"
     internalBackground: "#bad3fa"
+    jobs:
+      - {name: Salesperson, wage: 7}
+      - {name: Electronics Repair, wage: 11}
+      - {name: Manager, wage: 14}
     products:
       - {name: Refrigerator, price: 876}
       - {name: Freezer, price: 513}
@@ -132,6 +104,10 @@ buildings:
     background: "#e28141"
     internalBackground: "#cbe2fa"
     enrollment: 50
+    jobs:
+      - {name: Janitor, wage: 5}
+      - {name: Teacher, wage: 11}
+      - {name: Professor, wage: 20}
   
   - name: ""
     background: "#499859"
@@ -148,10 +124,26 @@ buildings:
     internalBackground: "#1f7860"
     welcome: Welcome to Vandelay Industries, the world's largest manufacturer of
       latex and latex-related goods.
+    jobs:
+      - {name: Janitor, wage: 7}
+      - {name: Assembly Worker, wage: 8}
+      - {name: Secretary, wage: 9}
+      - {name: Machinist's Helper, wage: 10}
+      - {name: Executive Secretary, wage: 18}
+      - {name: Machinist, wage: 19}
+      - {name: Department Manager, wage: 22}
+      - {name: Engineer, wage: 23}
+      - {name: General Manager, wage: 25}
   
   - name: Bank
     background: "#49a849"
     internalBackground: "#9aaab0"
+    jobs:
+      - {name: Janitor, wage: 6}
+      - {name: Teller, wage: 10}
+      - {name: Assistant Manager, wage: 14}
+      - {name: Manager, wage: 19}
+      - {name: Investment Broker, wage: 22}
     # Stocks (https://jonesinthefastlane.fandom.com/wiki/Stock_Market):
     # Gold: 206-1032
     # Silver: 7-35
@@ -162,6 +154,12 @@ buildings:
   - name: Grocery Store
     background: "#e27182"
     internalBackground: "#dacbe1"
+    jobs:
+      - {name: Janitor, wage: 6}
+      - {name: Checker, wage: 8}
+      - {name: Butcher, wage: 12}
+      - {name: Assistant Manager, wage: 15}
+      - {name: Manager, wage: 18}
     products:
       - {name: Food for 1 Week, price: 55}
       - {name: Food for 2 Weeks, price: 100}
