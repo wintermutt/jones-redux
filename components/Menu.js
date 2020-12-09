@@ -9,7 +9,7 @@ import {
   applyForJob
 } from '../state/game'
 
-import { getContext, selectContext } from '../state/ui'
+import { getContext, changeContext } from '../state/ui'
 
 export default function Menu() {
   const dispatch = useDispatch()
@@ -33,7 +33,7 @@ export default function Menu() {
   if (context.name === 'buildingMain' && building.name === 'Employment Office') {
     items = employers.map(employer => ({
       label: employer,
-      handleClick: () => dispatch(selectContext({name: 'employerJobs', employer}))
+      handleClick: () => dispatch(changeContext({name: 'employerJobs', employer}))
     }))
   }
   

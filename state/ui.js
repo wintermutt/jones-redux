@@ -15,7 +15,7 @@ const uiSlice = createSlice({
     bubble: null
   },
   reducers: {
-    contextSelected(ui, {payload}) {
+    contextChanged(ui, {payload}) {
       ui.context = payload
     },
 
@@ -64,9 +64,9 @@ export function getBubbleText({ui}) {
   return ui.bubble
 }
 
-export const selectContext = (context) => (dispatch) => {
-  const {contextSelected} = uiSlice.actions
-  dispatch(contextSelected(context))
+export const changeContext = (context) => (dispatch) => {
+  const {contextChanged} = uiSlice.actions
+  dispatch(contextChanged(context))
 }
 
 export const goBack = () => (dispatch) => {
