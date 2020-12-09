@@ -1,4 +1,4 @@
-export default function getPosition(width, height, i) {
+export default function getPositionCSS(width, height, i) {
   let [top, left, bottom, right] = Array(4).fill('unset')
 
   if (i < 4) {
