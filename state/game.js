@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { timeCosts } from './static.yaml'
 import { getCurrentPrice } from './economy'
 import { getBuildingAt, getCurrentBuilding, getDistance, isEmptyLot } from './buildings'
 import {
@@ -60,7 +61,7 @@ const gameSlice = createSlice({
 
     [appliedForJob](game) {
       const {timeLeft} = game
-      game.timeLeft -= Math.min(timeLeft, 4)
+      game.timeLeft -= Math.min(timeLeft, timeCosts.jobApplication)
     },
 
     [gotJob](game, {payload}) {
@@ -105,14 +106,14 @@ export const moveTo = (destination) => (dispatch, getState) => {
   if (inside) dispatch(leftBuilding())
 
   const distance = getDistance(position, destination)
-  const timeToMove = distance * 0.625 // 10 / 16, source: https://jonesinthefastlane.fandom.com/wiki/Locations
+  const timeToMove = distance * timeCosts.movement
 
   if (timeLeft < timeToMove) {
     dispatch(turnEnded())
     return
   }
 
-  const timeToEnter = Math.min(timeLeft - timeToMove, 2)
+  const timeToEnter = Math.min(timeLeft - timeToMove, timeCosts.enteringBuilding)
   const timeSpent = timeToMove + timeToEnter
 
   dispatch(movedTo({destination, building, timeSpent}))
@@ -153,7 +154,7 @@ export const work = () => (dispatch, getState) => {
     return
   }
 
-  const timeSpent = Math.min(timeLeft, 6)
+  const timeSpent = Math.min(timeLeft, timeCosts.work)
   const earnings = player.job.wage * timeSpent * 1.3333333333333333
 
   dispatch(worked({earnings, timeSpent}))

@@ -36,6 +36,8 @@ export const applyForJob = (jobName) => (dispatch, getState) => {
   const wage = getCurrentPrice({economy}, jobDefinition.wage)
   const job = {name: jobName, employer, wage}
 
+  // Requires at least 1 hour left:
+  // https://jonesinthefastlane.fandom.com/wiki/Employment_Office#Opening_Hours
   if (game.timeLeft < 1) {
     dispatch(notEnoughTime())
     return

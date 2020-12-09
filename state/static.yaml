@@ -1,5 +1,11 @@
 # https://jonesinthefastlane.fandom.com/wiki/Economy#Item_Prices
 
+timeCosts:
+  work: 6
+  enteringBuilding: 2
+  movement: 0.625 # 10 / 16, source: https://jonesinthefastlane.fandom.com/wiki/Locations
+  jobApplication: 4
+
 buildings:
   - name: Luxury Condo
     background: "#917859"
