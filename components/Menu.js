@@ -3,12 +3,9 @@ import { useDispatch } from 'react-redux'
 import {
   getCurrentBuilding,
   getLocalProducts,
-  getEmployers,
-  getEmployerJobs,
-  buy,
-  applyForJob
+  buy
 } from '../state/game'
-
+import { getEmployers, getEmployerJobs, applyForJob } from '../state/jobs'
 import { getContext, changeContext } from '../state/ui'
 
 export default function Menu() {

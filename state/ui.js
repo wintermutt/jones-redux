@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
+  movedTo,
+  leftBuilding,
   notEnoughTime,
   notEnoughCash,
-  rejectedForJob,
-  movedTo,
   gotJob,
-  leftBuilding
-} from './game'
+  rejectedForJob
+} from './actions'
 
 const uiSlice = createSlice({
   name: 'ui',
