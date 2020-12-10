@@ -41,9 +41,9 @@ const playersSlice = createSlice({
 
       player.cash -= cost
       player.enrollments++
-    }    
+    }
   },
-  extraReducers: {    
+  extraReducers: {
     [movedTo](players, {payload}) {
       const {destination, timeSpent} = payload
       const player = getCurrent(players)
@@ -89,6 +89,8 @@ const playersSlice = createSlice({
       player.position = 2
       player.inside = false
 
+      processWeekend(player)
+
       if (initializing) delete players.initializing
     }
   }
@@ -100,6 +102,7 @@ function getNewPlayer() {
     timeLeft: null,
     position: null,
     inside: null,
+    weekend: null,
     cash: 200,
     job: null,
     enrollments: 0
@@ -108,6 +111,17 @@ function getNewPlayer() {
 
 function getCurrent({all, current}) {
   return all[current]
+}
+
+function processWeekend(player) {
+  if (player.week === 1) return
+  
+  const spent = 10
+  player.cash -= spent
+  player.weekend = {
+    text: "You tried to drive to Hawaii to watch a surfing contest.",
+    spent
+  }
 }
 
 export function isReady({players}) {
@@ -124,6 +138,10 @@ export function getCurrentPlayerNumber({players}) {
 
 export function getCurrentPlayerPosition(state) {
   return getCurrentPlayer(state).position
+}
+
+export function getCurrentPlayerWeekend(state) {
+  return getCurrentPlayer(state).weekend
 }
 
 export function isCurrentPlayerInside(state) {

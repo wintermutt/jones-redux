@@ -1,6 +1,7 @@
 import { getNumberOfBuildings } from '../state/buildings'
 import Tile from '../components/Tile'
 import BuildingWindow from '../components/BuildingWindow'
+import WeekendWindow from '../components/WeekendWindow'
 import Token from '../components/Token'
 import BoardMiddle from '../components/BoardMiddle'
 
@@ -22,6 +23,7 @@ export default function Board({spaceWidth, spaceHeight}) {
         <Token width={spaceWidth} height={spaceHeight}/>
 
         <BuildingWindow/>
+        <WeekendWindow/>
       </div>
 
       <style jsx>{`

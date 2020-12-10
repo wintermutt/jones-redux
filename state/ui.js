@@ -6,14 +6,16 @@ import {
   notEnoughTime,
   notEnoughCash,
   gotJob,
-  rejectedForJob
+  rejectedForJob,
+  newTurn
 } from './actions'
 
 const uiSlice = createSlice({
   name: 'ui',
   initialState: {
     context: null,
-    bubble: null
+    bubble: null,
+    weekendDismissed: null
   },
   reducers: {
     contextChanged(ui, {payload}) {
@@ -26,6 +28,10 @@ const uiSlice = createSlice({
       if (context && context.name === 'employerJobs') {
         ui.context = null
       }
+    },
+
+    weekendDismissed(ui) {
+      ui.weekendDismissed = true
     }
   },
   extraReducers: {
@@ -53,6 +59,10 @@ const uiSlice = createSlice({
 
     [rejectedForJob](ui) {
       ui.bubble = "Sorry. You didn't get the job due to:\n\nNot enough education."
+    },
+
+    [newTurn](ui) {
+      ui.weekendDismissed = false
     }
   }
 })
@@ -66,6 +76,10 @@ export function getBubbleText({ui}) {
   return ui.bubble
 }
 
+export function isWeekendDismissed({ui}) {
+  return ui.weekendDismissed
+}
+
 export const changeContext = (context) => (dispatch) => {
   const {contextChanged} = uiSlice.actions
   dispatch(contextChanged(context))
@@ -74,6 +88,11 @@ export const changeContext = (context) => (dispatch) => {
 export const goBack = () => (dispatch) => {
   const {wentBack} = uiSlice.actions
   dispatch(wentBack())
+}
+
+export const dismissWeekend = () => (dispatch) => {
+  const {weekendDismissed} = uiSlice.actions
+  dispatch(weekendDismissed())
 }
 
 export default uiSlice.reducer
