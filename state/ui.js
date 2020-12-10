@@ -36,6 +36,8 @@ const uiSlice = createSlice({
   },
   extraReducers: {
     [movedTo](ui, {payload}) {
+      ui.weekendDismissed = true
+      
       const {building} = payload
       ui.bubble = building.welcome || `Welcome to the ${building.name}!`
     },
