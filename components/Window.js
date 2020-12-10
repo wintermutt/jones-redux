@@ -1,30 +1,18 @@
-import { useSelector } from 'react-redux'
-import { isCurrentPlayerInside } from '../state/players'
-import { getCurrentBuilding } from '../state/buildings'
-import SpeechBubble from './SpeechBubble'
-import Portrait from './Portrait'
-import Menu from './Menu'
-import ActionButtons from './ActionButtons'
-
-export default function Window() {
-  const inside = useSelector(isCurrentPlayerInside)
-  const building = useSelector(getCurrentBuilding)
-
-  if (!inside) return null
-  
-  const backgroundColor = building.internalBackground || '#f8e1c6'
+export default function Window({
+  show = false,
+  backgroundColor = '#f8e1c6',
+  title,
+  children
+}) {
+  if (!show) return null
   
   const spacing = '50px'
   
   return (
     <>
       <div className="container">
-        <h1>{building.name}</h1>
-
-        <SpeechBubble/>
-        <Portrait/>
-        <Menu/>
-        <ActionButtons/>
+        <h1>{title}</h1>
+        {children}
       </div>
 
       <style jsx>{`
