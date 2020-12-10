@@ -9,14 +9,15 @@ import {
   notEnoughCash,
   appliedForJob,
   gotJob,
-  turnEnded
+  newTurn
 } from './actions'
 
 const playersSlice = createSlice({
   name: 'players',
   initialState: {
     all: Array(2).fill(null).map(i => getNewPlayer()),
-    current: 0
+    current: null,
+    initializing: true
   },
   reducers: {
     worked(players, {payload}) {
@@ -56,7 +57,7 @@ const playersSlice = createSlice({
       const player = getCurrent(players)
 
       player.inside = false
-    },    
+    },
 
     [appliedForJob](players) {
       const player = getCurrent(players)
@@ -72,11 +73,14 @@ const playersSlice = createSlice({
       player.job = job
     },
 
-    [turnEnded](players) {
-      const {current, all} = players
+    [newTurn](players) {
+      const {current, all, initializing} = players
     
-      const nextPlayer = current + 1
-      players.current = nextPlayer === all.length ? 0 : nextPlayer
+      if (initializing) players.current = 0
+      else {
+        const nextPlayer = current + 1
+        players.current = nextPlayer === all.length ? 0 : nextPlayer
+      }
 
       const player = getCurrent(players)
 
@@ -84,16 +88,18 @@ const playersSlice = createSlice({
       player.timeLeft = 60
       player.position = 2
       player.inside = false
+
+      if (initializing) delete players.initializing
     }
   }
 })
 
 function getNewPlayer() {
   return {
-    week: 1,
-    timeLeft: 60,
-    position: 2,
-    inside: false,
+    week: 0,
+    timeLeft: null,
+    position: null,
+    inside: null,
     cash: 200,
     job: null,
     enrollments: 0
@@ -102,6 +108,10 @@ function getNewPlayer() {
 
 function getCurrent({all, current}) {
   return all[current]
+}
+
+export function isReady({players}) {
+  return !players.initializing
 }
 
 export function getCurrentPlayer({players}) {
@@ -135,7 +145,7 @@ export const moveTo = (destination) => (dispatch, getState) => {
   const timeToMove = distance * timeCosts.movement
 
   if (timeLeft < timeToMove) {
-    dispatch(turnEnded())
+    dispatch(newTurn())
     return
   }
 
@@ -191,11 +201,11 @@ export const leaveBuilding = () => (dispatch, getState) => {
   const player = getCurrentPlayer(state)
   
   dispatch(leftBuilding())
-  if (player.timeLeft === 0) dispatch(turnEnded())
+  if (player.timeLeft === 0) dispatch(newTurn())
 }
 
 export const endTurn = () => (dispatch) => {
-  dispatch(turnEnded())
+  dispatch(newTurn())
 }
 
 export default playersSlice.reducer

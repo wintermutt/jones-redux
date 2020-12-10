@@ -12,4 +12,4 @@ export const appliedForJob = createAction('appliedForJob')
 export const gotJob = createAction('gotJob')
 export const rejectedForJob = createAction('rejectedForJob')
 
-export const turnEnded = createAction('turnEnded')
+export const newTurn = createAction('newTurn')

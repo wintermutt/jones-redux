@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { random } from './common'
-import { turnEnded } from './actions'
+import { newTurn } from './actions'
 
 const economySlice = createSlice({
   name: 'economy',
@@ -8,7 +8,7 @@ const economySlice = createSlice({
     reading: 3
   },
   extraReducers: {
-    [turnEnded](economy) {
+    [newTurn](economy) {
       economy.reading += (random() < 0.5 ? 1 : -1)
     }
   }
