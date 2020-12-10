@@ -1,8 +1,10 @@
+import React from 'react'
+
 export default function ButtonRow({children}) {
   return (
     <>
       <div className="buttonRow">
-        {children.map((c, i) => (
+        {React.Children.map(children, (c, i) => (
           c && <div className="button" key={i}>{c}</div>
         ))}
       </div>
