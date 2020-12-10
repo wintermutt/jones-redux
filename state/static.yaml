@@ -31,6 +31,7 @@ buildings:
   - name: Discount Store
     background: "#689148"
     internalBackground: "#82d2b8"
+    sampleProducts: {size: 6}
     jobs:
       - {name: Clerk, wage: 5}
       - {name: Assistant Manager, wage: 7}

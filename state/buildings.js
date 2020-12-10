@@ -1,6 +1,29 @@
+import { createSlice } from '@reduxjs/toolkit'
+import { sampleKeys } from './common'
+import { turnEnded } from './actions'
 import { buildings } from './static.yaml'
 import { getCurrentPlayer } from './players'
 import { getCurrentPrice } from './economy'
+
+const buildingsSlice = createSlice({
+  name: 'buildings',
+  initialState: {},
+  extraReducers: {
+    [turnEnded](state) {
+      generateSamples(state)
+    }
+  }
+})
+
+function generateSamples(state) {
+  buildings
+    .filter(b => b.sampleProducts)
+    .forEach(b => {
+      state[b.name] = {
+        sampledProducts: sampleKeys(b.products, b.sampleProducts.size)
+      }
+    })
+}
 
 export function getNumberOfBuildings() {
   return buildings.length
@@ -39,9 +62,18 @@ export function getLocalProducts(state) {
   const building = getCurrentBuilding(state)
 
   if (building.products === undefined) return null
+
+  let products = building.products
   
-  return building.products.map(p => ({
+  const buildingState = state.buildings[building.name]
+  if (buildingState && buildingState.sampledProducts) {
+    products = buildingState.sampledProducts.map(i => building.products[i])
+  }
+  
+  return products.map(p => ({
     name: p.name,
     price: getCurrentPrice(state, p.price)
   }))
 }
+
+export default buildingsSlice.reducer
