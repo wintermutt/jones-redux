@@ -153,7 +153,7 @@ export const moveTo = (destination) => (dispatch, getState) => {
   const player = getCurrentPlayer(state)
   const {inside, position, timeLeft} = player
 
-  if (isEmptyLot(position)) return
+  if (isEmptyLot(destination)) return
   
   const building = getBuildingAt(destination)
 
