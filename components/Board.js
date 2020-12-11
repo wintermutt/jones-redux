@@ -2,6 +2,7 @@ import { getNumberOfBuildings } from '../state/buildings'
 import Tile from '../components/Tile'
 import BuildingWindow from '../components/BuildingWindow'
 import WeekendWindow from '../components/WeekendWindow'
+import Modal from '../components/Modal'
 import Token from '../components/Token'
 import BoardMiddle from '../components/BoardMiddle'
 
@@ -24,6 +25,8 @@ export default function Board({spaceWidth, spaceHeight}) {
 
         <BuildingWindow/>
         <WeekendWindow/>
+        
+        <Modal>Less time due to hunger!</Modal>
       </div>
 
       <style jsx>{`
