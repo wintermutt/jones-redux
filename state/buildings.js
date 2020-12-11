@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { sampleKeys } from './common'
 import { turnStarted } from './actions'
 import { buildings } from './static.yaml'
-import { getCurrentPlayer } from './players'
+import { getPlayer } from './players'
 import { getCurrentPrice } from './economy'
 
 const buildingsSlice = createSlice({
@@ -30,7 +30,7 @@ export const isEmptyLot = position => buildings[position].name === ''
 export const getBuildingAt = position => buildings[position]
 
 export function getCurrentBuilding(state) {
-  const {position} = getCurrentPlayer(state)
+  const {position} = getPlayer(state)
   return getBuildingAt(position)
 }
 
@@ -45,7 +45,7 @@ export function canEnrollHere(state) {
 }
 
 export function canWorkHere(state) {
-  const player = getCurrentPlayer(state)
+  const player = getPlayer(state)
   const building = getCurrentBuilding(state)
   return player.job && player.job.employer === building.name
 }

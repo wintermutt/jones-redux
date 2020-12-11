@@ -1,15 +1,16 @@
 import { useSelector } from 'react-redux'
-import { getCurrentPlayerNumber, getCurrentPlayer } from '../state/players'
+import { getPlayerNumber, getPlayer } from '../state/players'
 
 export default function Stats() {
-  const number = useSelector(getCurrentPlayerNumber)
+  const number = useSelector(getPlayerNumber)
+  
   const {
     week,
     timeLeft,
     job,
     cash,
     enrollments
-  } = useSelector(getCurrentPlayer)
+  } = useSelector(getPlayer)
 
   return (
     <>

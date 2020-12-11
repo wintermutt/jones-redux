@@ -1,4 +1,4 @@
-import { getCurrentPlayerNotices } from '../state/players'
+import { getPlayerNotices } from '../state/players'
 import { isWeekendDismissed } from '../state/ui'
 import { getNumberOfBuildings } from '../state/buildings'
 import Tile from '../components/Tile'
@@ -14,7 +14,7 @@ const tiles = Array(getNumberOfBuildings())
   .map((_, i) => i)
 
 export default function Board({spaceWidth, spaceHeight}) {
-  const notices = useSelector(getCurrentPlayerNotices)
+  const notices = useSelector(getPlayerNotices)
   const weekendDismissed = useSelector(isWeekendDismissed)
 
   return (

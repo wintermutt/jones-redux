@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { getCurrentPlayerNumber, getCurrentPlayerWeekend } from '../state/players'
+import { getPlayerNumber, getPlayerWeekend } from '../state/players'
 import { isWeekendDismissed, dismissWeekend } from '../state/ui'
 
 import Window from './Window'
@@ -10,8 +10,8 @@ import Button from './Button'
 
 export default function WeekendWindow() {
   const dispatch = useDispatch()
-  const number = useSelector(getCurrentPlayerNumber)
-  const weekend = useSelector(getCurrentPlayerWeekend)
+  const number = useSelector(getPlayerNumber)
+  const weekend = useSelector(getPlayerWeekend)
   const dismissed = useSelector(isWeekendDismissed)
   
   if (weekend === null || dismissed) return null

@@ -1,6 +1,6 @@
 import { buildings } from './static.yaml'
 import { random } from './common'
-import { getCurrentPlayer } from './players'
+import { getPlayer } from './players'
 import { getCurrentPrice } from './economy'
 import {
   notEnoughTime,
@@ -29,7 +29,7 @@ export function getEmployerJobs({economy}, employer) {
 
 export const applyForJob = (jobName) => (dispatch, getState) => {
   const state = getState()
-  const {timeLeft} = getCurrentPlayer(state)
+  const {timeLeft} = getPlayer(state)
 
   const {employer} = state.ui.context
   const building = buildings.find(b => b.name === employer) 

@@ -1,12 +1,12 @@
 import store from './store'
 import { startGame } from './game'
-import { getCurrentPlayer, moveTo, buy } from './players'
+import { getPlayer, moveTo, buy } from './players'
 import { getLocalProducts } from './buildings'
 
 test('buy', () => {
   store.dispatch(startGame())
   
-  let player = getCurrentPlayer(store.getState())
+  let player = getPlayer(store.getState())
   const initialCash = player.cash
 
   store.dispatch(moveTo(5))
@@ -16,6 +16,6 @@ test('buy', () => {
 
   store.dispatch(buy(product.name))
 
-  player = getCurrentPlayer(store.getState())
+  player = getPlayer(store.getState())
   expect(player.cash).toBe(initialCash - product.price)
 })

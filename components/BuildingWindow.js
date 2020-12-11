@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { isCurrentPlayerInside, enroll, work, leaveBuilding } from '../state/players'
+import { isPlayerInside, enroll, work, leaveBuilding } from '../state/players'
 import { getCurrentBuilding, canEnrollHere, canWorkHere } from '../state/buildings'
 import { getContext, goBack } from '../state/ui'
 
@@ -15,7 +15,7 @@ import Button from './Button'
 export default function BuildingWindow() {
   const dispatch = useDispatch()
   
-  const inside = useSelector(isCurrentPlayerInside)
+  const inside = useSelector(isPlayerInside)
   const building = useSelector(getCurrentBuilding)
   const context = useSelector(getContext)
   const canEnroll = useSelector(canEnrollHere)

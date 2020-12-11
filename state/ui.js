@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { isCurrentPlayerInside } from './players'
+import { isPlayerInside } from './players'
 import {
   movedTo,
   leftBuilding,
@@ -70,7 +70,7 @@ const uiSlice = createSlice({
 })
 
 export function getContext(state) {
-  const inside = isCurrentPlayerInside(state)
+  const inside = isPlayerInside(state)
   return state.ui.context || (inside ? {name: 'buildingMain'} : {name: 'board'})
 }
 

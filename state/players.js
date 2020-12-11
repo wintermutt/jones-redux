@@ -135,16 +135,16 @@ function processStarvation(player) {
   }
 }
 
-export const getCurrentPlayer = ({players}) => getCurrent(players)
-export const getCurrentPlayerNumber = ({players}) => players.current + 1
-export const getCurrentPlayerPosition = state => getCurrentPlayer(state).position
-export const getCurrentPlayerWeekend = state => getCurrentPlayer(state).weekend
-export const getCurrentPlayerNotices = state => getCurrentPlayer(state).notices
-export const isCurrentPlayerInside = state => getCurrentPlayer(state).inside
+export const getPlayer = ({players}) => getCurrent(players)
+export const getPlayerNumber = ({players}) => players.current + 1
+export const getPlayerPosition = state => getPlayer(state).position
+export const getPlayerWeekend = state => getPlayer(state).weekend
+export const getPlayerNotices = state => getPlayer(state).notices
+export const isPlayerInside = state => getPlayer(state).inside
 
 export const moveTo = (destination) => (dispatch, getState) => {
   const state = getState()
-  const player = getCurrentPlayer(state)
+  const player = getPlayer(state)
   const {inside, position, timeLeft} = player
 
   if (isEmptyLot(destination)) return
@@ -169,7 +169,7 @@ export const moveTo = (destination) => (dispatch, getState) => {
 
 export const enroll = () => (dispatch, getState) => {
   const state = getState()
-  const player = getCurrentPlayer(state)
+  const player = getPlayer(state)
   const building = getCurrentBuilding(state)
   const {enrolled} = playersSlice.actions
 
@@ -180,7 +180,7 @@ export const enroll = () => (dispatch, getState) => {
 
 export const buy = (productName) => (dispatch, getState) => {
   const state = getState()
-  const player = getCurrentPlayer(state)
+  const player = getPlayer(state)
   const building = getCurrentBuilding(state)
   const {boughtProduct} = playersSlice.actions
 
@@ -193,7 +193,7 @@ export const buy = (productName) => (dispatch, getState) => {
 
 export const work = () => (dispatch, getState) => {
   const state = getState()
-  const player = getCurrentPlayer(state)
+  const player = getPlayer(state)
   const {timeLeft} = player
   const {worked} = playersSlice.actions
 
@@ -210,7 +210,7 @@ export const work = () => (dispatch, getState) => {
 
 export const leaveBuilding = () => (dispatch, getState) => {
   const state = getState()
-  const player = getCurrentPlayer(state)
+  const player = getPlayer(state)
   
   dispatch(leftBuilding())
   if (player.timeLeft === 0) dispatch(endTurn())

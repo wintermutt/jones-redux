@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux'
-import { getCurrentPlayerNumber } from '../state/players'
+import { getPlayerNumber } from '../state/players'
 
 export default function BoardMiddle({spaceWidth, spaceHeight}) {
-  const number = useSelector(getCurrentPlayerNumber)
+  const number = useSelector(getPlayerNumber)
 
   return (
     <>
