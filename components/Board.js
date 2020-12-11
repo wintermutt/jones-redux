@@ -31,8 +31,8 @@ export default function Board({spaceWidth, spaceHeight}) {
         <BuildingWindow/>
         <WeekendWindow/>
         
-        {weekendDismissed && notices.map(n =>
-          <Modal>{n}</Modal>
+        {weekendDismissed && notices.map((n, i) =>
+          <Modal key={i}>{n}</Modal>
         )}
       </div>
 
