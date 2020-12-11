@@ -29,11 +29,12 @@ export default function Modal({children}) {
         .modal {
           border: 1px solid #6e5b45;
           background: #fff;
-          width: 40vw;
+          width: 80vw;
           font-size: 12px;
-          padding: 10px;
+          padding: 20px;
           text-align: center;
           border-radius: 5px;
+          white-space: pre-wrap;
         }
       `}</style>
     </>

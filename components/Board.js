@@ -1,3 +1,5 @@
+import { getCurrentPlayerNotices } from '../state/players'
+import { isWeekendDismissed } from '../state/ui'
 import { getNumberOfBuildings } from '../state/buildings'
 import Tile from '../components/Tile'
 import BuildingWindow from '../components/BuildingWindow'
@@ -5,12 +7,15 @@ import WeekendWindow from '../components/WeekendWindow'
 import Modal from '../components/Modal'
 import Token from '../components/Token'
 import BoardMiddle from '../components/BoardMiddle'
+import { useSelector } from 'react-redux'
 
 const tiles = Array(getNumberOfBuildings())
   .fill(null)
   .map((_, i) => i)
 
 export default function Board({spaceWidth, spaceHeight}) {
+  const notices = useSelector(getCurrentPlayerNotices)
+  const weekendDismissed = useSelector(isWeekendDismissed)
 
   return (
     <>
@@ -26,7 +31,9 @@ export default function Board({spaceWidth, spaceHeight}) {
         <BuildingWindow/>
         <WeekendWindow/>
         
-        <Modal>Less time due to hunger!</Modal>
+        {weekendDismissed && notices.map(n =>
+          <Modal>{n}</Modal>
+        )}
       </div>
 
       <style jsx>{`

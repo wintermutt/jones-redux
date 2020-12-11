@@ -5,6 +5,7 @@ timeCosts:
   enteringBuilding: 2
   movement: 0.625 # 10 / 16, source: https://jonesinthefastlane.fandom.com/wiki/Locations
   jobApplication: 4
+  starvation: 20
 
 buildings:
   - name: Luxury Condo
@@ -67,12 +68,12 @@ buildings:
       - {name: Assistant Manager, wage: 7}
       - {name: Manager, wage: 8}
     products:
-      - {name: Hamburger, price: 79}
-      - {name: Cheeseburger, price: 89}
-      - {name: Big Max, price: 124}
-      - {name: Mr. Fries, price: 65}
-      - {name: Mr. Shake, price: 102}
-      - {name: Cola, price: 69}
+      - {name: Hamburger, price: 79, feeds: true}
+      - {name: Cheeseburger, price: 89, feeds: true}
+      - {name: Big Max, price: 124, feeds: true}
+      - {name: Mr. Fries, price: 65, feeds: true}
+      - {name: Mr. Shake, price: 102, feeds: true}
+      - {name: Cola, price: 69, feeds: true}
   
   - name: Clothing Store
     background: "#d19159"
@@ -168,9 +169,9 @@ buildings:
       - {name: Assistant Manager, wage: 15}
       - {name: Manager, wage: 18}
     products:
-      - {name: Food for 1 Week, price: 55}
-      - {name: Food for 2 Weeks, price: 100}
-      - {name: Food for 4 Weeks, price: 190}
+      - {name: Food for 1 Week, price: 55, feeds: true}
+      - {name: Food for 2 Weeks, price: 100, feeds: true}
+      - {name: Food for 4 Weeks, price: 190, feeds: true}
       - {name: 10 Lottery Tickets, price: 10}
       - {name: Newspaper, price: 1}
   

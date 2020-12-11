@@ -33,6 +33,8 @@ const playersSlice = createSlice({
       const player = getCurrent(players)
       
       player.cash -= product.price
+
+      if (product.feeds) player.hungry = false
     },
 
     enrolled(players, {payload}) {
@@ -88,8 +90,10 @@ const playersSlice = createSlice({
       player.timeLeft = 60
       player.position = 2
       player.inside = false
+      player.notices = []
 
       processWeekend(player)
+      processStarvation(player)
 
       if (initializing) delete players.initializing
     }
@@ -105,7 +109,9 @@ function getNewPlayer() {
     weekend: null,
     cash: 200,
     job: null,
-    enrollments: 0
+    enrollments: 0,
+    hungry: true,
+    notices: []
   }
 }
 
@@ -121,6 +127,15 @@ function processWeekend(player) {
   player.weekend = {
     text: "You tried to drive to Hawaii to watch a surfing contest.",
     spent
+  }
+}
+
+function processStarvation(player) {
+  if (player.week === 1 || !player.hungry)
+    player.hungry = true
+  else {
+    player.timeLeft -= timeCosts.starvation
+    player.notices.push('LESS TIME!\nDUE TO HUNGER')
   }
 }
 
@@ -142,6 +157,10 @@ export function getCurrentPlayerPosition(state) {
 
 export function getCurrentPlayerWeekend(state) {
   return getCurrentPlayer(state).weekend
+}
+
+export function getCurrentPlayerNotices(state) {
+  return getCurrentPlayer(state).notices
 }
 
 export function isCurrentPlayerInside(state) {
