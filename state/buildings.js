@@ -25,17 +25,9 @@ function generateSamples(state) {
     })
 }
 
-export function getNumberOfBuildings() {
-  return buildings.length
-}
-
-export function isEmptyLot(position) {
-  return buildings[position].name === ''
-}
-
-export function getBuildingAt(position) {
-  return buildings[position]
-}
+export const getNumberOfBuildings = () => buildings.length
+export const isEmptyLot = position => buildings[position].name === ''
+export const getBuildingAt = position => buildings[position]
 
 export function getCurrentBuilding(state) {
   const {position} = getCurrentPlayer(state)

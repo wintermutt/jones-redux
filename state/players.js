@@ -113,9 +113,7 @@ function getNewPlayer() {
   }
 }
 
-function getCurrent({all, current}) {
-  return all[current]
-}
+const getCurrent = ({all, current}) => all[current]
 
 function processWeekend(player) {
   if (player.week === 1) return
@@ -137,29 +135,12 @@ function processStarvation(player) {
   }
 }
 
-export function getCurrentPlayer({players}) {
-  return getCurrent(players)
-}
-
-export function getCurrentPlayerNumber({players}) {
-  return players.current + 1
-}
-
-export function getCurrentPlayerPosition(state) {
-  return getCurrentPlayer(state).position
-}
-
-export function getCurrentPlayerWeekend(state) {
-  return getCurrentPlayer(state).weekend
-}
-
-export function getCurrentPlayerNotices(state) {
-  return getCurrentPlayer(state).notices
-}
-
-export function isCurrentPlayerInside(state) {
-  return getCurrentPlayer(state).inside
-}
+export const getCurrentPlayer = ({players}) => getCurrent(players)
+export const getCurrentPlayerNumber = ({players}) => players.current + 1
+export const getCurrentPlayerPosition = state => getCurrentPlayer(state).position
+export const getCurrentPlayerWeekend = state => getCurrentPlayer(state).weekend
+export const getCurrentPlayerNotices = state => getCurrentPlayer(state).notices
+export const isCurrentPlayerInside = state => getCurrentPlayer(state).inside
 
 export const moveTo = (destination) => (dispatch, getState) => {
   const state = getState()

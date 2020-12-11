@@ -74,13 +74,8 @@ export function getContext(state) {
   return state.ui.context || (inside ? {name: 'buildingMain'} : {name: 'board'})
 }
 
-export function getBubbleText({ui}) {
-  return ui.bubble
-}
-
-export function isWeekendDismissed({ui}) {
-  return ui.weekendDismissed
-}
+export const getBubbleText = ({ui}) => ui.bubble
+export const isWeekendDismissed = ({ui}) => ui.weekendDismissed
 
 export const changeContext = (context) => (dispatch) => {
   const {contextChanged} = uiSlice.actions
