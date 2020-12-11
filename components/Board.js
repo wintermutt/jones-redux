@@ -1,22 +1,16 @@
-import { getPlayerNotices } from '../state/players'
-import { isWeekendDismissed } from '../state/ui'
 import { getNumberOfBuildings } from '../state/buildings'
+import BoardMiddle from '../components/BoardMiddle'
 import Tile from '../components/Tile'
+import Token from '../components/Token'
 import BuildingWindow from '../components/BuildingWindow'
 import WeekendWindow from '../components/WeekendWindow'
-import Modal from '../components/Modal'
-import Token from '../components/Token'
-import BoardMiddle from '../components/BoardMiddle'
-import { useSelector } from 'react-redux'
+import Notice from '../components/Notice'
 
 const tiles = Array(getNumberOfBuildings())
   .fill(null)
   .map((_, i) => i)
 
 export default function Board({spaceWidth, spaceHeight}) {
-  const notices = useSelector(getPlayerNotices)
-  const weekendDismissed = useSelector(isWeekendDismissed)
-
   return (
     <>
       <div className="board">
@@ -30,10 +24,7 @@ export default function Board({spaceWidth, spaceHeight}) {
 
         <BuildingWindow/>
         <WeekendWindow/>
-        
-        {weekendDismissed && notices.map((n, i) =>
-          <Modal key={i}>{n}</Modal>
-        )}
+        <Notice/>
       </div>
 
       <style jsx>{`

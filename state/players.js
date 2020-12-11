@@ -6,13 +6,15 @@ import { getBuildingAt, getCurrentBuilding, getDistance, isEmptyLot } from './bu
 import {
   turnStarted,
   turnEnded,
+  weekendProcessed,
+  starved,
+  didntStarve,
   movedTo,
   leftBuilding,
   notEnoughTime,
   notEnoughCash,
   appliedForJob,
-  gotJob,
-  starved
+  gotJob
 } from './actions'
 
 const playersSlice = createSlice({
@@ -55,9 +57,6 @@ const playersSlice = createSlice({
       player.timeLeft = 60
       player.position = 2
       player.inside = false
-
-      processWeekend(player)
-      processStarvation(player)
     },
 
     [turnEnded](players) {
@@ -65,6 +64,25 @@ const playersSlice = createSlice({
 
       const nextPlayer = current + 1
       players.current = nextPlayer === all.length ? 0 : nextPlayer
+    },
+
+    [weekendProcessed](players, {payload}) {
+      const player = getCurrent(players)
+      const {spent} = payload
+
+      player.cash -= spent
+    },
+
+    [starved](players) {
+      const player = getCurrent(players)
+
+      player.timeLeft -= timeCosts.starvation
+    },
+
+    [didntStarve](players) {
+      const player = getCurrent(players)
+
+      player.hungry = true
     },
 
     [movedTo](players, {payload}) {
@@ -104,7 +122,6 @@ function getNewPlayer() {
     timeLeft: null,
     position: null,
     inside: null,
-    weekend: null,
     cash: 200,
     job: null,
     enrollments: 0,
@@ -115,32 +132,10 @@ function getNewPlayer() {
 
 const getCurrent = ({all, current}) => all[current]
 
-function processWeekend(player) {
-  if (player.week === 1) return
-  
-  const spent = 10
-  player.cash -= spent
-  player.weekend = {
-    text: "You tried to drive to Hawaii to watch a surfing contest.",
-    spent
-  }
-}
-
-function processStarvation(player) {
-  if (player.week === 1 || !player.hungry)
-    player.hungry = true
-  else {
-    player.timeLeft -= timeCosts.starvation
-    player.notices.push('LESS TIME!\nDUE TO HUNGER')
-  }
-}
-
 export const getPlayer = ({players}) => getCurrent(players)
 export const getPlayerNumber = ({players}) => players.current + 1
 export const getPlayerPosition = state => getPlayer(state).position
 export const isPlayerInside = state => getPlayer(state).inside
-export const getPlayerWeekend = state => getPlayer(state).weekend
-export const getPlayerNotices = state => getPlayer(state).notices
 
 export const moveTo = (destination) => (dispatch, getState) => {
   const state = getState()

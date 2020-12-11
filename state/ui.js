@@ -1,13 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { isPlayerInside } from './players'
 import {
+  turnStarted,
+  weekendProcessed,
+  starved,
   movedTo,
   leftBuilding,
   notEnoughTime,
   notEnoughCash,
   gotJob,
-  rejectedForJob,
-  turnStarted
+  rejectedForJob
 } from './actions'
 
 const uiSlice = createSlice({
@@ -15,7 +17,8 @@ const uiSlice = createSlice({
   initialState: {
     context: null,
     bubble: null,
-    weekendDismissed: null
+    weekend: null,
+    notices: []
   },
   reducers: {
     contextChanged(ui, {payload}) {
@@ -31,13 +34,29 @@ const uiSlice = createSlice({
     },
 
     weekendDismissed(ui) {
-      ui.weekendDismissed = true
+      ui.weekend = null
+    },
+
+    topNoticeDismissed(ui) {
+      ui.notices.shift()
     }
   },
   extraReducers: {
+    [turnStarted](ui) {
+      ui.weekend = null
+    },
+
+    [weekendProcessed](ui, {payload}) {
+      const {spent} = payload
+      const text = "You tried to drive to Hawaii to watch a surfing contest."
+      ui.weekend = {spent, text}
+    },
+
+    [starved](ui) {
+      ui.notices.push('LESS TIME!\nDUE TO HUNGER')
+    },
+
     [movedTo](ui, {payload}) {
-      ui.weekendDismissed = true
-      
       const {building} = payload
       ui.bubble = building.welcome || `Welcome to the ${building.name}!`
     },
@@ -61,10 +80,6 @@ const uiSlice = createSlice({
 
     [rejectedForJob](ui) {
       ui.bubble = "Sorry. You didn't get the job due to:\n\nNot enough education."
-    },
-
-    [turnStarted](ui) {
-      ui.weekendDismissed = false
     }
   }
 })
@@ -75,7 +90,8 @@ export function getContext(state) {
 }
 
 export const getBubbleText = ({ui}) => ui.bubble
-export const isWeekendDismissed = ({ui}) => ui.weekendDismissed
+export const getWeekend = ({ui}) => ui.weekend
+export const getTopNotice = ({ui}) => ui.notices[0]
 
 export const changeContext = (context) => (dispatch) => {
   const {contextChanged} = uiSlice.actions
@@ -90,6 +106,11 @@ export const goBack = () => (dispatch) => {
 export const dismissWeekend = () => (dispatch) => {
   const {weekendDismissed} = uiSlice.actions
   dispatch(weekendDismissed())
+}
+
+export const dismissTopNotice = () => (dispatch) => {
+  const {topNoticeDismissed} = uiSlice.actions
+  dispatch(topNoticeDismissed())
 }
 
 export default uiSlice.reducer

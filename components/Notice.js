@@ -1,15 +1,18 @@
-import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { getWeekend, getTopNotice, dismissTopNotice } from '../state/ui'
 
-export default function Modal({children}) {
-  const [dismissed, setDismissed] = useState(false)
+export default function Notice() {
+  const dispatch = useDispatch()
+  const weekend = useSelector(getWeekend)
+  const notice = useSelector(getTopNotice)
 
-  if (dismissed) return null
+  if (weekend || !notice) return null
 
   return (
     <>
-      <div className="background" onClick={() => setDismissed(true)}>
-        <div className="modal">
-          {children}
+      <div className="background" onClick={() => dispatch(dismissTopNotice())}>
+        <div className="notice">
+          {notice}
         </div>
       </div>
 
@@ -26,7 +29,7 @@ export default function Modal({children}) {
           justify-content: center;
         }
 
-        .modal {
+        .notice {
           border: 1px solid #6e5b45;
           background: #fff;
           width: 80vw;
