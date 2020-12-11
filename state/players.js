@@ -138,9 +138,9 @@ function processStarvation(player) {
 export const getPlayer = ({players}) => getCurrent(players)
 export const getPlayerNumber = ({players}) => players.current + 1
 export const getPlayerPosition = state => getPlayer(state).position
+export const isPlayerInside = state => getPlayer(state).inside
 export const getPlayerWeekend = state => getPlayer(state).weekend
 export const getPlayerNotices = state => getPlayer(state).notices
-export const isPlayerInside = state => getPlayer(state).inside
 
 export const moveTo = (destination) => (dispatch, getState) => {
   const state = getState()
