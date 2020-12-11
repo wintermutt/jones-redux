@@ -1,17 +1,16 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { isReady } from '../state/players'
-import { newTurn } from '../state/actions'
+import { startGame, isGameLoading } from '../state/game'
 import Head from 'next/head'
 import Board from '../components/Board'
 import Stats from '../components/Stats'
 
 export default function Home() {
-  const ready = useSelector(isReady)
   const dispatch = useDispatch()
+  const loading = useSelector(isGameLoading)
   
   useEffect(() => {
-    dispatch(newTurn())
+    dispatch(startGame())
   }, [])
 
   return (
@@ -21,7 +20,7 @@ export default function Home() {
       </Head>
 
       <main>
-        {ready &&
+        {!loading &&
           <>
             <Stats/>
             <Board spaceWidth={20} spaceHeight={14}/>

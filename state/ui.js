@@ -7,7 +7,7 @@ import {
   notEnoughCash,
   gotJob,
   rejectedForJob,
-  newTurn
+  turnStarted
 } from './actions'
 
 const uiSlice = createSlice({
@@ -63,7 +63,7 @@ const uiSlice = createSlice({
       ui.bubble = "Sorry. You didn't get the job due to:\n\nNot enough education."
     },
 
-    [newTurn](ui) {
+    [turnStarted](ui) {
       ui.weekendDismissed = false
     }
   }

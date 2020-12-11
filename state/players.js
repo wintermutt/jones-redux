@@ -1,23 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { timeCosts } from './static.yaml'
+import { endTurn } from './game'
 import { getCurrentPrice } from './economy'
 import { getBuildingAt, getCurrentBuilding, getDistance, isEmptyLot } from './buildings'
 import {
+  turnStarted,
+  turnEnded,
   movedTo,
   leftBuilding,
   notEnoughTime,
   notEnoughCash,
   appliedForJob,
   gotJob,
-  newTurn
+  starved
 } from './actions'
 
 const playersSlice = createSlice({
   name: 'players',
   initialState: {
     all: Array(2).fill(null).map(i => getNewPlayer()),
-    current: null,
-    initializing: true
+    current: 0
   },
   reducers: {
     worked(players, {payload}) {
@@ -46,6 +48,25 @@ const playersSlice = createSlice({
     }
   },
   extraReducers: {
+    [turnStarted](players) {
+      const player = getCurrent(players)
+
+      player.week++
+      player.timeLeft = 60
+      player.position = 2
+      player.inside = false
+
+      processWeekend(player)
+      processStarvation(player)
+    },
+
+    [turnEnded](players) {
+      const {current, all} = players
+
+      const nextPlayer = current + 1
+      players.current = nextPlayer === all.length ? 0 : nextPlayer
+    },
+
     [movedTo](players, {payload}) {
       const {destination, timeSpent} = payload
       const player = getCurrent(players)
@@ -73,29 +94,6 @@ const playersSlice = createSlice({
       const player = getCurrent(players)
 
       player.job = job
-    },
-
-    [newTurn](players) {
-      const {current, all, initializing} = players
-    
-      if (initializing) players.current = 0
-      else {
-        const nextPlayer = current + 1
-        players.current = nextPlayer === all.length ? 0 : nextPlayer
-      }
-
-      const player = getCurrent(players)
-
-      player.week++
-      player.timeLeft = 60
-      player.position = 2
-      player.inside = false
-      player.notices = []
-
-      processWeekend(player)
-      processStarvation(player)
-
-      if (initializing) delete players.initializing
     }
   }
 })
@@ -139,10 +137,6 @@ function processStarvation(player) {
   }
 }
 
-export function isReady({players}) {
-  return !players.initializing
-}
-
 export function getCurrentPlayer({players}) {
   return getCurrent(players)
 }
@@ -182,7 +176,7 @@ export const moveTo = (destination) => (dispatch, getState) => {
   const timeToMove = distance * timeCosts.movement
 
   if (timeLeft < timeToMove) {
-    dispatch(newTurn())
+    dispatch(endTurn())
     return
   }
 
@@ -238,11 +232,7 @@ export const leaveBuilding = () => (dispatch, getState) => {
   const player = getCurrentPlayer(state)
   
   dispatch(leftBuilding())
-  if (player.timeLeft === 0) dispatch(newTurn())
-}
-
-export const endTurn = () => (dispatch) => {
-  dispatch(newTurn())
+  if (player.timeLeft === 0) dispatch(endTurn())
 }
 
 export default playersSlice.reducer

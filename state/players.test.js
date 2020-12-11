@@ -1,10 +1,10 @@
 import store from './store'
-import { newTurn } from './actions'
+import { startGame } from './game'
 import { getCurrentPlayer, moveTo, buy } from './players'
 import { getLocalProducts } from './buildings'
 
 test('buy', () => {
-  store.dispatch(newTurn())
+  store.dispatch(startGame())
   
   let player = getCurrentPlayer(store.getState())
   const initialCash = player.cash
