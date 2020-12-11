@@ -64,7 +64,7 @@ export default function Menu() {
           padding: 5px;
           list-style-type: none;
           position: absolute;
-          top: 100px;
+          top: 102px;
           bottom: 25px;
           left: 0;
           right: 0;

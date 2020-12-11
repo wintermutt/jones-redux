@@ -3,6 +3,8 @@ import { getCurrentPlayerNumber, getCurrentPlayerWeekend } from '../state/player
 import { isWeekendDismissed, dismissWeekend } from '../state/ui'
 
 import Window from './Window'
+import Header from './Header'
+import Title from './Title'
 import ButtonRow from './ButtonRow'
 import Button from './Button'
 
@@ -18,9 +20,12 @@ export default function WeekendWindow() {
     <>
       <Window
         show={true}
-        title="Oh What a Weekend!"
         backgroundColor="#8ad19a"
       >
+        <Header>
+          <Title text="Oh What a Weekend!"/>
+        </Header>
+
         <div className="text">
           <p>Player {number}</p>
           <p>{weekend.text}</p>

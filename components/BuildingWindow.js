@@ -4,6 +4,8 @@ import { getCurrentBuilding, canEnrollHere, canWorkHere } from '../state/buildin
 import { getContext, goBack } from '../state/ui'
 
 import Window from './Window'
+import Header from './Header'
+import Title from './Title'
 import SpeechBubble from './SpeechBubble'
 import Portrait from './Portrait'
 import Menu from './Menu'
@@ -21,11 +23,14 @@ export default function BuildingWindow() {
 
   return <Window
     show={inside}
-    title={building.name}
     backgroundColor={building.internalBackground}
   >
+    <Header>
+      <Title text={building.name}/>
+      <Portrait/>
+    </Header>
+
     <SpeechBubble/>
-    <Portrait/>
     <Menu/>
 
     <ButtonRow>

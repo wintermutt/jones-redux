@@ -2,26 +2,20 @@ import { useSelector } from 'react-redux'
 import { getCurrentBuilding } from '../state/buildings'
 
 export default function Portrait() {
-  let {portrait} = useSelector(getCurrentBuilding)
-  if (!portrait) portrait = 'employment-office.jpg'
+  const {portrait} = useSelector(getCurrentBuilding)
 
   return (
     <>
-      <div className="portrait">
-        <img width="80" height="100" src={`/portraits/${portrait}`}/>
-      </div>
+      <img
+        width="80"
+        height="100"
+        src={`/portraits/${portrait || 'employment-office.jpg'}`}
+      />
 
       <style jsx>{`
-        .portrait {
-          position: absolute;
-          top: -2px;
-          right: -2px;
-          padding: 0;
-          border: 2px solid black;
-        }
-
-        .portrait img {
-          margin-bottom: -4px;
+        img {
+          display: inline-block;
+          border-left: 2px solid black;
         }
       `}</style>
     </>

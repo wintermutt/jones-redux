@@ -1,7 +1,6 @@
 export default function Window({
   show = false,
   backgroundColor = '#f8e1c6',
-  title,
   children
 }) {
   if (!show) return null
@@ -10,13 +9,12 @@ export default function Window({
   
   return (
     <>
-      <div className="container">
-        <h1>{title}</h1>
+      <div className="window">
         {children}
       </div>
 
       <style jsx>{`
-        .container {
+        .window {
           position: absolute;
           top: ${spacing};
           left: ${spacing};
@@ -24,25 +22,6 @@ export default function Window({
           right: ${spacing};
           border: 2px solid black;
           background: ${backgroundColor};
-        }
-
-        h1 {
-          font-size: 12px;
-          color: white;
-          background: rgba(0, 0, 0, 0.5);
-          margin: 0;
-          padding: 10px;
-          position: absolute;
-          top: -2px;
-          left: -2px;
-          right: 80px;
-          height: 104px;
-          display: flex;
-          align-items: center;
-          text-align: center;
-          justify-content: center;
-          text-transform: uppercase;
-          border: 2px solid black;
         }
       `}</style>
     </>
