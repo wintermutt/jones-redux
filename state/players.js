@@ -177,7 +177,7 @@ export const enroll = () => (dispatch, getState) => {
 
   const cost = getCurrentPrice(state, building.enrollment)
 
-  player.cash < cost ? dispatch(notEnoughCash()) : dispatch(enrolled(cost))
+  dispatch(player.cash < cost ? notEnoughCash() : enrolled(cost))
 }
 
 export const buy = (productName) => (dispatch, getState) => {
@@ -190,7 +190,7 @@ export const buy = (productName) => (dispatch, getState) => {
   const price = getCurrentPrice(state, productDefinition.price)
   const product = {...productDefinition, name: productName, price}
 
-  player.cash < price ? dispatch(notEnoughCash()) : dispatch(boughtProduct(product))
+  dispatch(player.cash < price ? notEnoughCash() : boughtProduct(product))
 }
 
 export const work = () => (dispatch, getState) => {
