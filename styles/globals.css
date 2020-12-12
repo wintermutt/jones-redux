@@ -9,6 +9,8 @@ html, body {
   margin: 0;
   font-family: 'Press Start 2P', monospace;
   line-height: 150%;
+  overscroll-behavior: none;
+  overflow: hidden;
 }
 
 html, body, #__next {

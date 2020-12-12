@@ -31,7 +31,7 @@ export default function Home() {
       <style jsx>{`
         main {
           display: flex;
-          height: 100vh;
+          height: 100%;
           flex-direction: column;
         }
       `}</style>
