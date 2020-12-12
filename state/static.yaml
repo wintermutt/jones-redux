@@ -1,6 +1,7 @@
 # https://jonesinthefastlane.fandom.com/wiki/Economy#Item_Prices
 
 timeCosts:
+  relax: 6
   work: 6
   enteringBuilding: 2
   movement: 0.625 # 10 / 16, source: https://jonesinthefastlane.fandom.com/wiki/Locations

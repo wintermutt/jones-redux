@@ -50,6 +50,12 @@ export function canWorkHere(state) {
   return player.job && player.job.employer === building.name
 }
 
+export function canRelaxHere(state) {
+  const player = getPlayer(state)
+  const building = getCurrentBuilding(state)
+  return building.name === player.home.name
+}
+
 export function getLocalProducts(state) {
   const building = getCurrentBuilding(state)
 

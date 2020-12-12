@@ -24,6 +24,12 @@ const playersSlice = createSlice({
     current: 0
   },
   reducers: {
+    relaxed(players) {
+      const player = getCurrent(players)
+
+      player.timeLeft -= Math.min(player.timeLeft, timeCosts.relax)
+    },
+
     worked(players, {payload}) {
       const {earnings, timeSpent} = payload
       const player = getCurrent(players)
@@ -124,6 +130,7 @@ function getNewPlayer() {
     inside: null,
     cash: 200,
     job: null,
+    home: {name: 'Low-Cost Housing'},
     enrollments: 0,
     hungry: true,
     notices: []
@@ -201,6 +208,12 @@ export const work = () => (dispatch, getState) => {
   const earnings = player.job.wage * timeSpent * 1.3333333333333333
 
   dispatch(worked({earnings, timeSpent}))
+}
+
+export const relax = () => (dispatch, getState) => {
+  const {relaxed} = playersSlice.actions
+
+  dispatch(relaxed())
 }
 
 export const leaveBuilding = () => (dispatch, getState) => {
