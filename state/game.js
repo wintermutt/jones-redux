@@ -14,18 +14,15 @@ const gameSlice = createSlice({
     isLoading: true
   },
   reducers: {
-    finishedLoading(game) {
-      game.isLoading = false
-    }
+    startedLoading: game => {game.isLoading = true},
+    finishedLoading: game => {game.isLoading = false}
   }
 })
 
 export const isGameLoading = ({game}) => game.isLoading
 
 export const startGame = () => (dispatch, getState) => {
-  const {finishedLoading} = gameSlice.actions
   processTurn(dispatch, getState)
-  dispatch(finishedLoading())
 }
 
 export const endTurn = () => (dispatch, getState) => {
@@ -34,9 +31,16 @@ export const endTurn = () => (dispatch, getState) => {
 }
 
 function processTurn(dispatch, getState) {
+  const {startedLoading, finishedLoading} = gameSlice.actions
+  
+  dispatch(startedLoading())
+
   dispatch(turnStarted())
+
   processWeekend(dispatch, getState)
   processStarvation(dispatch, getState)
+
+  dispatch(finishedLoading())
 }
 
 function processWeekend(dispatch, getState) {
