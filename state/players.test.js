@@ -1,27 +1,31 @@
-import store from './store'
-import { reset } from './actions'
-import { startGame } from './game'
-import { getPlayer, moveTo, buy } from './players'
-import { getLocalProducts } from './buildings'
+import configureStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
 
-const {dispatch, getState} = store
+import reduce, { buy, boughtProduct } from './players'
+import { notEnoughCash } from './actions'
 
-beforeEach(() => {
-  dispatch(reset())
-  dispatch(startGame())
+const mockStore = configureStore([thunk])
+
+describe('players/thunks', () => {
+  test('buy', () => {
+    const {dispatch, getActions} = mockStore({
+      economy: {reading: 3},
+      players: {current: 0, all: [{position: 5, cash: 0}]}
+    })
+
+    dispatch(buy('Cola'))
+    expect(getActions()).toEqual([notEnoughCash()])
+  })
 })
 
-test('buy', () => {
-  let player = getPlayer(getState())
-  const initialCash = player.cash
+describe('players/reducers', () => {
+  test('boughtProduct', () => {
+    const {all: [player]} = reduce(
+      {current: 0, all: [{cash: 100, hungry: true}]},
+      boughtProduct({price: 10, feeds: true})
+    )
 
-  dispatch(moveTo(5))
-  
-  const localProducts = getLocalProducts(getState())
-  const product = localProducts[0]
-
-  dispatch(buy(product.name))
-
-  player = getPlayer(getState())
-  expect(player.cash).toBe(initialCash - product.price)
+    expect(player.cash).toEqual(90)
+    expect(player.hungry).toEqual(false)
+  })
 })
