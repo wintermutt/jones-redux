@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getPlayer } from './players'
 import {
+  reset,
   turnEnded,
   turnStarted,
   weekendProcessed,
@@ -8,14 +9,19 @@ import {
   didntStarve
 } from './actions'
 
+const initialState = {
+  isLoading: true
+}
+
 const gameSlice = createSlice({
   name: 'game',
-  initialState: {
-    isLoading: true
-  },
+  initialState,
   reducers: {
     startedLoading: game => {game.isLoading = true},
     finishedLoading: game => {game.isLoading = false}
+  },
+  extraReducers: {
+    [reset]: () => {initialState}
   }
 })
 

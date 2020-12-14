@@ -1,14 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { sampleKeys } from './common'
-import { turnStarted } from './actions'
+import { reset, turnStarted } from './actions'
 import { buildings } from './static.yaml'
 import { getPlayer } from './players'
 import { getCurrentPrice } from './economy'
 
+const initialState = {}
+
 const buildingsSlice = createSlice({
   name: 'buildings',
-  initialState: {},
+  initialState,
   extraReducers: {
+    [reset]: () => {initialState},
+
     [turnStarted](state) {
       generateSamples(state)
     }

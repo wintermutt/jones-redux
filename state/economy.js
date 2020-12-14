@@ -1,13 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { random } from './common'
-import { turnStarted } from './actions'
+import { reset, turnStarted } from './actions'
+
+const initialState = {
+  reading: 3
+}
 
 const economySlice = createSlice({
   name: 'economy',
-  initialState: {
-    reading: 3
-  },
+  initialState,
   extraReducers: {
+    [reset]: () => {initialState},
+
     [turnStarted](economy) {
       economy.reading += (random() < 0.5 ? 1 : -1)
     }

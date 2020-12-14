@@ -1,13 +1,17 @@
 import store from './store'
+import { reset } from './actions'
 import { startGame } from './game'
 import { getPlayer, moveTo, buy } from './players'
 import { getLocalProducts } from './buildings'
 
 const {dispatch, getState} = store
 
-test('buy', () => {
+beforeEach(() => {
+  dispatch(reset())
   dispatch(startGame())
-  
+})
+
+test('buy', () => {
   let player = getPlayer(getState())
   const initialCash = player.cash
 

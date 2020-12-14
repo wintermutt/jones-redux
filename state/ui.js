@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { isPlayerInside } from './players'
 import {
+  reset,
   turnStarted,
   weekendProcessed,
   starved,
@@ -12,14 +13,16 @@ import {
   rejectedForJob
 } from './actions'
 
+const initialState = {
+  context: null,
+  bubble: null,
+  weekend: null,
+  notices: []
+}
+
 const uiSlice = createSlice({
   name: 'ui',
-  initialState: {
-    context: null,
-    bubble: null,
-    weekend: null,
-    notices: []
-  },
+  initialState,
   reducers: {
     contextChanged(ui, {payload}) {
       ui.context = payload
@@ -42,6 +45,8 @@ const uiSlice = createSlice({
     }
   },
   extraReducers: {
+    [reset]: () => {initialState},
+
     [turnStarted](ui) {
       ui.weekend = null
     },
