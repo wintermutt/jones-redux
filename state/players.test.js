@@ -4,6 +4,7 @@ import thunk from 'redux-thunk'
 import { buildings } from './static.yaml'
 
 import reduce, {
+  moveTo,
   buy, boughtProduct,
   enroll, enrolled,
   relax, relaxed,
@@ -12,18 +13,58 @@ import reduce, {
 } from './players'
 
 import {
+  movedTo,
   notEnoughTime,
   notEnoughCash,
   leftBuilding,
   turnEnded
 } from './actions'
 
-const {arrayContaining} = expect
 const mockStore = configureStore([thunk])
+
 const economy = {reading: 3}
 const lonePlayer = player => ({current: 0, all: [player]})
 
 describe('players/thunks', () => {
+  describe('moveTo', () => {
+    const position = 2
+    
+    test('movedTo', () => {
+      const destination = 5
+
+      const {dispatch, getActions} = mockStore({
+        players: lonePlayer({position, timeLeft: 60})
+      })
+
+      dispatch(moveTo(destination))
+      expect(getActions()).toEqual([
+        movedTo({
+          destination,
+          building: buildings[destination],
+          timeSpent: (0.625 * 3) + 2
+        })
+      ])
+    })
+
+    test('leftBuilding', () => {
+      const {dispatch, getActions} = mockStore({
+        players: lonePlayer({position, inside: true})
+      })
+
+      dispatch(moveTo(3))
+      expect(getActions()).toContainEqual(leftBuilding())
+    })
+
+    test('turnEnded', () => {
+      const {dispatch, getActions} = mockStore({
+        players: lonePlayer({position, timeLeft: 1})
+      })
+
+      dispatch(moveTo(4))
+      expect(getActions()).toContainEqual(turnEnded())
+    })
+  })
+
   describe('buy', () => {
     const position = 5
 
@@ -131,12 +172,30 @@ describe('players/thunks', () => {
       })
 
       dispatch(leaveBuilding())
-      expect(getActions()).toEqual(arrayContaining([leftBuilding(), turnEnded()]))
+      expect(getActions()).toContainEqual(leftBuilding())
+      expect(getActions()).toContainEqual(turnEnded())
     })
   })
 })
 
 describe('players/reducers', () => {
+  test('movedTo', () => {
+    const timeLeft = 60
+
+    const destination = 4
+    const building = buildings[destination]
+    const timeSpent = (0.625 * 2) + 2
+
+    const {all: [player]} = reduce(
+      lonePlayer({timeLeft, position: 2, inside: false}),
+      movedTo({destination, building, timeSpent})
+    )
+
+    expect(player.timeLeft).toEqual(timeLeft - timeSpent)
+    expect(player.position).toEqual(destination)
+    expect(player.inside).toEqual(true)
+  })
+
   test('boughtProduct', () => {
     const {all: [player]} = reduce(
       lonePlayer({cash: 100, hungry: true}),
