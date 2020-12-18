@@ -235,5 +235,5 @@ export const leaveBuilding = () => (dispatch, getState) => {
   if (player.timeLeft === 0) dispatch(endTurn())
 }
 
-export const {relaxed, worked, boughtProduct} = playersSlice.actions
+export const {enrolled, boughtProduct, relaxed, worked} = playersSlice.actions
 export default playersSlice.reducer

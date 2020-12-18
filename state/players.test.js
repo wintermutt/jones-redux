@@ -4,6 +4,7 @@ import thunk from 'redux-thunk'
 import { buildings } from './static.yaml'
 import reduce, {
   buy, boughtProduct,
+  enroll, enrolled,
   relax, relaxed,
   work, worked
 } from './players'
@@ -12,23 +13,43 @@ import { notEnoughTime, notEnoughCash } from './actions'
 const mockStore = configureStore([thunk])
 const testStore = (player) => mockStore({
   economy: {reading: 3},
-  players: {current: 0, all: [{...player, position: 5}]}
+  players: {current: 0, all: [player]}
 })
 
 describe('players/thunks', () => {
   describe('buy', () => {
+    const position = 5
+
     test('boughtProduct', () => {
       const product = {...buildings[5].products[0], price: 82}
-      const {dispatch, getActions} = testStore({cash: product.price})
+      const {dispatch, getActions} = testStore({position, cash: product.price})
 
       dispatch(buy(product.name))
       expect(getActions()).toEqual([boughtProduct(product)])
     })
 
     test('notEnoughCash', () => {
-      const {dispatch, getActions} = testStore({cash: 0})
+      const {dispatch, getActions} = testStore({position, cash: 0})
 
       dispatch(buy('Cola'))
+      expect(getActions()).toEqual([notEnoughCash()])
+    })
+  })
+
+  describe('enroll', () => {
+    const position = 9
+
+    test('enrolled', () => {
+      const {dispatch, getActions} = testStore({position, cash: 52})
+
+      dispatch(enroll())
+      expect(getActions()).toEqual([enrolled(52)])
+    })
+
+    test('notEnoughCash', () => {
+      const {dispatch, getActions} = testStore({position, cash: 0})
+
+      dispatch(enroll())
       expect(getActions()).toEqual([notEnoughCash()])
     })
   })
@@ -77,6 +98,16 @@ describe('players/reducers', () => {
 
     expect(player.cash).toEqual(90)
     expect(player.hungry).toEqual(false)
+  })
+
+  test('enrolled', () => {
+    const {all: [player]} = reduce(
+      {current: 0, all: [{cash: 52, enrollments: 0}]},
+      enrolled(52)
+    )
+
+    expect(player.cash).toEqual(0)
+    expect(player.enrollments).toEqual(1)
   })
 
   test('relaxed', () => {
