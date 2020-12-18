@@ -217,6 +217,12 @@ export const work = () => (dispatch, getState) => {
 
 export const relax = () => (dispatch, getState) => {
   const {relaxed} = playersSlice.actions
+  const {timeLeft} = getPlayer(getState())
+
+  if (timeLeft === 0) {
+    dispatch(notEnoughTime())
+    return
+  }
 
   dispatch(relaxed())
 }
@@ -229,5 +235,5 @@ export const leaveBuilding = () => (dispatch, getState) => {
   if (player.timeLeft === 0) dispatch(endTurn())
 }
 
-export const {worked, boughtProduct} = playersSlice.actions
+export const {relaxed, worked, boughtProduct} = playersSlice.actions
 export default playersSlice.reducer

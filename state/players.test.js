@@ -2,7 +2,11 @@ import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
 import { buildings } from './static.yaml'
-import reduce, { buy, boughtProduct, work, worked } from './players'
+import reduce, {
+  buy, boughtProduct,
+  relax, relaxed,
+  work, worked
+} from './players'
 import { notEnoughTime, notEnoughCash } from './actions'
 
 const mockStore = configureStore([thunk])
@@ -26,6 +30,22 @@ describe('players/thunks', () => {
 
       dispatch(buy('Cola'))
       expect(getActions()).toEqual([notEnoughCash()])
+    })
+  })
+
+  describe('relax', () => {
+    test('relaxed', () => {
+      const {dispatch, getActions} = testStore({timeLeft: 60})
+
+      dispatch(relax())
+      expect(getActions()).toEqual([relaxed()])
+    })
+
+    test('notEnoughTime', () => {
+      const {dispatch, getActions} = testStore({timeLeft: 0})
+
+      dispatch(relax())
+      expect(getActions()).toEqual([notEnoughTime()])
     })
   })
 
@@ -57,6 +77,15 @@ describe('players/reducers', () => {
 
     expect(player.cash).toEqual(90)
     expect(player.hungry).toEqual(false)
+  })
+
+  test('relaxed', () => {
+    const {all: [player]} = reduce(
+      {current: 0, all: [{timeLeft: 60}]},
+      relaxed()
+    )
+
+    expect(player.timeLeft).toEqual(54)
   })
 
   test('worked', () => {
