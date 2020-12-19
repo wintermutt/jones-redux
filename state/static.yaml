@@ -60,7 +60,7 @@ buildings:
   - name: Mr. Ronald's
     background: "#fa6a49"
     internalBackground: "#f8dd91"
-    portrait: mr-ronalds.jpg
+    portrait: mr-ronalds.png
     welcome: "Welcome to Mr. Ronald's. Not affiliated with McDowell's: they have the
       Big Mick, we have the Big Max!"
     jobs:
@@ -128,7 +128,7 @@ buildings:
       costs you!
   
   - name: Vandelay Industries
-    portrait: vandelay-industries.jpg
+    portrait: vandelay-industries.png
     background: "#8282c9"
     internalBackground: "#1f7860"
     welcome: Welcome to Vandelay Industries, the world's largest manufacturer of

@@ -9,7 +9,7 @@ export default function Portrait() {
       <img
         width="80"
         height="100"
-        src={`/portraits/${portrait || 'employment-office.jpg'}`}
+        src={`/portraits/${portrait || 'employment-office.png'}`}
       />
 
       <style jsx>{`
