@@ -2,8 +2,6 @@
 // https://redux-toolkit.js.org/usage/usage-guide#exporting-and-using-slices
 import { createAction } from '@reduxjs/toolkit'
 
-export const reset = createAction('reset')
-
 export const turnStarted = createAction('turnStarted')
 export const turnEnded = createAction('turnEnded')
 

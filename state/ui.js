@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { isPlayerInside } from './players'
 import {
-  reset,
   turnStarted,
   weekendProcessed,
   starved,
@@ -45,8 +44,6 @@ const uiSlice = createSlice({
     }
   },
   extraReducers: {
-    [reset]: () => {initialState},
-
     [turnStarted](ui) {
       ui.weekend = null
     },

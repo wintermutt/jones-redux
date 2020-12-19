@@ -4,7 +4,6 @@ import { endTurn } from './game'
 import { getCurrentPrice } from './economy'
 import { getBuildingAt, getCurrentBuilding, getDistance, isEmptyLot } from './buildings'
 import {
-  reset,
   turnStarted,
   turnEnded,
   weekendProcessed,
@@ -59,8 +58,6 @@ const playersSlice = createSlice({
     }
   },
   extraReducers: {
-    [reset]: () => {initialState},
-
     [turnStarted](players) {
       const player = getCurrent(players)
 
