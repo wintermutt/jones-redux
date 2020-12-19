@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux'
 import { getCurrentBuilding } from '../state/buildings'
 
 export default function Portrait() {
-  const {portrait} = useSelector(getCurrentBuilding)
+  const {portrait, portraitBackground} = useSelector(getCurrentBuilding)
 
   return (
     <>
@@ -16,6 +16,7 @@ export default function Portrait() {
         img {
           display: inline-block;
           border-left: 2px solid black;
+          background-color: ${portraitBackground || '#2030f2'};
         }
       `}</style>
     </>

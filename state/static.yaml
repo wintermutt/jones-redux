@@ -61,6 +61,7 @@ buildings:
     background: "#fa6a49"
     internalBackground: "#f8dd91"
     portrait: mr-ronalds.png
+    portraitBackground: "#6170c9"
     welcome: "Welcome to Mr. Ronald's. Not affiliated with McDowell's: they have the
       Big Mick, we have the Big Max!"
     jobs:
@@ -129,6 +130,7 @@ buildings:
   
   - name: Vandelay Industries
     portrait: vandelay-industries.png
+    portraitBackground: "#00a070"
     background: "#8282c9"
     internalBackground: "#1f7860"
     welcome: Welcome to Vandelay Industries, the world's largest manufacturer of
