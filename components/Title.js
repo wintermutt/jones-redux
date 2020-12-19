@@ -1,4 +1,4 @@
-export default function Title({text}) {
+export default function Title({text, color, backgroundColor}) {
   return (
     <>
       <h1>{text}</h1>
@@ -6,8 +6,8 @@ export default function Title({text}) {
       <style jsx>{`
         h1 {
           font-size: 14px;
-          color: white;
-          background: rgba(0, 0, 0, 0.5);
+          color: ${color || 'white'};
+          background-color: ${backgroundColor || 'rgba(0, 0, 0, 0.5)'};
           margin: 0;
           padding: 10px;
           flex-grow: 1;

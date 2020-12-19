@@ -27,7 +27,11 @@ export default function BuildingWindow() {
     backgroundColor={building.internalBackground}
   >
     <Header>
-      <Title text={building.name}/>
+      <Title
+        text={building.name}
+        color={building.signForeground}
+        backgroundColor={building.signBackground}
+      />
       <Portrait/>
     </Header>
 
